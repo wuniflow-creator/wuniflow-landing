@@ -29,7 +29,7 @@ export default async function handler(req: any, res: any) {
     const sheetId = process.env.GOOGLE_SHEET_ID;
     const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
     const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
-    if (!sheetId || !email || !privateKey) throw new Error('Google Sheets integration not configured');
+    if (!sheetId || !email || !privateKey) { const missing = [!sheetId && 'GOOGLE_SHEET_ID', !email && 'GOOGLE_SERVICE_ACCOUNT_EMAIL', !privateKey && 'GOOGLE_PRIVATE_KEY'].filter(Boolean).join(', '); throw new Error('Google Sheets integration missing: ' + missing); }
 
     const b = req.body || {};
     if (!b.nome || !b.empresa || !b.whatsapp || !b.processo) return res.status(400).json({ ok: false, error: 'Campos obrigatórios ausentes' });
