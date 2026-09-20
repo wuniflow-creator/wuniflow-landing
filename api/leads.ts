@@ -22,6 +22,24 @@ async function getAccessToken(email: string, privateKey: string) {
 }
 
 const clean = (value: unknown, max = 1000) => String(value ?? '').trim().slice(0, max);
+const projectId = () => 'WNF-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + crypto.randomUUID().slice(0,8).toUpperCase();
+async function ensureDiagnosticosSheet(sheetId:string,token:string){
+ const meta=await fetch('https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'?fields=sheets.properties.title',{headers:{authorization:'Bearer '+token}});
+ if(!meta.ok) throw new Error('Could not inspect spreadsheet');
+ const data=await meta.json() as any;if(data.sheets?.some((s:any)=>s.properties?.title==='Diagnosticos'))return;
+ const r=await fetch('https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+':batchUpdate',{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({requests:[{addSheet:{properties:{title:'Diagnosticos'}}}]})});
+ if(!r.ok&&r.status!==409)throw new Error('Could not create Diagnosticos sheet');
+}
+async function appendDiagnosis(sheetId:string,token:string,id:string,b:any){
+ await ensureDiagnosticosSheet(sheetId,token);
+ const d=b.diagnostico||{};const headers=['ID Projeto','Data','Empresa','Responsável','Cargo','E-mail','WhatsApp','Segmento','Cidade / UF','Problema','Processo atual','Dificuldades','Resultado esperado','Usuários','Perfis e acessos','Dispositivos','Funcionalidades','Prioridades MVP','Dados e cadastros','Dashboard e relatórios','Ferramentas atuais','Integrações','Automações','Inteligência Artificial','Dados existentes / migração','Prazo','Referência','Observações','Status'];
+ const row=[id,new Date().toISOString(),b.empresa,b.nome,b.cargo,b.email,b.whatsapp,d.segmento,d.cidade,d.problema,d.processo_atual,d.dificuldades,d.resultado,d.usuarios,d.perfis,d.dispositivos,d.funcionalidades,d.prioridades,d.dados,d.dashboard,d.ferramentas,d.integracoes,d.automacoes,d.ia,d.dados_existentes,d.prazo,d.referencia,d.observacoes,'Novo'];
+ const base='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/';
+ const read=await fetch(base+encodeURIComponent('Diagnosticos!A1:AC1'),{headers:{authorization:'Bearer '+token}});const rd=read.ok?await read.json() as any:{};
+ const values=(rd.values?.length?[]:[headers]).concat([row.map(v=>clean(v,10000))]);
+ const url=base+encodeURIComponent('Diagnosticos!A:AC')+':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
+ const r=await fetch(url,{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({values})});if(!r.ok)throw new Error('Could not save structured diagnosis');
+}
 const diagnosisText = (d: any) => {
   if (!d || typeof d !== 'object') return '';
   const fields: [string,string][] = [
@@ -56,12 +74,14 @@ export default async function handler(req: any, res: any) {
     ]];
 
     const token = await getAccessToken(email, privateKey);
+    const diagnosisId = b.diagnostico ? projectId() : '';
+    if (diagnosisId) await appendDiagnosis(sheetId,token,diagnosisId,b);
     const range = encodeURIComponent('Leads!A:T');
     const url = 'https://sheets.googleapis.com/v4/spreadsheets/' + encodeURIComponent(sheetId) + '/values/' + range + ':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
     const response = await fetch(url, { method: 'POST', headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: JSON.stringify({ values }) });
     if (!response.ok) { console.error('Sheets append failed', response.status, await response.text()); throw new Error('Could not save lead'); }
 
-    return res.status(200).json({ ok: true });
+    return res.status(200).json({ ok: true, projectId: diagnosisId || undefined });
   } catch (error) {
     console.error('Lead capture failed', error);
     return res.status(500).json({ ok: false, error: 'Não foi possível registrar o contato agora.' });
