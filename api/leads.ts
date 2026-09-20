@@ -32,12 +32,12 @@ async function ensureDiagnosticosSheet(sheetId:string,token:string){
 }
 async function appendDiagnosis(sheetId:string,token:string,id:string,b:any){
  await ensureDiagnosticosSheet(sheetId,token);
- const d=b.diagnostico||{};const headers=['ID Projeto','Data','Empresa','Responsável','Cargo','E-mail','WhatsApp','Segmento','Cidade / UF','Problema','Processo atual','Dificuldades','Resultado esperado','Usuários','Perfis e acessos','Dispositivos','Funcionalidades','Prioridades MVP','Dados e cadastros','Dashboard e relatórios','Ferramentas atuais','Integrações','Automações','Inteligência Artificial','Dados existentes / migração','Prazo','Referência','Observações','Status','Consentimento','Consentimento em','Versão consentimento'];
- const row=[id,new Date().toISOString(),b.empresa,b.nome,b.cargo,b.email,b.whatsapp,d.segmento,d.cidade,d.problema,d.processo_atual,d.dificuldades,d.resultado,d.usuarios,d.perfis,d.dispositivos,d.funcionalidades,d.prioridades,d.dados,d.dashboard,d.ferramentas,d.integracoes,d.automacoes,d.ia,d.dados_existentes,d.prazo,d.referencia,d.observacoes,'Novo',b.consentimento?.aceito?'Sim':'Não',b.consentimento?.aceito?new Date().toISOString():'',b.consentimento?.versao||''];
+ const d=b.diagnostico||{};const headers=['ID Projeto','Data','Empresa','Responsável','Cargo','E-mail','WhatsApp','Segmento','Cidade / UF','Problema','Processo atual','Dificuldades','Resultado esperado','Usuários','Perfis e acessos','Dispositivos','Funcionalidades','Prioridades MVP','Dados e cadastros','Dashboard e relatórios','Ferramentas atuais','Integrações','Automações','Inteligência Artificial','Dados existentes / migração','Prazo','Referência','Observações','Status','Consentimento','Consentimento em','Versão consentimento','ID Submissão'];
+ const row=[id,new Date().toISOString(),b.empresa,b.nome,b.cargo,b.email,b.whatsapp,d.segmento,d.cidade,d.problema,d.processo_atual,d.dificuldades,d.resultado,d.usuarios,d.perfis,d.dispositivos,d.funcionalidades,d.prioridades,d.dados,d.dashboard,d.ferramentas,d.integracoes,d.automacoes,d.ia,d.dados_existentes,d.prazo,d.referencia,d.observacoes,'Novo',b.consentimento?.aceito?'Sim':'Não',b.consentimento?.aceito?new Date().toISOString():'',b.consentimento?.versao||'',clean(b.submissionId,80)];
  const base='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/';
- const read=await fetch(base+encodeURIComponent('Diagnosticos!A1:AF1'),{headers:{authorization:'Bearer '+token}});const rd=read.ok?await read.json() as any:{};
+ const read=await fetch(base+encodeURIComponent('Diagnosticos!A1:AG1'),{headers:{authorization:'Bearer '+token}});const rd=read.ok?await read.json() as any:{};
  const values=(rd.values?.length?[]:[headers]).concat([row.map(v=>clean(v,10000))]);
- const url=base+encodeURIComponent('Diagnosticos!A:AF')+':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
+ const url=base+encodeURIComponent('Diagnosticos!A:AG')+':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
  const r=await fetch(url,{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({values})});if(!r.ok)throw new Error('Could not save structured diagnosis');
 }
 const diagnosisText = (d: any) => {
@@ -77,7 +77,7 @@ export default async function handler(req: any, res: any) {
     ]];
 
     const token = await getAccessToken(email, privateKey);
-    const diagnosisId = b.diagnostico ? projectId() : '';
+    const submissionId=clean(b.submissionId,80);let diagnosisId=b.diagnostico?projectId():'';if(b.diagnostico&&submissionId){const checkUrl='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/'+encodeURIComponent('Diagnosticos!A:AG');const check=await fetch(checkUrl,{headers:{authorization:'Bearer '+token}});if(check.ok){const rows=((await check.json())as any).values||[];const existing=rows.slice(1).find((x:any[])=>x[32]===submissionId);if(existing)return res.status(200).json({ok:true,projectId:existing[0]});}}
     const range = encodeURIComponent('Leads!A:T');
     const url = 'https://sheets.googleapis.com/v4/spreadsheets/' + encodeURIComponent(sheetId) + '/values/' + range + ':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
     const response = await fetch(url, { method: 'POST', headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: JSON.stringify({ values }) });
