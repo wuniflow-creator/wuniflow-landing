@@ -78,11 +78,11 @@ export default async function handler(req: any, res: any) {
 
     const token = await getAccessToken(email, privateKey);
     const diagnosisId = b.diagnostico ? projectId() : '';
-    if (diagnosisId) await appendDiagnosis(sheetId,token,diagnosisId,b);
     const range = encodeURIComponent('Leads!A:T');
     const url = 'https://sheets.googleapis.com/v4/spreadsheets/' + encodeURIComponent(sheetId) + '/values/' + range + ':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
     const response = await fetch(url, { method: 'POST', headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: JSON.stringify({ values }) });
     if (!response.ok) { console.error('Sheets append failed', response.status, await response.text()); throw new Error('Could not save lead'); }
+    if (diagnosisId) { try { await appendDiagnosis(sheetId,token,diagnosisId,b); } catch (e) { console.error('Structured diagnosis append failed after lead save',e); return res.status(500).json({ok:false,error:'Contato registrado, mas o diagnóstico não pôde ser concluído. Tente novamente.'}); } }
 
     return res.status(200).json({ ok: true, projectId: diagnosisId || undefined });
   } catch (error) {
