@@ -73,12 +73,13 @@ export default async function handler(req: any, res: any) {
       new Date().toISOString(), clean(b.nome,120), clean(b.empresa,160), clean(b.cargo,120),
       clean(b.whatsapp,50), clean(b.email,180), clean(processo,45000), 'Novo','','','','',
       clean(b.origem,120), clean(b.utm_source,180), clean(b.utm_medium,180), clean(b.utm_campaign,180),
-      clean(b.utm_content,180), clean(b.utm_term,180), clean(b.pagina,500), clean(b.referrer,500)
+      clean(b.utm_content,180), clean(b.utm_term,180), clean(b.pagina,500), clean(b.referrer,500), clean(b.submissionId,80)
     ]];
 
     const token = await getAccessToken(email, privateKey);
     const submissionId=clean(b.submissionId,80);let diagnosisId=b.diagnostico?projectId():'';if(b.diagnostico&&submissionId){const checkUrl='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/'+encodeURIComponent('Diagnosticos!A:AG');const check=await fetch(checkUrl,{headers:{authorization:'Bearer '+token}});if(check.ok){const rows=((await check.json())as any).values||[];const existing=rows.slice(1).find((x:any[])=>x[32]===submissionId);if(existing)return res.status(200).json({ok:true,projectId:existing[0]});}}
-    const range = encodeURIComponent('Leads!A:T');
+    if(submissionId){const leadCheck=await fetch('https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/'+encodeURIComponent('Leads!A:U'),{headers:{authorization:'Bearer '+token}});if(leadCheck.ok){const leadRows=((await leadCheck.json())as any).values||[];const duplicate=leadRows.slice(1).some((x:any[])=>x[20]===submissionId);if(duplicate&&diagnosisId){try{await appendDiagnosis(sheetId,token,diagnosisId,b);return res.status(200).json({ok:true,projectId:diagnosisId});}catch(e){console.error('Diagnosis retry failed',e);return res.status(500).json({ok:false,error:'Contato registrado, mas o diagnóstico não pôde ser concluído. Tente novamente.'});}}}}
+    const range = encodeURIComponent('Leads!A:U');
     const url = 'https://sheets.googleapis.com/v4/spreadsheets/' + encodeURIComponent(sheetId) + '/values/' + range + ':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
     const response = await fetch(url, { method: 'POST', headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: JSON.stringify({ values }) });
     if (!response.ok) { console.error('Sheets append failed', response.status, await response.text()); throw new Error('Could not save lead'); }
