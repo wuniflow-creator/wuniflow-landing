@@ -1,5 +1,5 @@
 export type PricingInput=Record<string,string>;
-export type PricingAnalysis={score:number;level:'Baixa'|'Média'|'Alta'|'Muito alta';estimatedHours:{min:number;max:number};drivers:string[];risks:string[];missing:string[];commercial:{implementationSuggested:number;monthlySuggested:number};version:string};
+export type PricingAnalysis={score:number;level:'Baixa'|'Média'|'Alta'|'Muito alta';estimatedHours:{min:number;max:number};drivers:string[];risks:string[];missing:string[];commercial:{implementationSuggested:number;maintenanceSuggested:number};version:string};
 const has=(v:string|undefined,...terms:string[])=>{const s=(v||'').toLowerCase();return terms.some(t=>s.includes(t))};
 export function analyzeProject(a:PricingInput):PricingAnalysis{
  let score=8;const drivers:string[]=[];const risks:string[]=[];const missing:string[]=[];
@@ -19,7 +19,8 @@ export function analyzeProject(a:PricingInput):PricingAnalysis{
  score=Math.min(100,score);const level=score<25?'Baixa':score<45?'Média':score<70?'Alta':'Muito alta';
  const min=Math.max(24,Math.round(score*1.8));const max=Math.round(min*1.55);
  // Valores abaixo são referências internas iniciais e exigem aprovação humana antes de qualquer proposta.
- const implementationSuggested=Math.round(((min+max)/2*120)/100)*100;
- const monthlySuggested=Math.max(390,Math.round((implementationSuggested*.045)/10)*10);
- return{score,level,estimatedHours:{min,max},drivers,risks,missing,commercial:{implementationSuggested,monthlySuggested},version:'wuniflow-pricing-v1'};
+ const ranges:Record<string,[number,number]|null>={Baixa:[2500,4500],Média:[4500,8000],Alta:[8000,15000],'Muito alta':null};
+ const range=ranges[level];const implementationSuggested=range?Math.round((range[0]+range[1])/2):15000;
+ const maintenanceSuggested=Math.max(297,Math.round(implementationSuggested*.08));
+ return{score,level,estimatedHours:{min,max},drivers,risks,missing,commercial:{implementationSuggested,maintenanceSuggested},version:'wuniflow-pricing-v2'};
 }
