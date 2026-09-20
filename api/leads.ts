@@ -22,6 +22,18 @@ async function getAccessToken(email: string, privateKey: string) {
 }
 
 const clean = (value: unknown, max = 1000) => String(value ?? '').trim().slice(0, max);
+const diagnosisText = (d: any) => {
+  if (!d || typeof d !== 'object') return '';
+  const fields: [string,string][] = [
+    ['Segmento','segmento'],['Cidade / UF','cidade'],['Problema','problema'],['Processo atual','processo_atual'],
+    ['Dificuldades','dificuldades'],['Resultado esperado','resultado'],['Usuários','usuarios'],['Perfis e acessos','perfis'],
+    ['Dispositivos','dispositivos'],['Funcionalidades','funcionalidades'],['Prioridades do MVP','prioridades'],['Dados e cadastros','dados'],
+    ['Dashboard e relatórios','dashboard'],['Ferramentas atuais','ferramentas'],['Integrações','integracoes'],['Automações','automacoes'],
+    ['Inteligência Artificial','ia'],['Dados existentes / migração','dados_existentes'],['Prazo','prazo'],['Referência','referencia'],
+    ['Observações','observacoes']
+  ];
+  return fields.map(([label,key]) => clean(d[key],3000) ? label + ': ' + clean(d[key],3000) : '').filter(Boolean).join('\n\n');
+};
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'Method not allowed' });
@@ -34,9 +46,11 @@ export default async function handler(req: any, res: any) {
     const b = req.body || {};
     if (!b.nome || !b.empresa || !b.whatsapp || !b.processo) return res.status(400).json({ ok: false, error: 'Campos obrigatórios ausentes' });
 
+    const diagnostic = diagnosisText(b.diagnostico);
+    const processo = diagnostic ? clean(b.processo,3000) + '\n\n--- BRIEFING COMPLETO ---\n\n' + diagnostic : clean(b.processo,3000);
     const values = [[
       new Date().toISOString(), clean(b.nome,120), clean(b.empresa,160), clean(b.cargo,120),
-      clean(b.whatsapp,50), clean(b.email,180), clean(b.processo,3000), 'Novo','','','','',
+      clean(b.whatsapp,50), clean(b.email,180), clean(processo,45000), 'Novo','','','','',
       clean(b.origem,120), clean(b.utm_source,180), clean(b.utm_medium,180), clean(b.utm_campaign,180),
       clean(b.utm_content,180), clean(b.utm_term,180), clean(b.pagina,500), clean(b.referrer,500)
     ]];
