@@ -55,6 +55,7 @@ const diagnosisText = (d: any) => {
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'Method not allowed' });
+  res.setHeader('Cache-Control','no-store, max-age=0');res.setHeader('X-Content-Type-Options','nosniff');
   try {
     const sheetId = process.env.GOOGLE_SHEET_ID;
     const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
@@ -62,6 +63,8 @@ export default async function handler(req: any, res: any) {
     if (!sheetId || !email || !privateKey) { const missing = [!sheetId && 'GOOGLE_SHEET_ID', !email && 'GOOGLE_SERVICE_ACCOUNT_EMAIL', !privateKey && 'GOOGLE_PRIVATE_KEY'].filter(Boolean).join(', '); throw new Error('Google Sheets integration missing: ' + missing); }
 
     const b = req.body || {};
+    const contentLength=Number(req.headers['content-length']||0);if(contentLength>100000)return res.status(413).json({ok:false,error:'Solicitação muito grande'});
+    const trap=clean(b.website,100);if(trap)return res.status(200).json({ok:true});
     if (!b.nome || !b.empresa || !b.whatsapp || !b.processo) return res.status(400).json({ ok: false, error: 'Campos obrigatórios ausentes' });
 
     const diagnostic = diagnosisText(b.diagnostico);
