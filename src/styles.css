@@ -54,3 +54,11 @@ body{background:#f8f7f9}.hero,.founder,.contact{background-image:radial-gradient
 .adminCommercialApproved{display:flex;align-items:center;gap:12px;margin-top:12px;padding:14px;border:1px solid rgba(92,211,135,.28);border-radius:12px;background:rgba(43,133,76,.08)}.adminCommercialApproved svg{width:22px;color:#8fe2ad;flex:none}.adminCommercialApproved div{display:flex;flex-direction:column;gap:3px}.adminCommercialApproved small{color:#8fe2ad;font-size:10px;font-weight:900;letter-spacing:.08em}.adminCommercialApproved strong{color:#fff;font-size:14px}.adminCommercialApproved span{color:#9c929f;font-size:11px}.adminProposalButton{background:#fff!important;color:#0b090c!important}.adminDecisionActions>span{flex-basis:100%}
 
 .adminPaymentConfig{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-top:14px}.adminPaymentConfig>div{padding:13px;border:1px solid #352a38;border-radius:12px;background:#09080a}.adminPaymentConfig small{display:block;color:#aaa0ad;font-size:10px;font-weight:800;letter-spacing:.06em;margin-bottom:8px}.adminPaymentConfig select{width:100%;border:1px solid #423247;background:#100c12;color:#fff;border-radius:9px;padding:10px;font-weight:700;outline:none}.adminPaymentConfig select:focus{border-color:#df32ed}@media(max-width:700px){.adminPaymentConfig{grid-template-columns:1fr}}
+
+
+/* CTA legibility hardening */
+.topcta,.primary,.diagNext,.diagDoneActions button{color:#fff!important;text-shadow:0 1px 1px rgba(0,0,0,.18);font-weight:800;line-height:1.2}
+.contact .primary{color:#fff!important;margin-top:24px;padding:15px 22px}
+.preCta .primary{color:#fff!important}
+.secondary{color:#fff!important;background:rgba(255,255,255,.04)}
+@media(max-width:800px){.actions{flex-direction:column}.primary,.secondary{min-height:48px;font-size:14px}.contact .primary{width:100%;min-height:50px}}
