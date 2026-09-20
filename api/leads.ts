@@ -77,6 +77,8 @@ export default async function handler(req: any, res: any) {
     ]];
 
     const token = await getAccessToken(email, privateKey);
+    const leadHeaderUrl='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/'+encodeURIComponent('Leads!U1')+'?valueInputOption=RAW';
+    await fetch(leadHeaderUrl,{method:'PUT',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({values:[['ID Submissão']]})});
     const submissionId=clean(b.submissionId,80);let diagnosisId=b.diagnostico?projectId():'';if(b.diagnostico&&submissionId){const checkUrl='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/'+encodeURIComponent('Diagnosticos!A:AG');const check=await fetch(checkUrl,{headers:{authorization:'Bearer '+token}});if(check.ok){const rows=((await check.json())as any).values||[];const existing=rows.slice(1).find((x:any[])=>x[32]===submissionId);if(existing)return res.status(200).json({ok:true,projectId:existing[0]});}}
     if(submissionId){const leadCheck=await fetch('https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/'+encodeURIComponent('Leads!A:U'),{headers:{authorization:'Bearer '+token}});if(leadCheck.ok){const leadRows=((await leadCheck.json())as any).values||[];const duplicate=leadRows.slice(1).some((x:any[])=>x[20]===submissionId);if(duplicate&&diagnosisId){try{await appendDiagnosis(sheetId,token,diagnosisId,b);return res.status(200).json({ok:true,projectId:diagnosisId});}catch(e){console.error('Diagnosis retry failed',e);return res.status(500).json({ok:false,error:'Contato registrado, mas o diagnóstico não pôde ser concluído. Tente novamente.'});}}}}
     const range = encodeURIComponent('Leads!A:U');
