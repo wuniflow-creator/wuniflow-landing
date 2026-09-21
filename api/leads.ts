@@ -42,6 +42,22 @@ async function appendDiagnosis(sheetId:string,token:string,id:string,b:any){
  const url=base+encodeURIComponent('Diagnosticos!A:AG')+':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
  const r=await fetch(url,{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({values})});if(!r.ok)throw new Error('Could not save structured diagnosis');
 }
+async function notifyPostDiagnosis(b:any,id:string){
+  if(!b.diagnostico||b.consentimentoWhatsapp!==true)return {queued:false,reason:'not_applicable'};
+  const webhookUrl=process.env.N8N_POS_DIAGNOSTICO_WEBHOOK_URL;
+  const instanceName=process.env.EVOLUTION_INSTANCE_NAME;
+  if(!webhookUrl||!instanceName){console.warn('Post-diagnosis WhatsApp integration is not configured');return {queued:false,reason:'not_configured'};}
+  try{
+    const response=await fetch(webhookUrl,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({
+      nome:clean(b.nome,120),empresa:clean(b.empresa,160),whatsapp:clean(b.whatsapp,50),
+      projectId:id,submissionId:clean(b.submissionId,80),imageUrl:clean(process.env.WUNIFLOW_INSTITUTIONAL_IMAGE_URL,1000),
+      instanceName,consentimentoWhatsapp:true
+    }),signal:AbortSignal.timeout(12000)});
+    if(!response.ok){console.error('Post-diagnosis WhatsApp queue failed with status',response.status);return {queued:false,reason:'workflow_error'};}
+    return {queued:true};
+  }catch(error){console.error('Post-diagnosis WhatsApp queue request failed');return {queued:false,reason:'request_error'};}
+}
+
 const diagnosisText = (d: any) => {
   if (!d || typeof d !== 'object') return '';
   const fields: [string,string][] = [
@@ -68,6 +84,7 @@ export default async function handler(req: any, res: any) {
     const contentLength=Number(req.headers['content-length']||0);if(contentLength>100000)return res.status(413).json({ok:false,error:'Solicitação muito grande'});
     const trap=clean(b.website,100);if(trap)return res.status(200).json({ok:true});
     if (!b.nome || !b.empresa || !b.whatsapp || !b.processo) return res.status(400).json({ ok: false, error: 'Campos obrigatórios ausentes' });
+    if (b.diagnostico && b.consentimentoWhatsapp !== true) return res.status(400).json({ ok: false, error: 'É necessário autorizar o contato pelo WhatsApp para enviar o diagnóstico.' });
 
     const diagnostic = diagnosisText(b.diagnostico);
     const processo = diagnostic ? clean(b.processo,3000) + '\n\n--- BRIEFING COMPLETO ---\n\n' + diagnostic : clean(b.processo,3000);
@@ -81,15 +98,16 @@ export default async function handler(req: any, res: any) {
     const token = await getAccessToken(email, privateKey);
     const leadHeaderUrl='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/'+encodeURIComponent('Leads!U1')+'?valueInputOption=RAW';
     await fetch(leadHeaderUrl,{method:'PUT',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({values:[['ID Submissão']]})});
-    const submissionId=clean(b.submissionId,80);let diagnosisId=b.diagnostico?projectId():'';if(b.diagnostico&&submissionId){const checkUrl='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/'+encodeURIComponent('Diagnosticos!A:AG');const check=await fetch(checkUrl,{headers:{authorization:'Bearer '+token}});if(check.ok){const rows=((await check.json())as any).values||[];const existing=rows.slice(1).find((x:any[])=>x[32]===submissionId);if(existing)return res.status(200).json({ok:true,projectId:existing[0]});}}
-    if(submissionId){const leadCheck=await fetch('https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/'+encodeURIComponent('Leads!A:U'),{headers:{authorization:'Bearer '+token}});if(leadCheck.ok){const leadRows=((await leadCheck.json())as any).values||[];const duplicate=leadRows.slice(1).some((x:any[])=>x[20]===submissionId);if(duplicate&&diagnosisId){try{await appendDiagnosis(sheetId,token,diagnosisId,b);return res.status(200).json({ok:true,projectId:diagnosisId});}catch(e){console.error('Diagnosis retry failed',e);return res.status(500).json({ok:false,error:'Contato registrado, mas o diagnóstico não pôde ser concluído. Tente novamente.'});}}}}
+    const submissionId=clean(b.submissionId,80);let diagnosisId=b.diagnostico?projectId():'';if(b.diagnostico&&submissionId){const checkUrl='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/'+encodeURIComponent('Diagnosticos!A:AG');const check=await fetch(checkUrl,{headers:{authorization:'Bearer '+token}});if(check.ok){const rows=((await check.json())as any).values||[];const existing=rows.slice(1).find((x:any[])=>x[32]===submissionId);if(existing){const notification=await notifyPostDiagnosis(b,existing[0]);return res.status(200).json({ok:true,projectId:existing[0],confirmationQueued:notification.queued});}}}
+    if(submissionId){const leadCheck=await fetch('https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/'+encodeURIComponent('Leads!A:U'),{headers:{authorization:'Bearer '+token}});if(leadCheck.ok){const leadRows=((await leadCheck.json())as any).values||[];const duplicate=leadRows.slice(1).some((x:any[])=>x[20]===submissionId);if(duplicate&&diagnosisId){try{await appendDiagnosis(sheetId,token,diagnosisId,b);const notification=await notifyPostDiagnosis(b,diagnosisId);return res.status(200).json({ok:true,projectId:diagnosisId,confirmationQueued:notification.queued});}catch(e){console.error('Diagnosis retry failed',e);return res.status(500).json({ok:false,error:'Contato registrado, mas o diagnóstico não pôde ser concluído. Tente novamente.'});}}}}
     const range = encodeURIComponent('Leads!A:U');
     const url = 'https://sheets.googleapis.com/v4/spreadsheets/' + encodeURIComponent(sheetId) + '/values/' + range + ':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
     const response = await fetch(url, { method: 'POST', headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: JSON.stringify({ values }) });
     if (!response.ok) { console.error('Sheets append failed', response.status, await response.text()); throw new Error('Could not save lead'); }
     if (diagnosisId) { try { await appendDiagnosis(sheetId,token,diagnosisId,b); } catch (e) { console.error('Structured diagnosis append failed after lead save',e); return res.status(500).json({ok:false,error:'Contato registrado, mas o diagnóstico não pôde ser concluído. Tente novamente.'}); } }
 
-    return res.status(200).json({ ok: true, projectId: diagnosisId || undefined });
+    const notification=diagnosisId?await notifyPostDiagnosis(b,diagnosisId):{queued:false};
+    return res.status(200).json({ ok: true, projectId: diagnosisId || undefined, confirmationQueued: notification.queued });
   } catch (error) {
     console.error('Lead capture failed', error);
     return res.status(500).json({ ok: false, error: 'Não foi possível registrar o contato agora.' });
