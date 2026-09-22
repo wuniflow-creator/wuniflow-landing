@@ -32,15 +32,12 @@ async function ensureDiagnosticosSheet(sheetId:string,token:string){
 }
 async function appendDiagnosis(sheetId:string,token:string,id:string,b:any){
  await ensureDiagnosticosSheet(sheetId,token);
- const d=b.diagnostico||{};const headers=['ID Projeto','Data','Empresa','Responsável','Cargo','E-mail','WhatsApp','Segmento','Cidade / UF','Problema','Processo atual','Dificuldades','Resultado esperado','Usuários','Perfis e acessos','Dispositivos','Funcionalidades','Prioridades MVP','Dados e cadastros','Dashboard e relatórios','Ferramentas atuais','Integrações','Automações','Inteligência Artificial','Dados existentes / migração','Prazo','Referência','Observações','Status','Consentimento','Consentimento em','Versão consentimento','ID Submissão'];
+ const d=b.diagnostico||{};
  const row=[id,new Date().toISOString(),b.empresa,b.nome,b.cargo,b.email,b.whatsapp,d.segmento,d.cidade,d.problema,d.processo_atual,d.dificuldades,d.resultado,d.usuarios,d.perfis,d.dispositivos,d.funcionalidades,d.prioridades,d.dados,d.dashboard,d.ferramentas,d.integracoes,d.automacoes,d.ia,d.dados_existentes,d.prazo,d.referencia,d.observacoes,'Novo',b.consentimento?.aceito?'Sim':'Não',b.consentimento?.aceito?new Date().toISOString():'',b.consentimento?.versao||'',clean(b.submissionId,80)];
  const base='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(sheetId)+'/values/';
- const read=await fetch(base+encodeURIComponent('Diagnosticos!A1:AG1'),{headers:{authorization:'Bearer '+token}});const rd=read.ok?await read.json() as any:{};
- const existingHeaders=Array.isArray(rd.values?.[0])?rd.values[0]:[];
- if(existingHeaders.length&&existingHeaders[32]!=='ID Submissão'){const hr=await fetch(base+encodeURIComponent('Diagnosticos!AG1')+'?valueInputOption=RAW',{method:'PUT',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({values:[['ID Submissão']]})});if(!hr.ok)throw new Error('Could not ensure diagnosis submission header')}
- const values=(existingHeaders.length?[]:[headers]).concat([row.map(v=>clean(v,10000))]);
  const url=base+encodeURIComponent('Diagnosticos!A:AG')+':append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS';
- const r=await fetch(url,{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({values})});if(!r.ok)throw new Error('Could not save structured diagnosis');
+ const r=await fetch(url,{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({values:[row.map(v=>clean(v,10000))]})});
+ if(!r.ok){console.error('Diagnosis append failed',r.status,await r.text());throw new Error('Could not save structured diagnosis');}
 }
 async function notifyPostDiagnosis(b:any,id:string){
   if(!b.diagnostico || b.consentimentoWhatsapp !== true){
