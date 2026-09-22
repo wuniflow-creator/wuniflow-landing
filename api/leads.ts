@@ -45,8 +45,9 @@ async function notifyPostDiagnosis(b:any,id:string){
   }
 
   const webhookUrl=process.env.N8N_POS_DIAGNOSTICO_WEBHOOK_URL;
+  const webhookSecret=process.env.N8N_POS_DIAGNOSTICO_WEBHOOK_SECRET;
 
-  if(!webhookUrl){
+  if(!webhookUrl || !webhookSecret){
     console.warn('Post-diagnosis WhatsApp integration is not configured');
     return {queued:false,reason:'not_configured'};
   }
@@ -54,7 +55,10 @@ async function notifyPostDiagnosis(b:any,id:string){
   try{
     const response=await fetch(webhookUrl,{
       method:'POST',
-      headers:{'content-type':'application/json'},
+      headers:{
+        'content-type':'application/json',
+        'x-wuniflow-webhook-secret':webhookSecret
+      },
       body:JSON.stringify({
         nome:clean(b.nome,120),
         empresa:clean(b.empresa,160),
