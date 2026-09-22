@@ -43,19 +43,42 @@ async function appendDiagnosis(sheetId:string,token:string,id:string,b:any){
  const r=await fetch(url,{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({values})});if(!r.ok)throw new Error('Could not save structured diagnosis');
 }
 async function notifyPostDiagnosis(b:any,id:string){
-  if(!b.diagnostico||b.consentimentoWhatsapp!==true)return {queued:false,reason:'not_applicable'};
+  if(!b.diagnostico || b.consentimentoWhatsapp !== true){
+    return {queued:false,reason:'not_applicable'};
+  }
+
   const webhookUrl=process.env.N8N_POS_DIAGNOSTICO_WEBHOOK_URL;
-  const instanceName=process.env.EVOLUTION_INSTANCE_NAME;
-  if(!webhookUrl||!instanceName){console.warn('Post-diagnosis WhatsApp integration is not configured');return {queued:false,reason:'not_configured'};}
+
+  if(!webhookUrl){
+    console.warn('Post-diagnosis WhatsApp integration is not configured');
+    return {queued:false,reason:'not_configured'};
+  }
+
   try{
-    const response=await fetch(webhookUrl,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({
-      nome:clean(b.nome,120),empresa:clean(b.empresa,160),whatsapp:clean(b.whatsapp,50),
-      projectId:id,submissionId:clean(b.submissionId,80),imageUrl:clean(process.env.WUNIFLOW_INSTITUTIONAL_IMAGE_URL,1000),
-      instanceName,consentimentoWhatsapp:true
-    }),signal:AbortSignal.timeout(12000)});
-    if(!response.ok){console.error('Post-diagnosis WhatsApp queue failed with status',response.status);return {queued:false,reason:'workflow_error'};}
+    const response=await fetch(webhookUrl,{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({
+        nome:clean(b.nome,120),
+        empresa:clean(b.empresa,160),
+        whatsapp:clean(b.whatsapp,50),
+        projectId:id,
+        submissionId:clean(b.submissionId,80),
+        consentimentoWhatsapp:true
+      }),
+      signal:AbortSignal.timeout(12000)
+    });
+
+    if(!response.ok){
+      console.error('Post-diagnosis WhatsApp queue failed with status',response.status);
+      return {queued:false,reason:'workflow_error'};
+    }
+
     return {queued:true};
-  }catch(error){console.error('Post-diagnosis WhatsApp queue request failed');return {queued:false,reason:'request_error'};}
+  }catch(error){
+    console.error('Post-diagnosis WhatsApp queue request failed');
+    return {queued:false,reason:'request_error'};
+  }
 }
 
 const diagnosisText = (d: any) => {
