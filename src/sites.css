@@ -17,3 +17,133 @@
 .sitesDone{width:min(620px,88vw);margin:12vh auto 0;text-align:center;background:#111419;border:1px solid #252a32;border-radius:26px;padding:54px}.sitesDone>svg{width:58px;height:58px;color:#ef2cff;margin-bottom:18px}.sitesDone>span{display:block;color:#ef2cff;font-weight:800;letter-spacing:.14em;font-size:11px}.sitesDone h1{font-family:Manrope,"DM Sans",sans-serif;font-size:42px;letter-spacing:-.04em}.sitesDone p{color:#9ba1aa;line-height:1.6}.sitesDone>a{margin:14px auto 0;display:block;color:#aeb4bc}.sitesDone .sitesPrimary{width:max-content}
 @media(max-width:900px){.sitesHeader{padding:0 5vw}.sitesHeader>div{display:none}.sitesShell{width:90vw;padding-top:36px}.sitesHero{grid-template-columns:1fr}.sitesHeroIcon{display:none}.sitesProgress{overflow-x:auto;grid-template-columns:repeat(6,minmax(110px,1fr));padding-bottom:8px}.sitesGrid{grid-template-columns:1fr}.sitesAside{position:static;order:-1}.sitesAside dl,.sitesAside ul,.sitesAside p,.sitesAside hr,.sitesAsideIcon,.sitesAside>small{display:none}.sitesAside{padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}.sitesAsideTitle{display:block}.sitesAsideTitle>span{display:none}.sitesAside>strong{font-size:24px;margin:0}.sitesOptions,.sitesStyleGrid,.sitesFields{grid-template-columns:1fr}.sitesChecks{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.sitesCard{padding:22px}.sitesHero h1{font-size:48px}.sitesHero p{font-size:15px}.sitesChecks{grid-template-columns:1fr}.sitesProgress span{font-size:11px}.sitesDone{padding:34px 22px}.sitesDone h1{font-size:34px}}
+
+
+/* Premium conversion redesign */
+.sitesPage{background:
+  radial-gradient(circle at 82% 14%,rgba(190,0,215,.18),transparent 28%),
+  radial-gradient(circle at 8% 42%,rgba(120,0,150,.08),transparent 26%),
+  #07080b;
+  overflow-x:hidden}
+.sitesHeader{height:72px;padding:0;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(7,8,11,.9)}
+.sitesHeaderInner{width:min(1380px,calc(100% - 48px));height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between}
+.sitesBrand>b{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#b800c9,#f000ff);box-shadow:0 0 26px rgba(214,0,233,.34)}
+.sitesBrand>span{font-family:Manrope,"DM Sans",sans-serif;font-size:15px;letter-spacing:.1em}
+.sitesBrand small{color:#ef2cff;font-size:8px;letter-spacing:.24em}
+.sitesTopNav{display:flex;align-items:center;gap:28px}
+.sitesTopNav>a{color:#b6afba;font-size:13px}
+.sitesTopNav>a:hover{color:#fff}
+.sitesTopNav>span{width:1px;height:26px;background:#2b2430}
+.sitesExpertCta{display:inline-flex!important;align-items:center;gap:8px!important;border:1px solid #4a3450;border-radius:10px;padding:10px 14px;color:#fff!important;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.sitesExpertCta:hover{border-color:#d600e9!important;box-shadow:0 0 24px rgba(214,0,233,.14)!important}
+.sitesExpertCta svg{width:15px;height:15px;color:#ef2cff}
+
+.sitesShell{width:min(1380px,calc(100% - 48px));padding:46px 0 96px}
+.sitesHero{grid-template-columns:minmax(0,1fr) minmax(460px,.92fr);gap:56px;min-height:365px;margin-bottom:24px;align-items:center}
+.sitesHeroCopy{padding:24px 0 14px}
+.sitesEyebrow{display:flex;align-items:center;gap:8px;color:#ef2cff;font:800 11px Manrope,"DM Sans",sans-serif;letter-spacing:.16em}
+.sitesEyebrow svg{width:17px;height:17px}
+.sitesHero h1{font-family:Manrope,"DM Sans",sans-serif;font-size:clamp(54px,5.6vw,86px);line-height:.94;letter-spacing:-.06em;margin:17px 0 18px;max-width:760px}
+.sitesHero h1 em{background:linear-gradient(90deg,#ee19ff,#c535f5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sitesHero p{max-width:670px;font-size:17px;line-height:1.58;color:#a6a0aa}
+.sitesTrustRow{display:flex;flex-wrap:wrap;gap:20px;margin-top:26px}
+.sitesTrustRow>div{display:flex;align-items:center;gap:9px;min-width:112px}
+.sitesTrustRow i{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;border:1px solid #5a285f;background:#160e18;color:#ef2cff}
+.sitesTrustRow i svg{width:17px;height:17px}
+.sitesTrustRow span{display:flex;flex-direction:column;gap:1px}
+.sitesTrustRow b{font-size:11px;color:#f2edf3}
+.sitesTrustRow small{font-size:10px;color:#8e8591}
+
+.sitesShowcase{position:relative;height:355px;display:flex;align-items:center;justify-content:center}
+.sitesShowcaseAura{position:absolute;width:520px;height:310px;border-radius:50%;background:radial-gradient(circle,rgba(222,0,245,.23),rgba(109,0,126,.08) 48%,transparent 70%);filter:blur(7px);transform:rotate(-8deg)}
+.sitesBrowser{position:relative;width:94%;max-width:590px;border:1px solid #4b2b51;border-radius:18px;overflow:hidden;background:#0a0b0f;box-shadow:0 34px 75px #000b,0 0 55px rgba(214,0,233,.14);transform:perspective(1100px) rotateY(-7deg) rotateX(1deg)}
+.sitesBrowserBar{height:34px;background:#111118;border-bottom:1px solid #28202c;display:flex;align-items:center;justify-content:space-between;padding:0 11px;color:#766d79;font-size:8px}
+.sitesBrowserBar>div{display:flex;gap:5px}.sitesBrowserBar i{width:7px;height:7px;border-radius:50%;background:#6d4a72}.sitesBrowserBar i:nth-child(1){background:#d34368}.sitesBrowserBar i:nth-child(2){background:#c7a63b}.sitesBrowserBar i:nth-child(3){background:#3ca76d}
+.sitesBrowserBar b{width:19px;height:19px;border-radius:5px;background:#d600e9;display:grid;place-items:center;color:#fff;font-size:9px}
+.sitesBrowserBody{padding:17px;background:
+ radial-gradient(circle at 82% 55%,rgba(196,30,224,.24),transparent 30%),
+ linear-gradient(145deg,#0a0a0f,#110b14)}
+.sitesBrowserNav{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:7px;color:#a99eac;border-bottom:1px solid #251b28;padding-bottom:12px}
+.sitesBrowserNav>b{font-size:8px;color:#fff;letter-spacing:.09em}.sitesBrowserNav>em{font-style:normal;color:#fff;background:linear-gradient(135deg,#a500b7,#e700f8);padding:6px 8px;border-radius:6px}
+.sitesBrowserContent{display:grid;grid-template-columns:1fr 1.05fr;gap:14px;padding:17px 0 4px;min-height:220px}
+.sitesBrowserContent>div:first-child{padding:12px 4px}
+.sitesBrowserContent small{font-size:6px;color:#e93cf4;letter-spacing:.13em}
+.sitesBrowserContent h3{font:800 28px/1 Manrope,"DM Sans",sans-serif;margin:9px 0;color:#fff;letter-spacing:-.04em}
+.sitesBrowserContent p{font-size:9px;line-height:1.45;color:#9f94a3;margin:0 0 13px}
+.sitesBrowserContent button{display:inline-flex;align-items:center;gap:5px;border:0;border-radius:7px;background:linear-gradient(135deg,#b800c9,#f000ff);color:#fff;padding:8px 10px;font-size:8px;font-weight:800}
+.sitesBrowserContent button svg{width:11px;height:11px}
+.sitesBrowserVisual{position:relative;border:1px solid #332238;border-radius:10px;overflow:hidden;background:
+ linear-gradient(145deg,transparent 0 38%,rgba(234,45,255,.18) 39% 40%,transparent 41%),
+ radial-gradient(circle at 70% 20%,rgba(236,57,255,.42),transparent 20%),
+ linear-gradient(135deg,#17111b,#09090d)}
+.sitesBrowserVisual:before,.sitesBrowserVisual:after{content:"";position:absolute;background:linear-gradient(180deg,#3b2741,#17121a);box-shadow:0 0 0 1px #503257}
+.sitesBrowserVisual:before{width:38%;height:64%;right:16%;bottom:0;clip-path:polygon(12% 0,100% 18%,100% 100%,0 100%,0 18%)}
+.sitesBrowserVisual:after{width:29%;height:45%;left:14%;bottom:0;clip-path:polygon(0 20%,80% 0,100% 100%,0 100%)}
+.sitesBrowserVisual span{position:absolute;inset:auto 12px 12px auto;width:56px;height:56px;border-radius:50%;border:1px solid rgba(238,44,255,.36)}
+.sitesBrowserVisual b{position:absolute;left:13px;top:13px;font:800 12px/1.05 Manrope;color:#fff;letter-spacing:-.03em;z-index:2}.sitesBrowserVisual i{position:absolute;width:110px;height:1px;background:#ef2cff;right:-16px;top:35%;transform:rotate(-28deg);box-shadow:0 0 12px #ef2cff}
+.sitesShowcaseCard{position:absolute;right:0;bottom:20px;width:205px;padding:13px;border:1px solid #5a2a61;border-radius:12px;background:linear-gradient(145deg,rgba(43,15,49,.96),rgba(18,12,21,.96));display:flex;gap:10px;align-items:center;box-shadow:0 18px 38px #0008}
+.sitesShowcaseCard>div{width:34px;height:34px;border-radius:9px;background:#321138;color:#ef2cff;display:grid;place-items:center}.sitesShowcaseCard svg{width:16px}
+.sitesShowcaseCard span{display:flex;flex-direction:column;gap:3px}.sitesShowcaseCard small{font-size:7px;letter-spacing:.08em;color:#ad91b2}.sitesShowcaseCard b{font-size:10px;line-height:1.25}
+.sitesShowcaseBadge{position:absolute;left:8px;top:16px;padding:10px 12px;border-radius:11px;border:1px solid #38283d;background:rgba(12,10,14,.9);display:flex;gap:9px;align-items:center;box-shadow:0 16px 36px #0006}
+.sitesShowcaseBadge>svg{width:19px;color:#ef2cff}.sitesShowcaseBadge span{display:flex;flex-direction:column}.sitesShowcaseBadge b{font-size:9px}.sitesShowcaseBadge small{font-size:7px;color:#8f8392;margin-top:2px}
+
+.sitesProgress{position:relative;z-index:3;margin:0;padding:15px 20px;border:1px solid #2b2630;border-bottom:0;border-radius:18px 18px 0 0;background:linear-gradient(180deg,#101219,#0c0e13);gap:12px}
+.sitesProgress>div{position:relative;justify-content:flex-start;gap:10px}
+.sitesProgress>div:not(:last-child):after{content:"";position:absolute;left:38px;right:-8px;height:1px;background:#2f333b;top:14px;z-index:-1}
+.sitesProgress b{background:#0d1014}
+.sitesProgress .active b{background:linear-gradient(135deg,#b800c9,#f000ff);box-shadow:0 0 22px rgba(214,0,233,.28);border-color:#e52cf1;color:#fff}
+.sitesProgress .done b{background:#211226;border-color:#6b2575;color:#ef2cff}
+
+.sitesGrid{grid-template-columns:minmax(0,1fr) 340px;gap:14px;border:1px solid #2b2630;border-top:0;border-radius:0 0 18px 18px;background:linear-gradient(180deg,#0d0f14,#090a0d);padding:14px;box-shadow:0 28px 70px #0008}
+.sitesCard,.sitesAside{border-color:#292e37;background:linear-gradient(180deg,#12161c,#0d1116);box-shadow:none}
+.sitesCard{padding:28px;border-radius:14px}
+.sitesAside{top:94px;border-radius:14px;padding:21px}
+.sitesCard h2{font-size:29px}.sitesCard>p{margin-bottom:22px}
+.sitesOptions{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.sitesOptions button{min-height:152px;padding:14px;border-radius:13px;display:flex;flex-direction:column}
+.sitesOptions button:nth-child(4),.sitesOptions button:nth-child(5){grid-column:span 1}
+.sitesOptions button:hover,.sitesStyleGrid button:hover{border-color:#6d3575;box-shadow:0 0 0 1px rgba(214,0,233,.16) inset;background:#17121a}
+.sitesOptions button.selected,.sitesStyleGrid button.selected{border-color:#d600e9;box-shadow:0 0 0 1px #d600e9 inset,0 0 28px rgba(214,0,233,.08);background:linear-gradient(145deg,#201124,#14151b)}
+.sitesOptionTop{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:18px}
+.sitesOptionTop i{width:34px;height:34px;border-radius:9px;background:#241329;color:#ef2cff;display:grid;place-items:center}
+.sitesOptionTop i svg{width:18px;height:18px}
+.sitesOptionRadio{width:19px!important;height:19px!important;min-height:0!important;border:1px solid #536071;border-radius:50%;display:grid!important;place-items:center!important;color:#fff!important;font-size:9px!important;margin:0!important;background:transparent!important}
+.sitesOptions button.selected .sitesOptionRadio{background:#d600e9!important;border-color:#d600e9}
+.sitesOptions button>svg{display:none}
+.sitesOptions b{font-size:14px}.sitesOptions span{font-size:12px;min-height:34px}.sitesOptions small{margin-top:auto;padding-top:12px;font-size:10px}
+.sitesFields{gap:12px;margin-top:18px}.sitesCard input,.sitesCard select,.sitesCard textarea{background:#090c10;border-color:#29303a}
+.sitesCard input:focus,.sitesCard select:focus,.sitesCard textarea:focus{border-color:#d600e9;box-shadow:0 0 0 2px rgba(214,0,233,.1)}
+.sitesChecks input,.sitesResourceList input{accent-color:#d600e9}
+.sitesPrimary{background:linear-gradient(135deg,#b800c9,#f000ff)!important;color:#fff!important;box-shadow:0 10px 26px rgba(214,0,233,.24)}
+.sitesPrimary:hover{transform:translateY(-1px);box-shadow:0 13px 30px rgba(214,0,233,.34)}
+.sitesAsideHead{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.sitesAsideIcon{margin:0;width:38px;height:38px;background:#27122c;color:#ef2cff}
+.sitesAsideTitle{flex:1}.sitesAsideTitle>span{background:#2c1531;color:#ef2cff}.sitesAside dl{margin:18px 0}.sitesAside>strong{font-size:31px}
+.sitesAside ul{line-height:2.05}
+.sitesAsideHelp{margin-top:17px;border:1px solid #4d2454;background:linear-gradient(145deg,#251229,#171019);border-radius:12px;padding:12px;display:flex;align-items:center;gap:9px;color:#fff;text-decoration:none}
+.sitesAsideHelp>svg:first-child{width:20px;height:20px;color:#ef2cff}.sitesAsideHelp>svg:last-child{width:15px;height:15px;color:#ef2cff;margin-left:auto}
+.sitesAsideHelp span{display:flex;flex-direction:column;gap:2px}.sitesAsideHelp b{font-size:10px}.sitesAsideHelp small{font-size:8px;color:#a693aa}
+.sitesStylePreview.s0{background:linear-gradient(135deg,#f5f3ee 0 66%,#e72cf2 66%)}.sitesStylePreview.s2{background:radial-gradient(circle at 70% 25%,#e52cf1 0 12%,transparent 13%),linear-gradient(135deg,#10131a,#262d3a)}.sitesStylePreview.s3{background:linear-gradient(125deg,#ff7a59,#7b61ff,#e52cf1)}
+.sitesDone>svg,.sitesDone>span{color:#ef2cff}
+
+@media(max-width:1100px){
+  .sitesHero{grid-template-columns:1fr;gap:20px}.sitesShowcase{height:330px;max-width:720px;margin:auto;width:100%}
+  .sitesGrid{grid-template-columns:1fr 300px}.sitesOptions{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .sitesHeaderInner{width:min(100% - 28px,1380px)}.sitesTopNav>a:not(.sitesExpertCta),.sitesTopNav>span{display:none}
+  .sitesExpertCta{padding:9px 11px!important;font-size:11px!important}
+  .sitesShell{width:min(100% - 28px,1380px);padding-top:28px}
+  .sitesHero{min-height:auto}.sitesHero h1{font-size:54px}
+  .sitesTrustRow{gap:12px}.sitesShowcase{display:none}
+  .sitesProgress{overflow-x:auto;grid-template-columns:repeat(6,minmax(115px,1fr));border-radius:15px 15px 0 0}
+  .sitesGrid{grid-template-columns:1fr;padding:10px}.sitesAside{position:static;order:-1;display:block}
+  .sitesAside dl,.sitesAside ul,.sitesAside p,.sitesAside hr,.sitesAsideHelp{display:none}.sitesAsideHead{margin-bottom:8px}.sitesAside>small{display:block}.sitesAside>strong{font-size:25px}
+}
+@media(max-width:620px){
+  .sitesHeader{height:64px}.sitesBrand>span{font-size:13px}.sitesBrand>b{width:34px;height:34px}
+  .sitesExpertCta{width:40px;height:40px;padding:0!important;justify-content:center}.sitesExpertCta{font-size:0!important}.sitesExpertCta svg{width:18px;height:18px}
+  .sitesHeroCopy{padding-top:12px}.sitesEyebrow{font-size:9px}.sitesHero h1{font-size:46px}.sitesHero p{font-size:14px}
+  .sitesTrustRow{display:grid;grid-template-columns:1fr 1fr}.sitesTrustRow>div{min-width:0}
+  .sitesGrid{padding:8px}.sitesCard{padding:20px}.sitesOptions{grid-template-columns:1fr}.sitesFields{grid-template-columns:1fr}
+}
