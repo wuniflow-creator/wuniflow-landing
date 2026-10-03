@@ -1,9 +1,11 @@
 import React from 'react';
-import {ArrowLeft,Eye,EyeOff,Flame,Search,ShieldCheck,ThermometerSun,UsersRound,WalletCards} from 'lucide-react';
+import {ArrowLeft,Eye,EyeOff,Flame,History,MessageCircle,Save,Search,ShieldCheck,ThermometerSun,UsersRound,WalletCards} from 'lucide-react';
 import './site-admin.css';
 
+const statusLabels:Record<string,string>={novo:'Novo',contatado:'Contatado',reuniao:'Reunião',proposta:'Proposta',negociacao:'Negociação',fechado:'Fechado',perdido:'Perdido'};
+
 export default function SiteAdmin(){
-  const[key,setKey]=React.useState(''),[showKey,setShowKey]=React.useState(false),[data,setData]=React.useState<any>(null),[error,setError]=React.useState(''),[loading,setLoading]=React.useState(false),[query,setQuery]=React.useState(''),[temperature,setTemperature]=React.useState('todos');
+  const[key,setKey]=React.useState(''),[showKey,setShowKey]=React.useState(false),[data,setData]=React.useState<any>(null),[error,setError]=React.useState(''),[loading,setLoading]=React.useState(false),[query,setQuery]=React.useState(''),[temperature,setTemperature]=React.useState('todos'),[statusFilter,setStatusFilter]=React.useState('todos'),[saving,setSaving]=React.useState<string|null>(null),[drafts,setDrafts]=React.useState<Record<string,{status?:string,note?:string,nextFollowUp?:string}>>({});
   async function load(){
     setLoading(true);setError('');
     try{
@@ -17,26 +19,44 @@ export default function SiteAdmin(){
       const r=await fetch('/api/site-admin',{credentials:'same-origin'});const j=await r.json();
       if(!r.ok)throw new Error(j.error||'Falha ao carregar');
       setData(j);
+      const init:Record<string,any>={};(j.items||[]).forEach((x:any)=>{init[x.quoteId]={status:x.status,note:'',nextFollowUp:x.nextFollowUp?String(x.nextFollowUp).slice(0,16):''}});setDrafts(init);
     }catch(e:any){setError(e.message)}finally{setLoading(false)}
   }
   React.useEffect(()=>{fetch('/api/admin-session',{credentials:'same-origin'}).then(r=>{if(r.ok)load()}).catch(()=>{})},[]);
   async function logout(){await fetch('/api/admin-session',{method:'DELETE',credentials:'same-origin'});setData(null);setKey('')}
+  const setDraft=(id:string,patch:any)=>setDrafts(d=>({...d,[id]:{...(d[id]||{}),...patch}}));
+  async function saveLead(x:any){
+    const d=drafts[x.quoteId]||{};setSaving(x.quoteId);setError('');
+    try{
+      const r=await fetch('/api/site-admin',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({action:'update',quoteId:x.quoteId,status:d.status||x.status,note:d.note||'',nextFollowUp:d.nextFollowUp||''})});
+      const j=await r.json();if(!r.ok)throw new Error(j.error||'Falha ao salvar');
+      await load();
+    }catch(e:any){setError(e.message)}finally{setSaving(null)}
+  }
+  function openWhatsapp(x:any){
+    const url='https://wa.me/'+String(x.phone||'').replace(/\D/g,'')+'?text='+encodeURIComponent('Olá, '+x.name+'! Aqui é da Wuniflow. Recebemos seu briefing de '+x.projectType+' e quero entender os próximos passos do seu projeto.');
+    window.open(url,'_blank','noopener,noreferrer');
+    fetch('/api/site-admin',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({action:'interaction',kind:'whatsapp_aberto',quoteId:x.quoteId,note:'WhatsApp aberto pelo painel comercial'})}).catch(()=>{});
+  }
   const items=(data?.items||[]).filter((x:any)=>{
     const q=query.toLowerCase();
     const match=!q||[x.name,x.company,x.phone,x.email,x.projectType,x.segment].join(' ').toLowerCase().includes(q);
-    return match&&(temperature==='todos'||x.temperature===temperature);
+    return match&&(temperature==='todos'||x.temperature===temperature)&&(statusFilter==='todos'||x.status===statusFilter);
   });
-  return <div className="siteAdminPage"><header><a href="/"><ArrowLeft/> WUNIFLOW</a><div><a href="/admin">Projetos</a><span><ShieldCheck/> LEADS DE SITES</span>{data&&<button onClick={logout}>Sair</button>}</div></header><main>
-    <section className="siteAdminHero"><small>FUNIL COMERCIAL · WUNIFLOW SITES</small><h1>Leads e orçamentos</h1><p>Acompanhe os briefings enviados pelo configurador de sites e priorize contatos com maior intenção comercial.</p></section>
-    {!data&&<section className="siteAdminLogin"><label>Chave administrativa<div><input type={showKey?'text':'password'} value={key} onChange={e=>setKey(e.target.value)} placeholder="Chave de acesso"/><button onClick={()=>setShowKey(v=>!v)}>{showKey?<EyeOff/>:<Eye/>}</button></div></label><button className="siteAdminPrimary" disabled={!key||loading} onClick={load}>{loading?'Entrando...':'Acessar painel'}</button>{error&&<p>{error}</p>}</section>}
+  const pipeline=data?.metrics?.pipeline||{};
+  return <div className="siteAdminPage"><header><a href="/"><ArrowLeft/> WUNIFLOW</a><div><a href="/admin">Projetos</a><span><ShieldCheck/> CRM DE SITES</span>{data&&<button onClick={logout}>Sair</button>}</div></header><main>
+    <section className="siteAdminHero"><small>FUNIL COMERCIAL · WUNIFLOW SITES</small><h1>CRM de leads e orçamentos</h1><p>Acompanhe cada oportunidade do primeiro briefing até o fechamento, com status, notas, follow-up e histórico de interações.</p></section>
+    {!data&&<section className="siteAdminLogin"><label>Chave administrativa<div><input type={showKey?'text':'password'} value={key} onChange={e=>setKey(e.target.value)} placeholder="Chave de acesso"/><button onClick={()=>setShowKey(v=>!v)}>{showKey?<EyeOff/>:<Eye/>}</button></div></label><button className="siteAdminPrimary" disabled={!key||loading} onClick={load}>{loading?'Entrando...':'Acessar CRM'}</button>{error&&<p>{error}</p>}</section>}
     {data&&<><section className="siteAdminMetrics"><article><UsersRound/><div><small>TOTAL DE LEADS</small><strong>{data.metrics.total}</strong></div></article><article><Flame/><div><small>LEADS QUENTES</small><strong>{data.metrics.quentes}</strong></div></article><article><ThermometerSun/><div><small>MORNOS</small><strong>{data.metrics.mornos}</strong></div></article><article><WalletCards/><div><small>TICKET ESTIMADO</small><strong>{data.metrics.ticket?data.metrics.ticket.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}):'—'}</strong></div></article></section>
-    <section className="siteAdminToolbar"><label><Search/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Buscar nome, empresa, telefone, projeto..."/></label><select value={temperature} onChange={e=>setTemperature(e.target.value)}><option value="todos">Todas as temperaturas</option><option value="quente">Quentes</option><option value="morno">Mornos</option><option value="frio">Frios</option></select><button onClick={load} disabled={loading}>{loading?'Atualizando...':'Atualizar'}</button></section>
+    <section className="siteAdminPipeline">{Object.keys(statusLabels).map(s=><button key={s} className={statusFilter===s?'active':''} onClick={()=>setStatusFilter(statusFilter===s?'todos':s)}><span>{statusLabels[s]}</span><b>{pipeline[s]||0}</b></button>)}</section>
+    <section className="siteAdminToolbar"><label><Search/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Buscar nome, empresa, telefone, projeto..."/></label><select value={temperature} onChange={e=>setTemperature(e.target.value)}><option value="todos">Todas as temperaturas</option><option value="quente">Quentes</option><option value="morno">Mornos</option><option value="frio">Frios</option></select><select value={statusFilter} onChange={e=>setStatusFilter(e.target.value)}><option value="todos">Todos os status</option>{Object.keys(statusLabels).map(s=><option key={s} value={s}>{statusLabels[s]}</option>)}</select><button onClick={load} disabled={loading}>{loading?'Atualizando...':'Atualizar'}</button></section>
     {error&&<div className="siteAdminError">{error}</div>}
-    <section className="siteAdminList">{items.length===0?<div className="siteAdminEmpty">Nenhum lead encontrado.</div>:items.map((x:any)=><article key={x.quoteId||x.leadId}>
-      <div className="siteAdminLeadTop"><div><span className={'temp '+x.temperature}>{x.temperature}</span><small>{x.createdAt?new Date(x.createdAt).toLocaleString('pt-BR'):'—'}</small><h2>{x.name}</h2><p>{x.company||'Sem empresa informada'} · {x.segment||'Segmento não informado'}</p></div><div className="siteAdminScore"><small>SCORE</small><strong>{x.score}</strong><span>/100</span></div></div>
+    <section className="siteAdminList">{items.length===0?<div className="siteAdminEmpty">Nenhum lead encontrado.</div>:items.map((x:any)=>{const d=drafts[x.quoteId]||{};return <article key={x.quoteId||x.leadId}>
+      <div className="siteAdminLeadTop"><div><span className={'temp '+x.temperature}>{x.temperature}</span><span className={'crmStatus '+x.status}>{statusLabels[x.status]||x.status}</span><small>{x.createdAt?new Date(x.createdAt).toLocaleString('pt-BR'):'—'}</small><h2>{x.name}</h2><p>{x.company||'Sem empresa informada'} · {x.segment||'Segmento não informado'}</p></div><div className="siteAdminScore"><small>SCORE</small><strong>{x.score}</strong><span>/100</span></div></div>
       <div className="siteAdminLeadGrid"><div><small>PROJETO</small><b>{x.projectType}</b><span>{x.objective}</span></div><div><small>ESTIMATIVA</small><b>{typeof x.estimate==='number'?x.estimate.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}):String(x.estimate||'Sob consulta')}</b><span>{x.deadline||'Prazo não informado'}</span></div><div><small>VISUAL / RECURSOS</small><b>{x.style||'—'}</b><span>{x.features||'Sem extras'}</span></div><div><small>CONTATO</small><b>{x.phone}</b><span>{x.email||'Sem e-mail'}</span></div></div>
-      {x.notes&&<div className="siteAdminNotes"><small>OBSERVAÇÕES</small><p>{x.notes}</p></div>}
-      <div className="siteAdminActions"><a href={'https://wa.me/'+String(x.phone||'').replace(/\D/g,'')+'?text='+encodeURIComponent('Olá, '+x.name+'! Aqui é da Wuniflow. Recebemos seu briefing de '+x.projectType+' e quero entender os próximos passos do seu projeto.')} target="_blank" rel="noreferrer">Abrir WhatsApp</a></div>
-    </article>)}</section></>}
+      <div className="siteAdminCrmBox"><div><label>Status comercial<select value={d.status??x.status} onChange={e=>setDraft(x.quoteId,{status:e.target.value})}>{Object.keys(statusLabels).map(s=><option key={s} value={s}>{statusLabels[s]}</option>)}</select></label><label>Próximo follow-up<input type="datetime-local" value={d.nextFollowUp||''} onChange={e=>setDraft(x.quoteId,{nextFollowUp:e.target.value})}/></label></div><label>Nova nota<textarea rows={3} value={d.note||''} onChange={e=>setDraft(x.quoteId,{note:e.target.value})} placeholder="Ex.: cliente pediu retorno na terça, proposta enviada, aguardando decisão..."/></label><div className="siteAdminCrmActions"><button onClick={()=>openWhatsapp(x)}><MessageCircle/> WhatsApp</button><button className="save" disabled={saving===x.quoteId} onClick={()=>saveLead(x)}><Save/> {saving===x.quoteId?'Salvando...':'Salvar atualização'}</button></div></div>
+      {(x.notes||x.lastInteractionAt||x.nextFollowUp)&&<div className="siteAdminNotes"><small>ÚLTIMO REGISTRO</small>{x.notes&&<p>{x.notes}</p>}<div className="siteAdminDates">{x.lastInteractionAt&&<span>Última interação: <b>{new Date(x.lastInteractionAt).toLocaleString('pt-BR')}</b></span>}{x.nextFollowUp&&<span>Próximo follow-up: <b>{new Date(x.nextFollowUp).toLocaleString('pt-BR')}</b></span>}</div></div>}
+      <details className="siteAdminHistory"><summary><History/> Histórico ({x.history?.length||0})</summary><div>{(x.history||[]).length===0?<p>Nenhuma interação registrada ainda.</p>:(x.history||[]).map((h:any,i:number)=><article key={i}><small>{h.createdAt?new Date(h.createdAt).toLocaleString('pt-BR'):'—'} · {h.action}</small><b>{h.fromStatus!==h.toStatus?(statusLabels[h.fromStatus]||h.fromStatus)+' → '+(statusLabels[h.toStatus]||h.toStatus):(statusLabels[h.toStatus]||h.toStatus)}</b>{h.note&&<p>{h.note}</p>}</article>)}</div></details>
+    </article>})}</section></>}
   </main></div>
 }
