@@ -67,7 +67,7 @@ export default function Sites(){
     finally{setSending(false)}
   }
   const whatsappText=encodeURIComponent('Olá! Acabei de montar meu projeto de site na Wuniflow e gostaria de receber a proposta.');
-  const whatsappHref='https://wa.me/553171348570?text='+whatsappText;
+  const whatsappHref='https://wa.me/5561981240476?text='+whatsappText;
 
   if(done)return <div className="sitesPage"><div className="sitesDone"><CheckCircle2/><span>BRIEFING RECEBIDO</span><h1>Seu projeto já está com a Wuniflow.</h1><p>Registramos suas escolhas. Agora você pode abrir o WhatsApp com a conversa iniciada.</p><a className="sitesPrimary" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle/> Continuar no WhatsApp</a><a href="/">Voltar para a Wuniflow</a></div></div>;
 
