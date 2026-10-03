@@ -1,4 +1,5 @@
 import React from 'react';
+import './sites.css';
 import {ArrowLeft,ArrowRight,CheckCircle2,Globe2,LayoutTemplate,Palette,PlugZap,Rocket,FileText,MessageCircle,Sparkles} from 'lucide-react';
 
 type State={
