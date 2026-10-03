@@ -25,6 +25,22 @@ const styles=['Minimalista Premium','Corporativo Moderno','Tecnológico','Criati
 const resources=['Blog','Agendamento','SEO','Analytics + Pixel','Área administrativa','Chat com IA','Integração CRM','Pagamento online','Multi-idioma'];
 
 export default function Sites(){
+  React.useEffect(()=>{
+    const title='Criação de Sites Profissionais | Wuniflow';
+    const description='Crie seu projeto de site com a Wuniflow. Escolha estrutura, visual e recursos, veja uma estimativa inicial e envie um briefing organizado.';
+    document.title=title;
+    const setMeta=(selector:string,attrs:Record<string,string>)=>{let el=document.head.querySelector(selector) as HTMLMetaElement|null;if(!el){el=document.createElement('meta');document.head.appendChild(el)}Object.entries(attrs).forEach(([k,v])=>el!.setAttribute(k,v))};
+    setMeta('meta[name="description"]',{name:'description',content:description});
+    setMeta('meta[property="og:title"]',{property:'og:title',content:title});
+    setMeta('meta[property="og:description"]',{property:'og:description',content:description});
+    setMeta('meta[property="og:url"]',{property:'og:url',content:'https://www.wuniflow.site/sites'});
+    setMeta('meta[name="twitter:card"]',{name:'twitter:card',content:'summary_large_image'});
+    setMeta('meta[name="twitter:title"]',{name:'twitter:title',content:title});
+    setMeta('meta[name="twitter:description"]',{name:'twitter:description',content:description});
+    let canonical=document.head.querySelector('link[rel="canonical"]') as HTMLLinkElement|null;if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.appendChild(canonical)}canonical.href='https://www.wuniflow.site/sites';
+    const ld=document.createElement('script');ld.type='application/ld+json';ld.id='wuniflow-sites-ld';ld.text=JSON.stringify({'@context':'https://schema.org','@type':'Service',name:'Criação de Sites Profissionais — Wuniflow',provider:{'@type':'Organization',name:'Wuniflow Automations',url:'https://www.wuniflow.site/'},areaServed:'BR',serviceType:'Criação de sites, landing pages, sites institucionais, catálogos digitais e lojas virtuais',url:'https://www.wuniflow.site/sites'});document.getElementById('wuniflow-sites-ld')?.remove();document.head.appendChild(ld);
+    return()=>{ld.remove()};
+  },[]);
   const[step,setStep]=React.useState(0);
   const[sending,setSending]=React.useState(false);
   const[done,setDone]=React.useState(false);
