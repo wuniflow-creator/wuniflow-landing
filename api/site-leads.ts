@@ -8,9 +8,8 @@ export default async function handler(req:any,res:any){
     if(contentLength>100000) return res.status(413).json({ok:false,error:'Solicitação muito grande'});
     if(!body.nome||!body.whatsapp||!body.tipo) return res.status(400).json({ok:false,error:'Campos obrigatórios ausentes'});
 
-    const url=process.env.SUPABASE_URL;
-    const serviceKey=process.env.SUPABASE_SERVICE_ROLE_KEY;
-    if(!url||!serviceKey) throw new Error('Supabase not configured');
+    const url='https://fqdjnlcyodrorzhndwjc.supabase.co';
+    const publishableKey='sb_publishable_7wP57SA7gmZB09J4W6aD6g_88MVUv3v';
 
     const leadId=crypto.randomUUID();
     const lead={
@@ -42,7 +41,7 @@ export default async function handler(req:any,res:any){
       created_at:new Date().toISOString()
     };
 
-    const headers={apikey:serviceKey,Authorization:'Bearer '+serviceKey,'Content-Type':'application/json',Prefer:'return=minimal'};
+    const headers={apikey:publishableKey,Authorization:'Bearer '+publishableKey,'Content-Type':'application/json',Prefer:'return=minimal'};
     const l=await fetch(url.replace(/\/$/,'')+'/rest/v1/leads',{method:'POST',headers,body:JSON.stringify(lead)});
     if(!l.ok){console.error('Supabase leads insert failed',l.status,await l.text());throw new Error('Lead insert failed')}
     const q=await fetch(url.replace(/\/$/,'')+'/rest/v1/site_quotes',{method:'POST',headers,body:JSON.stringify(quote)});
