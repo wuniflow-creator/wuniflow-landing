@@ -147,3 +147,26 @@
   .sitesTrustRow{display:grid;grid-template-columns:1fr 1fr}.sitesTrustRow>div{min-width:0}
   .sitesGrid{padding:8px}.sitesCard{padding:20px}.sitesOptions{grid-template-columns:1fr}.sitesFields{grid-template-columns:1fr}
 }
+
+/* Retorno explícito à página principal no cabeçalho de Sites */
+.sitesHomeLink{display:inline-flex;align-items:center;color:#e8d9ed!important;font-weight:700!important;white-space:nowrap}
+.sitesHomeLink:hover{color:#fff!important}
+.sitesHomeShort,.sitesExpertShort{display:none}
+@media(max-width:900px){
+ .sitesHeaderInner{gap:8px}
+ .sitesBrand{gap:7px!important}
+ .sitesBrand>b{width:34px;height:34px}
+ .sitesBrand>span{font-size:11px!important;letter-spacing:.08em!important}
+ .sitesBrand small{font-size:7px!important}
+ .sitesTopNav{gap:7px!important;flex-shrink:0}
+ .sitesTopNav .sitesHomeLink{display:inline-flex!important;align-items:center;justify-content:center;padding:8px 9px;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:rgba(255,255,255,.04);font-size:11px!important;font-weight:800!important}
+ .sitesHomeLong,.sitesExpertLong{display:none}
+ .sitesHomeShort,.sitesExpertShort{display:inline}
+ .sitesTopNav .sitesExpertCta{gap:6px!important;padding:8px 9px!important;font-size:10px!important;white-space:nowrap}
+ .sitesTopNav .sitesExpertCta svg{width:14px;height:14px}
+}
+@media(max-width:360px){
+ .sitesBrand>span{font-size:10px!important}
+ .sitesTopNav{gap:5px!important}
+ .sitesTopNav .sitesHomeLink,.sitesTopNav .sitesExpertCta{padding:7px!important;font-size:9px!important}
+}
