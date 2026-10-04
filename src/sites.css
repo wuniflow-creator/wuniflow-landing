@@ -268,3 +268,10 @@
  .sitesBrowserVisual{min-height:132px}
  .sitesShowcaseCard{width:158px}
 }
+
+
+/* Mostra o cabeçalho no celular: ele estava sendo ocultado pelo breakpoint antigo */
+@media(max-width:900px){
+ .sitesHeaderInner{display:flex!important;align-items:center;justify-content:space-between;gap:8px}
+ .sitesTopNav .sitesHomeLink{color:#fff!important;background:linear-gradient(135deg,#8f00a3,#d900ee)!important;border-color:#ef2cff!important;box-shadow:0 5px 18px rgba(214,0,233,.24)}
+}
