@@ -69,15 +69,7 @@ export default function Sites(){
   const whatsappText=encodeURIComponent('Olá! Acabei de montar meu projeto de site na Wuniflow e gostaria de receber a proposta.');
   const whatsappHref='https://wa.me/5561981240476?text='+whatsappText;
 
-  if(done)return <div className="sitesPage"><style>{`
-.sitesPage .sitesMobileHome{display:none!important}
-@media(max-width:900px){
- .sitesPage .sitesHeaderInner{display:flex!important;align-items:center!important;justify-content:space-between!important;width:calc(100% - 28px)!important;height:100%!important;margin:auto!important;gap:8px!important}
- .sitesPage .sitesTopNav{display:none!important}
- .sitesPage .sitesMobileHome{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:none!important;padding:10px 13px!important;border:1px solid #ef2cff!important;border-radius:11px!important;background:linear-gradient(135deg,#8f00a3,#d900ee)!important;box-shadow:0 5px 18px rgba(214,0,233,.24)!important;color:#fff!important;font-size:12px!important;font-weight:800!important;white-space:nowrap!important}
-}
-@media(max-width:360px){.sitesPage .sitesMobileHome{padding:9px 10px!important;font-size:11px!important}}
-`}</style><div className="sitesDone"><CheckCircle2/><span>BRIEFING RECEBIDO</span><h1>Seu projeto já está com a Wuniflow.</h1><p>Registramos suas escolhas. Agora você pode abrir o WhatsApp com a conversa iniciada.</p><a className="sitesPrimary" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle/> Continuar no WhatsApp</a><a href="/">Voltar para a Wuniflow</a></div></div>;
+  if(done)return <div className="sitesPage"><div className="sitesDone"><CheckCircle2/><span>BRIEFING RECEBIDO</span><h1>Seu projeto já está com a Wuniflow.</h1><p>Registramos suas escolhas. Agora você pode abrir o WhatsApp com a conversa iniciada.</p><a className="sitesPrimary" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle/> Continuar no WhatsApp</a><a href="/">Voltar para a Wuniflow</a></div></div>;
 
   return <div className="sitesPage">
     <header className="sitesHeader"><div className="sitesHeaderInner"><a className="sitesBrand" href="/"><b>W</b><span>WUNIFLOW<small>SITES</small></span></a><a className="sitesMobileHome" href="/" aria-label="Ir para a página inicial da Wuniflow">← Página inicial</a><nav className="sitesTopNav"><a className="sitesHomeLink" href="/" aria-label="Voltar para a página principal da Wuniflow"><span className="sitesHomeLong">← Página principal</span><span className="sitesHomeShort">← Página inicial</span></a><a href="/diagnostico">Sistemas e aplicativos</a><span></span><a className="sitesExpertCta" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle/><span className="sitesExpertLong">Fale com um especialista</span><span className="sitesExpertShort">Especialista</span></a></nav></div></header>
