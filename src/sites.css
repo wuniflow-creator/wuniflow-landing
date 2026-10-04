@@ -247,3 +247,24 @@
 @media(max-width:620px){
  .sitesTopNav .sitesExpertCta{width:auto!important;height:auto!important;min-width:0}
 }
+
+
+/* Prévia de exemplo com fotografia e identidade visual de um site conceitual */
+.sitesBrowserBody{background:linear-gradient(145deg,#151410,#0d0e0e)}
+.sitesBrowserNav>b{font-family:Manrope,"DM Sans",sans-serif;letter-spacing:.12em!important}
+.sitesBrowserVisual{min-height:188px;border-color:#5a5147;background:#26221c}
+.sitesBrowserVisual:before,.sitesBrowserVisual:after{display:none}
+.sitesBrowserVisual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 58%;display:block}
+.sitesBrowserVisual:after{display:block;inset:0;width:auto;height:auto;clip-path:none;background:linear-gradient(180deg,rgba(16,15,13,.1) 20%,rgba(16,15,13,.18) 48%,rgba(16,15,13,.76) 100%);box-shadow:none}
+.sitesBrowserVisual span{z-index:2;left:13px;right:auto;top:auto;bottom:12px;width:auto;height:auto;border:0;border-radius:0;color:#fff;font:800 11px/1.1 Manrope,"DM Sans",sans-serif;letter-spacing:.08em}
+.sitesBrowserVisual span small{display:block;margin-top:4px;color:#f2e7d8;font:600 5px/1.2 "DM Sans",sans-serif;letter-spacing:.12em}
+.sitesBrowserVisual b{left:auto;right:9px;top:9px;font:700 5px/1 "DM Sans",sans-serif;letter-spacing:.09em;color:#fff;background:rgba(20,18,15,.55);border:1px solid rgba(255,255,255,.32);border-radius:20px;padding:5px 6px}
+.sitesShowcaseCard{width:222px}
+@media(max-width:900px){
+ .sitesBrowserVisual{min-height:138px}
+ .sitesShowcaseCard{width:175px}
+}
+@media(max-width:360px){
+ .sitesBrowserVisual{min-height:132px}
+ .sitesShowcaseCard{width:158px}
+}
