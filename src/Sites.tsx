@@ -86,19 +86,19 @@ export default function Sites(){
             <div><i><PanelsTopLeft/></i><span><b>Projeto</b><small>sob medida</small></span></div>
           </div>
         </div>
-        <div className="sitesShowcase" aria-label="Exemplo visual de um site profissional criado pela Wuniflow">
+        <div className="sitesShowcase" aria-label="Prévia conceitual de um site premium para arquitetura e interiores">
           <div className="sitesShowcaseAura"></div>
           <div className="sitesBrowser">
-            <div className="sitesBrowserBar"><div><i></i><i></i><i></i></div><span>wuniflow.site</span><b>W</b></div>
+            <div className="sitesBrowserBar"><div><i></i><i></i><i></i></div><span>exemplo.wuniflow.site</span><b>W</b></div>
             <div className="sitesBrowserBody">
-              <div className="sitesBrowserNav"><b>WUNIFLOW</b><span>Soluções&nbsp;&nbsp; Sobre&nbsp;&nbsp; Contato</span><em>Solicitar orçamento</em></div>
+              <div className="sitesBrowserNav"><b>CASA LUME</b><span>Ambientes&nbsp;&nbsp; Projetos&nbsp;&nbsp; Sobre</span><em>Agendar conversa</em></div>
               <div className="sitesBrowserContent">
-                <div><small>ESTRATÉGIA + DESIGN + PERFORMANCE</small><h3>Sites que<br/>impulsionam<br/>seu negócio.</h3><p>Presença digital pensada para gerar confiança e conversão.</p><button>Quero meu site <ArrowRight/></button></div>
-                <div className="sitesBrowserVisual"><span></span><b>DESIGN<br/>PREMIUM</b><i></i></div>
+                <div><small>ARQUITETURA + INTERIORES</small><h3>Espaços feitos para viver melhor.</h3><p>Interiores autorais, com leveza, conforto e personalidade.</p><button>Ver projetos <ArrowRight/></button></div>
+                <div className="sitesBrowserVisual"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=85" alt="Sala contemporânea iluminada, exemplo visual de site para arquitetura" loading="lazy"/><span>CASA LUME<br/><small>ARQUITETURA & INTERIORES</small></span><b>PROJETO<br/>CONCEITUAL</b></div>
               </div>
             </div>
           </div>
-          <div className="sitesShowcaseCard"><div><Sparkles/></div><span><small>EXPERIÊNCIA PROFISSIONAL</small><b>Design pensado para a sua marca</b></span></div>
+          <div className="sitesShowcaseCard"><div><Sparkles/></div><span><small>EXEMPLO VISUAL</small><b>Um site premium com imagem e identidade</b></span></div>
           <div className="sitesShowcaseBadge"><ShieldCheck/><span><b>Briefing inteligente</b><small>Escopo claro antes da proposta</small></span></div>
         </div>
       </section>
