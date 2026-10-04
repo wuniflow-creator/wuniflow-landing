@@ -243,3 +243,7 @@
  .sitesAside dl{gap:5px}
  .sitesAside dl>div{padding:7px}
 }
+
+@media(max-width:620px){
+ .sitesTopNav .sitesExpertCta{width:auto!important;height:auto!important;min-width:0}
+}
