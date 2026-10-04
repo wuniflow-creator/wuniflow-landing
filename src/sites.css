@@ -170,3 +170,76 @@
  .sitesTopNav{gap:5px!important}
  .sitesTopNav .sitesHomeLink,.sitesTopNav .sitesExpertCta{padding:7px!important;font-size:9px!important}
 }
+
+/* Experiência Sites completa e adaptada para telas de celular */
+.sitesStepShort{display:none}
+@media(max-width:900px){
+ .sitesHero{grid-template-columns:minmax(0,1fr);gap:0;margin-bottom:22px}
+ .sitesHeroCopy{max-width:none}
+ .sitesShowcase{display:flex!important;height:clamp(190px,56vw,250px);margin:12px auto 8px;width:100%;max-width:580px;overflow:visible}
+ .sitesShowcaseAura{width:100%;height:100%}
+ .sitesBrowser{width:100%;max-width:none;transform:none;border-radius:14px}
+ .sitesBrowserBody{padding:12px}
+ .sitesBrowserContent{grid-template-columns:1fr .9fr;gap:9px;min-height:145px;padding:8px 0 2px}
+ .sitesBrowserContent>div:first-child{padding:8px 3px}
+ .sitesBrowserContent h3{font-size:clamp(19px,6vw,25px)}
+ .sitesBrowserContent p{font-size:8px}
+ .sitesShowcaseBadge{top:-9px;left:5px;padding:7px 9px}
+ .sitesShowcaseBadge>svg{width:15px;height:15px}
+ .sitesShowcaseBadge b{font-size:8px}
+ .sitesShowcaseBadge small{font-size:6px}
+ .sitesShowcaseCard{right:-2px;bottom:-9px;width:175px;padding:8px}
+ .sitesShowcaseCard>div{width:28px;height:28px}
+ .sitesShowcaseCard small{font-size:6px}
+ .sitesShowcaseCard b{font-size:8px}
+ .sitesProgress{overflow:visible;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;padding:12px 7px;margin:0}
+ .sitesProgress>div{flex-direction:column;justify-content:flex-start;align-items:center;gap:4px;min-width:0;text-align:center;font-size:8px}
+ .sitesProgress>div:not(:last-child):after{display:none}
+ .sitesProgress b{width:23px;height:23px;font-size:9px;flex:none}
+ .sitesProgress .sitesStepLong{display:none}
+ .sitesProgress .sitesStepShort{display:block;font-size:8px;line-height:1.1;white-space:nowrap}
+ .sitesAside dl{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:12px 0}
+ .sitesAside dl>div{display:flex;flex-direction:column;justify-content:flex-start;gap:5px;min-width:0;margin:0;padding:9px;border:1px solid #292e37;border-radius:9px;background:rgba(255,255,255,.02)}
+ .sitesAside dt{font-size:9px}
+ .sitesAside dd{font-size:9px;text-align:left;overflow-wrap:anywhere}
+ .sitesAside ul{display:grid!important;grid-template-columns:1fr 1fr;gap:4px 10px;padding:12px 0 0;margin:12px 0 0;font-size:9px;line-height:1.45}
+ .sitesAside>p{display:block!important;font-size:10px;line-height:1.5;margin:8px 0}
+ .sitesAside hr{display:block!important;margin:12px 0}
+ .sitesAsideHelp{display:flex!important;margin-top:12px}
+ .sitesAsideHelp b{font-size:9px}
+ .sitesAsideHelp small{font-size:7px}
+}
+@media(max-width:620px){
+ .sitesShell{padding-top:20px}
+ .sitesHero{margin-bottom:16px}
+ .sitesHero h1{font-size:clamp(38px,11vw,46px);line-height:.98;margin:15px 0}
+ .sitesHero p{font-size:14px;line-height:1.55}
+ .sitesTrustRow{gap:9px}
+ .sitesTrustRow>div{gap:8px}
+ .sitesTrustRow i{width:34px;height:34px}
+ .sitesProgress{padding:10px 5px;gap:2px}
+ .sitesProgress>div{font-size:7px}
+ .sitesProgress b{width:21px;height:21px}
+ .sitesProgress .sitesStepShort{font-size:7px}
+ .sitesAside{padding:14px!important}
+ .sitesAsideHead{gap:9px}
+ .sitesAsideTitle b{font-size:12px}
+ .sitesAside>strong{font-size:24px}
+ .sitesGrid{padding:7px}
+ .sitesCard{padding:17px}
+ .sitesOptions{grid-template-columns:1fr 1fr!important;gap:8px}
+ .sitesOptions button{min-height:132px;padding:11px}
+ .sitesOptions button b{font-size:12px}
+ .sitesOptions button>span{font-size:10px;line-height:1.35}
+ .sitesOptions button>small{font-size:9px}
+ .sitesShowcaseCard{width:158px}
+}
+@media(max-width:360px){
+ .sitesBrowserContent{grid-template-columns:1fr .78fr}
+ .sitesBrowserContent h3{font-size:18px}
+ .sitesBrowserContent p{font-size:7px}
+ .sitesShowcaseBadge{max-width:175px}
+ .sitesOptions{grid-template-columns:1fr!important}
+ .sitesAside dl{gap:5px}
+ .sitesAside dl>div{padding:7px}
+}
