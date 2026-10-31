@@ -1,0 +1,80 @@
+/* One art direction: sculpted objects, quiet typography, controlled depth. Home only. */
+.cinematicHome .hero{grid-template-columns:1.05fr 1fr;gap:20px;min-height:790px;padding-block:85px;overflow:clip}
+.cinematicHome .hero:before{background:none}
+.intelligenceScene{position:relative;min-width:0;height:610px;isolation:isolate}
+.coreCanvas{position:absolute;inset:-25px -55px 0;touch-action:pan-y}
+.coreCanvas canvas{display:block;width:100%;height:100%}
+.sceneCaption{position:absolute;top:20px;inset-inline:0;display:flex;justify-content:space-between;font:9px monospace;letter-spacing:.12em;color:#a797bb;pointer-events:none;z-index:1}
+.sceneCaption span:last-child{color:#6d607f}
+.sceneTelemetry{position:absolute;bottom:20px;left:15%;border-left:1px solid #b08fd677;padding:0 0 0 18px;pointer-events:none}
+.sceneTelemetry span{display:flex;align-items:center;gap:7px;font:9px monospace;letter-spacing:.12em;color:#b599ce}
+.sceneTelemetry i{width:4px;height:4px;background:#e7b7ff;border-radius:50%;box-shadow:0 0 10px #c98bff}
+.sceneTelemetry b{display:block;font:500 17px Manrope,sans-serif;margin:10px 0;color:#f3e8ff;letter-spacing:-.03em}
+.sceneTelemetry small{font-size:10px;color:#867790}
+.coreFallback{width:100%;height:100%;padding:40px}
+.cinematicHome .serviceStage{padding-bottom:20px}
+.cinematicHome .serviceIntro{display:none}
+.webShowcase{display:grid;grid-template-columns:.85fr 1.35fr;gap:25px;max-width:1380px;margin:0 auto;padding:110px 60px 120px;overflow:clip;align-items:center}
+.webEditorial h2,.flowHeading h2{font:750 clamp(36px,4.3vw,62px)/1.12 Manrope,sans-serif;letter-spacing:-.055em;margin:25px 0}
+.webEditorial h2 em,.flowHeading h2 em{font-style:normal;color:#a298b2}
+.webEditorial p,.flowHeading p{max-width:440px;color:#b0a5bd;line-height:1.8;font-size:15px}
+.showcaseTabs{display:flex;gap:4px;flex-wrap:wrap;margin:28px 0}
+.showcaseTabs button{font:500 11px Manrope,sans-serif;padding:11px 13px;border:1px solid #ffffff1a;border-radius:99px;color:#b6a9c5;background:transparent;cursor:pointer;min-height:42px}
+.showcaseTabs button[aria-pressed=true]{background:#dcc7ef;color:#20122c;border-color:#dcc7ef}
+.webEditorial .primary{font-size:13px;gap:25px;min-height:52px}
+.conceptNote{display:block;font-size:10px;line-height:1.7;color:#91819e;margin-top:16px;max-width:320px}
+.deviceStage{height:590px;position:relative;perspective:1400px;isolation:isolate;min-width:0}
+.deviceStage:before{content:'';position:absolute;inset:40% -15% -10%;background:radial-gradient(ellipse,#8a41ac22,transparent 65%);transform:rotateX(60deg);border:1px solid #a689b91c;border-radius:50%;z-index:-1}
+.stageCoordinate{position:absolute;right:0;top:0;font:8px monospace;letter-spacing:.2em;color:#6e627e}
+.laptop{position:absolute;top:90px;left:0;width:95%;transform:rotateY(-15deg) rotateX(7deg) rotateZ(-4deg);transform-style:preserve-3d;animation:device-breathe 9s ease-in-out infinite}
+.laptopDisplay{aspect-ratio:1.48;background:linear-gradient(135deg,#63556e,#19151e 25%,#6b587a 70%,#251d2c);padding:14px 8px 8px;border:1px solid #a79aae66;border-radius:15px 15px 4px 4px;box-shadow:15px 35px 60px #0008;position:relative}
+.deviceCamera{position:absolute;top:5px;left:50%;width:4px;height:4px;border-radius:50%;background:#16121d}
+.laptopBase{height:17px;background:linear-gradient(#85738f,#3e3247 30%,#201826 75%);margin-inline:-5%;border-radius:2px 2px 50% 50%;border-top:1px solid #c2abcf77;box-shadow:10px 35px 45px #0008}
+.laptopBase:before{content:'';display:block;width:15%;height:4px;margin:auto;background:#1d1522;border-radius:0 0 6px 6px}
+.demoScreen{position:relative;background:#d7c5ad;color:#28251f;height:100%;overflow:hidden;animation:presentation-in .6s ease both}
+.demoNav{position:relative;z-index:2;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #28251f22}
+.demoNav b{font:700 18px Manrope}.demoNav>span{font-size:7px}
+.demoBody{position:relative;z-index:2;padding:30px 22px;width:65%}
+.demoBody>span:first-child{font-size:6px;letter-spacing:.16em}
+.demoBody h3{font:500 clamp(22px,2.5vw,39px)/1.08 Manrope,sans-serif;letter-spacing:-.05em;margin:20px 0}
+.demoCta{display:inline-block;font-size:7px;border-bottom:1px solid #30271f;padding:10px 0}
+.demoBottom{position:absolute;bottom:0;inset-inline:0;display:flex;justify-content:space-between;padding:14px 22px;font:6px monospace;letter-spacing:.1em}
+.architecturalArt{position:absolute;right:-10%;bottom:4%;width:50%;height:75%;perspective:500px;transform:rotate(-5deg)}
+.architecturalArt i{position:absolute;inset:5% 0 0 0;border-radius:100px 100px 0 0;border:14px solid #9c8a73;background:linear-gradient(120deg,#3e352b,#c3ad90 35%,#e8d5bb 70%,#84715d);box-shadow:-15px 8px 20px #55442c55;transform:rotateY(-30deg)}
+.architecturalArt i:nth-child(2){inset:20% 10% 0 20%;border-width:10px;filter:brightness(.85)}
+.architecturalArt i:nth-child(3){inset:35% 20% 0 40%;border-width:8px;filter:brightness(.7)}
+.architecturalArt i:nth-child(4){inset:50% 25% 0 60%;border-width:6px;filter:brightness(.5)}
+.smartphone{position:absolute;right:0;bottom:80px;width:28%;aspect-ratio:.49;background:linear-gradient(130deg,#b3a0c2,#231c29 40%,#95849d);padding:5px;border-radius:27px;border:1px solid #bca8cc88;box-shadow:12px 20px 35px #0009;transform:rotateY(-17deg) rotateZ(8deg);animation:phone-breathe 9s ease-in-out infinite}
+.phoneScreen{position:relative;height:100%;background:#d7c5ad;color:#28251f;border-radius:22px;overflow:hidden;padding:35px 13px 16px;animation:presentation-in .6s both}
+.phoneIsland{position:absolute;top:7px;left:33%;width:34%;height:9px;border-radius:99px;background:#151219}
+.phoneScreen>b{font:700 14px Manrope;display:block}.phoneScreen>span{display:block;font-size:5px;letter-spacing:.08em;margin-top:30px}.phoneScreen h3{font:500 clamp(16px,1.6vw,25px)/1.1 Manrope;letter-spacing:-.06em;margin:10px 0}
+.phoneArt{height:30%;margin:16px 0;background:repeating-radial-gradient(ellipse at 100% 100%,#5e4f3e 0 6%,#c2ac90 7% 17%);border-radius:80px 80px 0 0}
+.phoneScreen>small{font-size:6px;border-bottom:1px solid #222;padding:8px 0}
+.screen1{background:#c4b1e6;color:#211831}.screen1 .architecturalArt{filter:hue-rotate(220deg) saturate(.8);transform:rotate(-25deg)}.screen1 .phoneArt{filter:hue-rotate(220deg)}
+.screen2{background:#b5cdc2;color:#17352c}.screen2 .architecturalArt{filter:hue-rotate(95deg) saturate(.5);transform:rotate(10deg)}.screen2 .phoneArt{filter:hue-rotate(95deg)}
+.deviceLabel{position:absolute;bottom:10px;left:8%;border-left:1px solid #8e719c;padding-left:16px}.deviceLabel span{font:8px monospace;letter-spacing:.16em;color:#b79cca}.deviceLabel b{display:block;margin-top:8px;font:400 16px Manrope;color:#ded1e8}
+.connectedFlow{padding:100px max(24px,calc((100vw - 1184px)/2));background:#100e16;border-block:1px solid #ffffff0e}
+.flowHeading{display:grid;grid-template-columns:1.3fr 1fr;column-gap:80px;align-items:end}.flowHeading .chapter{grid-column:1/-1}.flowHeading p{margin-bottom:30px}
+.flowTrack{position:relative;display:grid;grid-template-columns:repeat(5,1fr);margin:65px 0 45px;gap:16px;isolation:isolate}
+.flowTrack:before{content:'';position:absolute;top:23px;inset-inline:20px;height:1px;background:#79618f55;z-index:-1}
+.flowBeam{position:absolute;top:22px;left:0;width:12%;height:2px;background:linear-gradient(90deg,transparent,#e7b7ff,transparent);box-shadow:0 0 12px #cf8bfa;animation:flow-travel 8s linear infinite;z-index:-1}
+.flowNode{border:0;background:none;text-align:left;color:#b5a7c4;padding:0;cursor:pointer}
+.flowPort{display:grid;place-items:center;background:#17121f;border:1px solid #736180;width:46px;height:46px;border-radius:50%;font:11px monospace;transition:background .25s,box-shadow .25s}
+.flowNode.active .flowPort{background:#bd91df;color:#1a1024;box-shadow:0 0 35px #a15be733;border-color:#ddbbf6}
+.flowNode>b{display:block;font:600 16px Manrope;margin-top:20px;color:#eee3f6}.flowNode>small{display:block;font-size:10px;margin-top:8px;line-height:1.6}
+.flowDetail{border-top:1px solid #ffffff17;padding-top:32px;display:grid;grid-template-columns:70px 1fr 1fr;gap:40px;min-height:250px;align-items:start}
+.flowDetailIndex{color:#776184;font:10px monospace;padding-top:4px}.flowDetail h3{font:500 25px Manrope;letter-spacing:-.04em;margin:15px 0}.flowDetail p{color:#ac9cb9;line-height:1.8;font-size:14px;max-width:430px}.flowDetail>div:nth-child(2){animation:presentation-in .4s ease both}
+.flowMiniUi{border-left:1px solid #ffffff17;padding-left:28px}.flowMiniUi>span{font:8px monospace;color:#917da4}.flowMiniUi>div{display:flex;gap:10px;align-items:center;padding:13px 0;border-bottom:1px solid #ffffff0b;font-size:11px}.flowMiniUi i{width:4px;height:4px;border-radius:50%;background:#ba90db}.flowMiniUi small{margin-left:auto;font:7px monospace;color:#8a7798}.flowCta{display:inline-flex;font:600 13px Manrope;padding:18px 0;border-bottom:1px solid #bc9bd6;color:#dfc8ef}
+/* Quieter secondary content provides contrast to the two main scenes. */
+.cinematicHome .painGrid{gap:0 30px}.cinematicHome .painGrid article{background:transparent;border:0;border-top:1px solid #ffffff19;border-radius:0;padding:25px 0;box-shadow:none}.cinematicHome .painGrid article:hover{transform:none;box-shadow:none}.cinematicHome .painGrid b{background:transparent;padding:0}.cinematicHome .painGrid h3{margin-top:16px}
+@keyframes device-breathe{50%{transform:rotateY(-11deg) rotateX(5deg) rotateZ(-3deg) translateY(-9px)}}
+@keyframes phone-breathe{50%{transform:rotateY(-11deg) rotateZ(6deg) translateY(-16px)}}
+@keyframes presentation-in{from{opacity:.2;filter:blur(5px);transform:translateY(8px)}to{opacity:1;filter:blur(0);transform:translateY(0)}}
+@keyframes flow-travel{from{left:0}to{left:88%}}
+@media(max-width:1050px) and (min-width:801px){.cinematicHome .hero{grid-template-columns:1fr 1fr}.coreCanvas{inset:0 -25px}.webShowcase{padding-inline:28px;grid-template-columns:1fr 1fr}.deviceStage{height:480px}.laptop{top:110px}.smartphone{bottom:80px}.demoBody{padding:15px}.demoNav{padding:12px}.demoBody h3{margin:10px 0}.phoneScreen{padding:28px 9px}.phoneScreen>span{margin-top:16px}.flowHeading{column-gap:30px}}
+@media(max-width:800px){.cinematicHome .hero{grid-template-columns:1fr;padding-bottom:15px;gap:0}.intelligenceScene{height:450px;margin-top:15px}.coreCanvas{inset:-25px -20px 0}.sceneCaption{font-size:8px;top:10px;inset-inline:5px}.sceneTelemetry{bottom:35px}.sceneTelemetry b{font-size:15px}.cinematicHome .serviceStage{padding:0}.webShowcase{grid-template-columns:1fr;padding:72px 22px 65px;gap:25px}.webEditorial h2{font-size:clamp(38px,9vw,60px)}.webEditorial p{font-size:14px}.deviceStage{height:440px;max-width:600px;width:100%;margin:auto}.laptop{top:75px;width:93%;left:0}.smartphone{bottom:65px;width:27%;right:0}.demoNav{padding:12px}.demoNav b{font-size:13px}.demoNav>span{font-size:5px}.demoBody{padding:18px 12px}.demoBody h3{font-size:clamp(21px,5.5vw,34px);margin:12px 0}.demoBody>span:first-child{font-size:5px}.demoBottom{padding:10px 12px;font-size:5px}.demoCta{font-size:5px;padding:6px 0}.phoneScreen{padding:26px 8px 12px}.phoneScreen>b{font-size:10px}.phoneScreen>span{font-size:4px;margin-top:20px}.phoneScreen h3{font-size:17px}.phoneScreen>small{font-size:5px}.smartphone{border-radius:20px}.phoneScreen{border-radius:16px}.phoneIsland{height:7px}.deviceLabel{bottom:10px;left:2%}.deviceLabel b{font-size:13px}.connectedFlow{padding:70px 22px}.flowHeading{display:block}.flowHeading h2{font-size:clamp(34px,8.5vw,52px)}.flowTrack{display:flex;flex-direction:column;margin:35px 0;gap:20px}.flowTrack:before{top:0;bottom:0;left:22px;right:auto;width:1px;height:auto}.flowBeam{display:none}.flowNode{display:grid;grid-template-columns:46px 1fr;column-gap:20px;align-items:center}.flowPort{grid-row:span 2}.flowNode>b{margin:0}.flowNode>small{margin-top:4px}.flowDetail{grid-template-columns:1fr;gap:15px;min-height:0}.flowDetailIndex{display:none}.flowMiniUi{padding-left:18px;margin:10px 0}.flowCta{font-size:12px}}
+@media(max-width:380px){.intelligenceScene{height:380px}.deviceStage{height:375px}.smartphone{bottom:65px}.demoNav{padding:10px}.demoBody{padding-top:8px}.demoBody h3{font-size:20px}.demoCta{font-size:4px}.demoBottom{font-size:4px}.phoneScreen>span{margin-top:13px}.phoneScreen h3{font-size:14px}.phoneArt{margin:10px 0}.deviceLabel b{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.cinematicHome .laptop,.cinematicHome .smartphone{animation:none}.cinematicHome .flowBeam{animation:none;left:40%}.cinematicHome .demoScreen,.cinematicHome .phoneScreen,.cinematicHome .flowDetail>div{animation:none}}
+@media(min-width:801px){.deviceStage{margin-bottom:35px}.deviceLabel{bottom:-34px}}
+/* Reserve the canvas box while switching from the static geometric preview. */
+.coreCanvas canvas,.coreFallback{position:absolute;inset:0}
