@@ -78,3 +78,59 @@
 @media(min-width:801px){.deviceStage{margin-bottom:35px}.deviceLabel{bottom:-34px}}
 /* Reserve the canvas box while switching from the static geometric preview. */
 .coreCanvas canvas,.coreFallback{position:absolute;inset:0}
+/* Final refinement: keep the existing scenes; tune their scale, contrast and transitions. */
+.cinematicHome{--muted:#bfb5ca}
+.cinematicHome .hero{min-height:720px;padding-block:62px;gap:28px}
+.cinematicHome .hero h1{font-size:clamp(48px,5.05vw,76px);line-height:1.075;letter-spacing:-.055em}
+.cinematicHome .herocopy>p{font-size:16px;line-height:1.8;color:#c5bbcf}
+.cinematicHome .heroProof{margin-top:22px;padding-block:12px}
+.cinematicHome .heroProof span{color:#beb0c9;line-height:1.6}
+.intelligenceScene{height:560px}
+.sceneCaption{font-size:10px;color:#bcabcf;letter-spacing:.1em}
+.sceneCaption span:last-child,.sceneTelemetry small{color:#ad9bbb}
+.sceneTelemetry small{font-size:11px;line-height:1.6}
+.sceneTelemetry span{color:#d1b5e7}
+.coreCanvas canvas{opacity:1;transition:opacity .65s ease}
+.coreCanvas[data-ready=false] canvas{opacity:0}
+.cinematicHome .proofStrip{background:#0e0c14;padding-block:20px}
+.webShowcase{padding-block:80px 94px;position:relative;column-gap:42px}
+.webEditorial h2,.flowHeading h2{font-size:clamp(35px,3.85vw,56px);line-height:1.16;letter-spacing:-.045em;margin-block:20px}
+.webEditorial h2 em,.flowHeading h2 em{color:#b5a6c5}
+.webEditorial p,.flowHeading p{color:#c0b4cd;font-size:16px;line-height:1.8}
+.conceptNote{color:#b5a3c3;font-size:11px}
+.stageCoordinate{color:#a391b4;font-size:9px;letter-spacing:.14em}
+.deviceStage{height:550px;perspective:1600px}
+.laptop{top:64px;animation-duration:12s}
+.laptopDisplay{border-color:#c9b7d37a;box-shadow:8px 24px 42px #0007,0 0 0 1px #ffffff08 inset}
+.laptopDisplay:after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(120deg,#fff1,transparent 25%,transparent 75%,#e0c1ff0a);border-top:1px solid #efe2ff66}
+.smartphone{bottom:65px;width:27%;animation-duration:12s;box-shadow:8px 18px 28px #0008,0 0 0 1px #fff1 inset}
+.deviceLabel{left:5%;bottom:-15px}
+.deviceLabel span{color:#cab0dd;font-size:9px}
+.demoNav>span{font-size:8px}
+.demoBody>span:first-child{font-size:7px}
+.demoCta{font-size:8px}
+.showcaseTabs{gap:6px;margin-block:24px}
+.showcaseTabs button{font-size:12px;min-height:44px}
+.cinematicHome :is(.webShowcase,.connectedFlow,.cases,.process){scroll-margin-top:100px}
+.cinematicHome :is(a,button):focus-visible{outline:2px solid #ead0ff;outline-offset:5px}
+.connectedFlow{padding-block:78px;position:relative;background:linear-gradient(180deg,#0e0c14,#12101a 48%,#100e16)}
+.connectedFlow:before,.cinematicHome .cases:before{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,#b383d65c,transparent);pointer-events:none}
+.flowHeading{column-gap:56px}.flowHeading p{margin-bottom:22px}
+.flowTrack{margin-block:46px 32px}
+.flowNode>small{font-size:12px;color:#c0afcf;line-height:1.6}
+.flowNode>b{font-size:17px;margin-top:16px}
+.flowDetail{min-height:235px;gap:28px;padding-top:26px}
+.flowDetailIndex{color:#ae94bf}.flowDetail p{color:#c0afce;font-size:15px}
+.flowMiniUi>span{color:#c0a5d3;font-size:9px}.flowMiniUi small{color:#b9a3ca;font-size:8px}
+.cinematicHome .pain,.cinematicHome .cases,.cinematicHome .process{padding-block:78px;position:relative}
+.cinematicHome .statement{padding-block:76px}
+.cinematicHome .build,.cinematicHome .founder,.cinematicHome .contact{padding-block:76px}
+.cinematicHome .preCta{padding-block:60px}
+.cinematicHome .intro p,.cinematicHome .build p,.cinematicHome .founder p,.cinematicHome .contact>div p{color:#c0b4ca}
+.cinematicHome .painGrid p,.cinematicHome .case p{font-size:14px;line-height:1.75}
+.cinematicHome .caseVisualLabel span{color:#c6a6d9}
+@media(min-width:1600px){.webShowcase{max-width:1420px}.webEditorial h2{font-size:57px}.deviceStage{height:590px}.laptop{top:72px}.smartphone{bottom:70px}}
+@media(min-width:801px) and (max-width:1050px){.cinematicHome .hero{padding-block:52px}.cinematicHome .hero h1{font-size:54px}.intelligenceScene{height:510px}.sceneCaption{font-size:8px}.deviceStage{height:470px}.laptop{top:100px}.demoNav>span{font-size:6px}.demoBody>span:first-child{font-size:6px}.demoCta{font-size:6px}}
+@media(max-width:800px){.cinematicHome .hero{min-height:0;padding-block:48px 8px;gap:0}.cinematicHome .hero h1{font-size:clamp(42px,10.5vw,64px)}.cinematicHome .herocopy>p{font-size:15px;line-height:1.75}.intelligenceScene{height:420px;margin-top:8px}.sceneCaption{font-size:8px}.sceneTelemetry{bottom:28px;left:10%}.sceneTelemetry small{font-size:10px}.webShowcase{padding:58px 22px 66px;gap:20px}.webEditorial h2{font-size:clamp(36px,9vw,56px)}.webEditorial p,.flowHeading p{font-size:15px}.conceptNote{font-size:11px;max-width:none}.deviceStage{height:405px;max-width:550px}.laptop{top:58px}.smartphone{bottom:46px}.deviceLabel{bottom:0;left:2%}.demoNav>span{font-size:5px}.demoBody>span:first-child{font-size:5px}.demoCta{font-size:5px}.connectedFlow{padding:58px 22px}.flowHeading h2{font-size:clamp(34px,8.5vw,50px)}.flowTrack{margin-block:32px}.flowNode>b{margin:0;font-size:16px}.flowNode>small{font-size:12px}.flowDetail{min-height:0;gap:15px}.cinematicHome .pain,.cinematicHome .cases,.cinematicHome .process{padding:58px 22px}.cinematicHome .statement{padding:58px 22px}.cinematicHome .build,.cinematicHome .founder,.cinematicHome .contact{padding:58px 22px}.cinematicHome .preCta{padding:50px 22px}}
+@media(max-width:380px){.intelligenceScene{height:365px}.sceneCaption{font-size:7px;letter-spacing:.07em}.deviceStage{height:345px}.laptop{top:50px}.smartphone{bottom:40px}.showcaseTabs button{font-size:11px;padding-inline:11px}.webEditorial .primary{font-size:12px;gap:12px}.stageCoordinate{font-size:7px}.sceneTelemetry b{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.coreCanvas canvas{transition:none}.cinematicHome :is(.laptop,.smartphone){animation:none}}
