@@ -1,0 +1,70 @@
+/* Home only: shared forms and administrative screens retain their existing styles. */
+.cinematicHome{--ink:#f5f2fa;--muted:#aba4b7;--line:#ffffff17;background:#09090e;color:var(--ink);overflow:clip}
+.cinematicHome .skipLink{position:fixed;top:12px;left:16px;z-index:200;background:#fff;color:#15111b;padding:14px;transform:translateY(-200%)}
+.cinematicHome .skipLink:focus{transform:translateY(0)}
+.cinematicHome .landingHeader{background:#09090edb}
+.cinematicHome .hero{min-height:760px;gap:48px;background:radial-gradient(ellipse at 85% 40%,#6826b42b,transparent 53%),radial-gradient(ellipse at 30% 90%,#e32ed014,transparent 50%),#09090e}
+.cinematicHome .hero:before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(#ffffff03 1px,transparent 1px),linear-gradient(90deg,#ffffff03 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(#000,transparent)}
+.cinematicHome .hero h1{font-size:clamp(52px,5.7vw,84px);line-height:1.06;letter-spacing:-.065em}
+.cinematicHome .hero h1 em{background-image:linear-gradient(110deg,#c5a3ff,#ec6feb 65%,#f6c2e9)}
+.cinematicHome .herocopy>p{font-size:17px;max-width:510px}
+.cinematicHome .eyebrow{color:#d5c3ef;border-color:#b59bd433;background:#a070f00a;letter-spacing:.18em}
+.cinematicHome .primary,.cinematicHome .topcta{background:linear-gradient(120deg,#7c37db,#bc25c6);box-shadow:0 8px 35px #a63cce26}
+.cinematicHome .visual{perspective:1200px}
+.cinematicHome .window{transform:rotateY(-8deg) rotateX(4deg);box-shadow:0 50px 100px #0009,0 0 90px #a552ff19;border-color:#bc94e83d}
+.cinematicHome .float{background:#18131f;border-color:#ffffff24;color:#eee5f8}
+.cinematicHome .float small{color:#b6a7c2}
+.cinematicHome .heroProof{border-left:2px solid #a56be8}
+.cinematicHome .proofStrip{background:#100e17;border-color:var(--line)}
+.cinematicHome .proofStrip>div{gap:22px}
+.cinematicHome .serviceStage{max-width:1240px;margin:auto;padding:110px 28px}
+.cinematicHome .chapter{font-size:10px;letter-spacing:.22em;font-weight:700;color:#c59de9}
+.cinematicHome .serviceIntro h2{font:800 clamp(32px,3.8vw,53px)/1.14 Manrope,sans-serif;letter-spacing:-.045em;margin:22px 0}
+.cinematicHome .serviceIntro em{font-style:normal;color:#92879e}
+.cinematicHome .serviceIntro p{max-width:580px;color:var(--muted);line-height:1.8;font-size:16px}
+.cinematicHome .serviceCards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:44px}
+.cinematicHome .serviceCard{border:1px solid var(--line);border-radius:20px;padding:30px;background:linear-gradient(145deg,#1a1522,#100e15);display:flex;flex-direction:column;align-items:flex-start;transition:transform .25s,border-color .25s;min-width:0}
+.cinematicHome .serviceCard:hover{transform:translateY(-5px);border-color:#bf7bf073}
+.cinematicHome .serviceLead{grid-column:span 3;display:grid;grid-template-columns:1fr 1fr;column-gap:70px;background:radial-gradient(ellipse at 15% 30%,#713cae24,transparent 60%),#131019;position:relative;padding:44px}
+.cinematicHome .serviceLead .siteSketch{grid-column:2;grid-row:1 / span 4;align-self:center}
+.cinematicHome .serviceNumber{color:#bfaccd;font-size:9px;letter-spacing:.17em}
+.cinematicHome .serviceCard h3{font:700 25px Manrope,sans-serif;letter-spacing:-.035em;margin:28px 0 8px}
+.cinematicHome .serviceLead h3{font-size:38px;margin-top:24px}
+.cinematicHome .serviceCard p{color:var(--muted);font-size:14px;line-height:1.8;margin:0 0 26px}
+.cinematicHome .serviceIcon{width:38px;height:38px;color:#c198ee;margin-top:38px;stroke-width:1.2}
+.cinematicHome .serviceLink{display:flex;align-items:center;gap:12px;color:#eedaf9;font-size:13px;font-weight:700;margin-top:auto;min-height:32px}
+.cinematicHome .serviceLink svg{width:17px}
+.cinematicHome .siteSketch{width:100%;min-height:240px;border:1px solid #c7abd93b;border-radius:12px;padding:20px;background:radial-gradient(ellipse at 95% 90%,#b09ee853,transparent 65%),#211b2c;transform:rotate(-3deg);box-shadow:0 20px 50px #0004}
+.cinematicHome .siteSketch>div{display:flex;gap:5px;padding-bottom:28px}
+.cinematicHome .siteSketch i{width:5px;height:5px;border-radius:50%;background:#d7bfef88}
+.cinematicHome .siteSketch>span,.cinematicHome .siteSketch small{display:block;font-size:7px;letter-spacing:.18em;color:#c7b3dc}
+.cinematicHome .siteSketch b{display:block;font:600 39px/1.1 Manrope,sans-serif;letter-spacing:-.05em;margin:22px 0;color:#f5ebff}
+.cinematicHome .pain,.cinematicHome .cases,.cinematicHome .process{border-top:1px solid var(--line)}
+.cinematicHome .intro p,.cinematicHome .build p{color:var(--muted)}
+.cinematicHome .intro>span,.cinematicHome .build>div>span,.cinematicHome .founder span,.cinematicHome .contact>div>span{color:#c59de9}
+.cinematicHome .painGrid article,.cinematicHome .case{background:#121017;border-color:var(--line);box-shadow:none}
+.cinematicHome .painGrid b{background:#a55bda12;color:#c59de9}
+.cinematicHome .painGrid p,.cinematicHome .case p{color:var(--muted)}
+.cinematicHome .case .tag{color:#c69ae9}
+.cinematicHome .case.featured{background:radial-gradient(ellipse at 90% 0,#753eae1f,transparent 65%),#151019}
+.cinematicHome .chips span{background:#ffffff03;color:#c3b5cd;border-color:#ffffff1c}
+.cinematicHome .caseVisualLabel{color:#b1a4bb}
+.cinematicHome .statement{background:radial-gradient(ellipse at 50% 100%,#702f8c42,transparent 75%),#17101e;border-block:1px solid #b579d52b;padding-block:105px}
+.cinematicHome .statement>span{color:#c39ce4}
+.cinematicHome .statement p{color:#b9a8c7}
+.cinematicHome .build{background:#100e16;border-block:1px solid var(--line)}
+.cinematicHome .capGrid div,.cinematicHome .tech span{background:#ffffff03;border-color:var(--line);color:#d2c8dc}
+.cinematicHome .steps div{border-color:#ffffff24}
+.cinematicHome .steps div:before{background:#bd82ec;box-shadow:0 0 0 4px #24182f}
+.cinematicHome .steps b{color:#c395e8}
+.cinematicHome footer{background:#0b090f;border-color:var(--line)}
+.cinematicHome footer p,.cinematicHome footer>div,.cinematicHome footer>small{color:#aaa0b5}
+@media(min-width:801px) and (prefers-reduced-motion:no-preference){.cinematicHome .herocopy{animation:cinema-enter .8s both}.cinematicHome .visual{animation:cinema-enter 1.1s .15s both}.cinematicHome .chart polyline{stroke-dasharray:650;stroke-dashoffset:650;animation:cinema-chart 2s .5s forwards}.cinematicHome .float{animation:cinema-float 6s ease-in-out infinite}}
+@keyframes cinema-enter{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cinema-chart{to{stroke-dashoffset:0}}
+@keyframes cinema-float{50%{transform:translateY(-8px)}}
+@media(max-width:1050px) and (min-width:801px){.cinematicHome .hero{gap:25px;padding-inline:28px}.cinematicHome .hero h1{font-size:58px}.cinematicHome .actions{flex-wrap:wrap}.cinematicHome .dash{grid-template-columns:72px 1fr}.cinematicHome .panel{padding:15px}.cinematicHome .serviceCard{padding:24px}}
+@media(max-width:800px){.cinematicHome .hero{min-height:0;padding-block:65px 70px}.cinematicHome .hero h1{font-size:clamp(44px,10vw,70px)}.cinematicHome .window{transform:none}.cinematicHome .serviceStage{padding:72px 20px}.cinematicHome .serviceCards{grid-template-columns:1fr}.cinematicHome .serviceLead{grid-column:auto;display:flex;padding:26px;gap:0}.cinematicHome .serviceLead .siteSketch{order:0;transform:none;margin:25px 0 0;min-height:220px}.cinematicHome .serviceLead h3{font-size:30px}.cinematicHome .serviceLead .serviceNumber{order:-1}.cinematicHome .serviceCard{padding:26px}.cinematicHome .proofStrip>div{gap:12px}.cinematicHome .float{right:0}.cinematicHome .phead{gap:6px;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){html:has(.cinematicHome){scroll-behavior:auto}.cinematicHome *,.cinematicHome *:before,.cinematicHome *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.cinematicHome .contactSite{border:1px solid #ffffff1a;border-radius:20px;padding:32px;background:linear-gradient(135deg,#7d39a31c,#ffffff03)}
+.cinematicHome .contactSite h2{font-size:clamp(30px,3vw,42px)}
