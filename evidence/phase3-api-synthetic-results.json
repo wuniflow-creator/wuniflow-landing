@@ -1,0 +1,61 @@
+{
+  "passed": 13,
+  "total": 13,
+  "checks": [
+    {
+      "name": "POST /api/leads method guard returns 405",
+      "pass": true
+    },
+    {
+      "name": "POST /api/leads validates required fields",
+      "pass": true
+    },
+    {
+      "name": "POST /api/leads grava em fixtures e responde sucesso",
+      "pass": true
+    },
+    {
+      "name": "Lead chama somente OAuth/Sheets sintéticos",
+      "pass": true
+    },
+    {
+      "name": "POST /api/site-leads method guard returns 405",
+      "pass": true
+    },
+    {
+      "name": "POST /api/site-leads valida campos obrigatórios",
+      "pass": true
+    },
+    {
+      "name": "POST /api/site-leads cria lead e orçamento em fixtures",
+      "pass": true
+    },
+    {
+      "name": "Site lead faz exatamente dois POSTs Supabase mockados",
+      "pass": true
+    },
+    {
+      "name": "POST /api/admin-session rejeita chave sintética incorreta",
+      "pass": true
+    },
+    {
+      "name": "Admin session rejeita método não permitido",
+      "pass": true
+    },
+    {
+      "name": "GET /api/site-admin exige sessão válida",
+      "pass": true
+    },
+    {
+      "name": "POST /api/project-analysis exige sessão válida",
+      "pass": true
+    },
+    {
+      "name": "Todas as chamadas externas foram interceptadas pelo mock",
+      "pass": true
+    }
+  ],
+  "externalRequestsSent": 0,
+  "fixtureCalls": 9,
+  "scope": "direct handler tests with synthetic fixtures; no real external request"
+}

@@ -1,0 +1,169 @@
+{
+  "viewportCoverage": [
+    360,
+    390,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "visualViewportsCaptured": [
+    1440,
+    390
+  ],
+  "checksPassed": 19,
+  "checksTotal": 19,
+  "checks": [
+    {
+      "name": "GET / retorna 200",
+      "pass": true
+    },
+    {
+      "name": "Vitrine apresenta exatamente 4 projetos",
+      "pass": true
+    },
+    {
+      "name": "NYX Tarot card, imagem e URL associados",
+      "pass": true,
+      "title": "NYX Tarot",
+      "hrefs": [
+        "https://nyx-tarot.lovable.app/",
+        "https://nyx-tarot.lovable.app/"
+      ],
+      "src": "/assets/portfolio-nyx-tarot.jpg",
+      "imageLoaded": true
+    },
+    {
+      "name": "HI TECH card, imagem e URL associados",
+      "pass": true,
+      "title": "HI TECH",
+      "hrefs": [
+        "https://hi-tech-alpha.vercel.app/",
+        "https://hi-tech-alpha.vercel.app/"
+      ],
+      "src": "/assets/portfolio-hi-tech.jpg",
+      "imageLoaded": true
+    },
+    {
+      "name": "AxéHub card, imagem e URL associados",
+      "pass": true,
+      "title": "AxéHub",
+      "hrefs": [
+        "https://axehub.pro/",
+        "https://axehub.pro/"
+      ],
+      "src": "/assets/portfolio-axehub-v3.webp",
+      "imageLoaded": true
+    },
+    {
+      "name": "Axé Performance IA card, imagem e URL associados",
+      "pass": true,
+      "title": "Axé Performance IA",
+      "hrefs": [
+        "https://axeperformanceia.com.br/",
+        "https://axeperformanceia.com.br/"
+      ],
+      "src": "/assets/portfolio-axe-performance-v3.webp",
+      "imageLoaded": true
+    },
+    {
+      "name": "Sem aviso de captura pendente",
+      "pass": true
+    },
+    {
+      "name": "Rota /sites renderiza",
+      "pass": true,
+      "status": 200
+    },
+    {
+      "name": "Rota /diagnostico renderiza",
+      "pass": true,
+      "status": 200
+    },
+    {
+      "name": "Rota /admin renderiza",
+      "pass": true,
+      "status": 200
+    },
+    {
+      "name": "Rota /admin-sites renderiza",
+      "pass": true,
+      "status": 200
+    },
+    {
+      "name": "Fluxo de diagnóstico completa submissão sintética",
+      "pass": true
+    },
+    {
+      "name": "Briefing de sites completa submissão sintética",
+      "pass": true
+    },
+    {
+      "name": "POST /api/leads usa resposta sintética interceptada",
+      "pass": true,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "projectId": "QA-SYNTHETIC"
+      }
+    },
+    {
+      "name": "Home sem overflow horizontal em seis larguras",
+      "pass": true,
+      "widths": [
+        {
+          "width": 360,
+          "scrollWidth": 360
+        },
+        {
+          "width": 390,
+          "scrollWidth": 390
+        },
+        {
+          "width": 768,
+          "scrollWidth": 768
+        },
+        {
+          "width": 1024,
+          "scrollWidth": 1024
+        },
+        {
+          "width": 1440,
+          "scrollWidth": 1440
+        },
+        {
+          "width": 1920,
+          "scrollWidth": 1920
+        }
+      ]
+    },
+    {
+      "name": "Menu mobile acessível",
+      "pass": true
+    },
+    {
+      "name": "Menu mobile abre navegação",
+      "pass": true
+    },
+    {
+      "name": "Sem erros de console ou JS",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "name": "Sem falhas de requisição",
+      "pass": true,
+      "failedRequests": []
+    }
+  ],
+  "syntheticFormRequest": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "projectId": "QA-SYNTHETIC"
+    }
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "scope": "local production build; no real lead submitted"
+}
