@@ -1,0 +1,227 @@
+{
+  "checks": [
+    {
+      "name": "Hero headline",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Logo oficial carregada",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Captura real da Hero carregada",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Quatro projetos",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Link https://nyx-tarot.lovable.app",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Link https://hi-tech-alpha.vercel.app",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Link https://axehub.pro",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Link https://axeperformanceia.com.br/",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Capturas locais dos projetos verificáveis carregadas",
+      "pass": true,
+      "detail": "[{\"src\":\"http://127.0.0.1:4174/assets/portfolio-axehub-v3.webp\",\"complete\":true,\"width\":1366},{\"src\":\"http://127.0.0.1:4174/assets/portfolio-axe-performance-v3.webp\",\"complete\":true,\"width\":1366}]"
+    },
+    {
+      "name": "Capturas pendentes explicitadas",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CTA WhatsApp oficial",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Sem overflow horizontal em 360px",
+      "pass": true,
+      "detail": "{\"viewport\":360,\"document\":360}"
+    },
+    {
+      "name": "Sem overflow horizontal em 390px",
+      "pass": true,
+      "detail": "{\"viewport\":390,\"document\":390}"
+    },
+    {
+      "name": "Sem overflow horizontal em 768px",
+      "pass": true,
+      "detail": "{\"viewport\":768,\"document\":768}"
+    },
+    {
+      "name": "Sem overflow horizontal em 1024px",
+      "pass": true,
+      "detail": "{\"viewport\":1024,\"document\":1024}"
+    },
+    {
+      "name": "Sem overflow horizontal em 1440px",
+      "pass": true,
+      "detail": "{\"viewport\":1440,\"document\":1440}"
+    },
+    {
+      "name": "Sem overflow horizontal em 1920px",
+      "pass": true,
+      "detail": "{\"viewport\":1920,\"document\":1920}"
+    },
+    {
+      "name": "Menu mobile abre",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Menu mobile mostra navegação",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Navegação mobile aciona âncora Cases",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Rota Sites abre",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Briefing Sites contém campos interativos",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Rota Diagnóstico abre",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Briefing chegou à confirmação pela API simulada",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "POST de diagnóstico inclui dados e consentimento",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Rota /admin renderiza aplicação",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Rota /admin-sites renderiza aplicação",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Sem erros de console, JS ou rede",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "widths": [
+    {
+      "viewport": 360,
+      "document": 360
+    },
+    {
+      "viewport": 390,
+      "document": 390
+    },
+    {
+      "viewport": 768,
+      "document": 768
+    },
+    {
+      "viewport": 1024,
+      "document": 1024
+    },
+    {
+      "viewport": 1440,
+      "document": 1440
+    },
+    {
+      "viewport": 1920,
+      "document": 1920
+    }
+  ],
+  "requests": [
+    {
+      "url": "/api/leads",
+      "method": "POST",
+      "body": {
+        "nome": "Resposta sintética de homologação",
+        "empresa": "Resposta sintética de homologação",
+        "cargo": "Resposta sintética de homologação",
+        "whatsapp": "61981240476",
+        "email": "qa@example.test",
+        "processo": "Resposta sintética de homologação",
+        "origem": "Diagnóstico Wuniflow",
+        "pagina": "http://127.0.0.1:4174/diagnostico",
+        "website": "",
+        "submissionId": "f146531c-1202-4cf3-8776-54235fff57ce",
+        "diagnostico": {
+          "empresa": "Resposta sintética de homologação",
+          "nome": "Resposta sintética de homologação",
+          "cargo": "Resposta sintética de homologação",
+          "email": "qa@example.test",
+          "whatsapp": "61981240476",
+          "segmento": "Resposta sintética de homologação",
+          "cidade": "Resposta sintética de homologação",
+          "problema": "Resposta sintética de homologação",
+          "processo_atual": "Resposta sintética de homologação",
+          "dificuldades": "Resposta sintética de homologação",
+          "resultado": "Resposta sintética de homologação",
+          "usuarios": "Resposta sintética de homologação",
+          "perfis": "Resposta sintética de homologação",
+          "dispositivos": "Resposta sintética de homologação",
+          "funcionalidades": "Resposta sintética de homologação",
+          "prioridades": "Resposta sintética de homologação",
+          "dados": "Resposta sintética de homologação",
+          "dashboard": "Resposta sintética de homologação",
+          "ferramentas": "Resposta sintética de homologação",
+          "integracoes": "Resposta sintética de homologação",
+          "automacoes": "Resposta sintética de homologação",
+          "ia": "Resposta sintética de homologação",
+          "dados_existentes": "Resposta sintética de homologação",
+          "prazo": "Resposta sintética de homologação",
+          "referencia": "Resposta sintética de homologação",
+          "observacoes": "Resposta sintética de homologação"
+        },
+        "consentimentoWhatsapp": true,
+        "consentimento": {
+          "aceito": true,
+          "canal": "WhatsApp",
+          "finalidade": "diagnostico_e_acompanhamento",
+          "limiteFollowups": 2,
+          "versao": "diagnostico-whatsapp-v2",
+          "texto": "Autorizo a Wuniflow a analisar este diagnóstico e entrar em contato pelo WhatsApp informado sobre este projeto, incluindo até dois acompanhamentos caso eu não responda. Posso pedir a interrupção a qualquer momento."
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "note": "O POST de /api/leads foi interceptado no navegador e respondido localmente; nenhum dado de teste foi enviado ao backend."
+}

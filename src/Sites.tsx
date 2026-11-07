@@ -94,7 +94,7 @@ export default function Sites(){
               <div className="sitesBrowserNav"><b>CASA LUME</b><span>Ambientes&nbsp;&nbsp; Projetos&nbsp;&nbsp; Sobre</span><em>Agendar conversa</em></div>
               <div className="sitesBrowserContent">
                 <div><small>ARQUITETURA + INTERIORES</small><h3>Espaços feitos para viver melhor.</h3><p>Interiores autorais, com leveza, conforto e personalidade.</p><button>Ver projetos <ArrowRight/></button></div>
-                <div className="sitesBrowserVisual"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=85" alt="Sala contemporânea iluminada, exemplo visual de site para arquitetura" loading="lazy"/><span>CASA LUME<br/><small>ARQUITETURA & INTERIORES</small></span><b>PROJETO<br/>CONCEITUAL</b></div>
+                <div className="sitesBrowserVisual"><img src="/assets/cinematic/sites-landing-pages.webp" alt="Arte conceitual de exemplo visual para uma landing page de arquitetura" loading="lazy"/><span>CASA LUME<br/><small>ARQUITETURA & INTERIORES</small></span><b>PROJETO<br/>CONCEITUAL</b></div>
               </div>
             </div>
           </div>
