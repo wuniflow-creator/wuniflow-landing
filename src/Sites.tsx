@@ -42,6 +42,7 @@ export default function Sites(){
     return()=>{ld.remove()};
   },[]);
   const[step,setStep]=React.useState(0);
+  const[furthestStep,setFurthestStep]=React.useState(0);
   const[sending,setSending]=React.useState(false);
   const[done,setDone]=React.useState(false);
   const[error,setError]=React.useState('');
@@ -54,7 +55,20 @@ export default function Sites(){
   const total=(base||0)+extras;
   const estimate=sobConsulta?'Sob consulta':total.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
   const steps=['Projeto','Estrutura','Visual','Recursos','Operação','Resumo'];
-  const canContinue=step===0?!!s.tipo:step===1?!!s.objetivo:step===2?!!s.estilo:step===4?!!s.prazo:true;
+  const validStep=(index:number)=>index===0?!!s.tipo:index===1?!!s.objetivo:index===2?!!s.estilo:index===4?!!s.prazo:true;
+  const canContinue=validStep(step);
+  const canVisitStep=(target:number)=>target<=furthestStep && Array.from({length:target},(_,i)=>i).every(validStep);
+  const goToStep=(target:number)=>{
+    if(target<0||target>=steps.length||!canVisitStep(target))return;
+    setStep(target);setError('');
+    document.getElementById('sites-configurador')?.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+  const continueStep=()=>{
+    if(step>=steps.length-1||!canContinue)return;
+    const next=step+1;
+    setFurthestStep(old=>Math.max(old,next));setStep(next);setError('');
+    document.getElementById('sites-configurador')?.scrollIntoView({behavior:'smooth',block:'start'});
+  };
 
   async function submit(){
     if(!s.nome||!s.whatsapp){setError('Informe seu nome e WhatsApp para receber a proposta.');return}
@@ -103,7 +117,7 @@ export default function Sites(){
           <div className="sitesShowcaseBadge"><ShieldCheck/><span><b>Briefing inteligente</b><small>Escopo claro antes da proposta</small></span></div>
         </div>
       </section>
-      <div className="sitesProgress" id="sites-configurador" aria-label="Etapas de configuração do site">{steps.map((x,i)=><div className={i===step?'active':i<step?'done':''} key={x}><b>{i<step?'✓':i+1}</b><span className="sitesStepLong">{x}</span><span className="sitesStepShort">{['Proj.','Estr.','Visual','Extras','Oper.','Resumo'][i]}</span></div>)}</div>
+      <nav className="sitesProgress" id="sites-configurador" aria-label="Etapas de configuração do site">{steps.map((x,i)=><button type="button" className={i===step?'active':i<step?'done':''} key={x} onClick={()=>goToStep(i)} disabled={!canVisitStep(i)} aria-current={i===step?'step':undefined} aria-label={`Etapa ${i+1} de ${steps.length}: ${x}${i>furthestStep?' (ainda não disponível)':''}`}><b aria-hidden="true">{i<step?'✓':i+1}</b><span className="sitesStepLong">{x}</span><span className="sitesStepShort">{['Proj.','Estr.','Visual','Extras','Oper.','Resumo'][i]}</span></button>)}</nav>
       <div className="sitesGrid">
         <section className="sitesCard">
           {step===0&&<><small>ETAPA 01 DE 06</small><h2>O que vamos criar?</h2><p>Escolha o formato que mais combina com o que você precisa hoje.</p><div className="sitesOptions">{projectTypes.map(([t,d])=><button className={s.tipo===t?'selected':''} onClick={()=>update('tipo',t)} key={t}><div className="sitesOptionTop"><i>{t==='Landing Page'?<LayoutTemplate/>:t==='Site Institucional'?<Building2/>:t==='Catálogo Digital'?<PackageOpen/>:t==='Loja Virtual'?<ShoppingCart/>:<SlidersHorizontal/>}</i><span className="sitesOptionRadio">{s.tipo===t?'✓':''}</span></div><b>{t}</b><span>{d}</span><small>{basePrices[t]===null?'Sob consulta':'A partir de '+basePrices[t]!.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</small></button>)}</div><div className="sitesFields"><label>Objetivo principal<select value={s.objetivo} onChange={e=>update('objetivo',e.target.value)}>{objectives.map(x=><option key={x}>{x}</option>)}</select></label><label>Segmento da empresa<input value={s.segmento} onChange={e=>update('segmento',e.target.value)} placeholder="Ex.: clínica, restaurante, consultoria..."/></label></div></>}
@@ -112,7 +126,7 @@ export default function Sites(){
           {step===3&&<><small>ETAPA 04 DE 06</small><h2>Os detalhes fazem a diferença.</h2><p>Selecione recursos extras. Alguns itens precisam de avaliação técnica.</p><div className="sitesResourceList">{resources.map(x=><label key={x}><input type="checkbox" checked={s.recursos.includes(x)} onChange={()=>toggle('recursos',x)}/><div><b>{x}</b><span>{extraPrices[x]===0?'Sob consulta':'+'+extraPrices[x].toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</span></div></label>)}</div></>}
           {step===4&&<><small>ETAPA 05 DE 06</small><h2>Vamos preparar o próximo passo.</h2><div className="sitesFields"><label>Textos do site<select value={s.textos} onChange={e=>update('textos',e.target.value)}><option>Tenho</option><option>Preciso de ajuda</option><option>Quero que a Wuniflow produza</option></select></label><label>Fotos e imagens<select value={s.imagens} onChange={e=>update('imagens',e.target.value)}><option>Tenho</option><option>Banco de imagens</option><option>Preciso produzir</option></select></label><label>Domínio<select value={s.dominio} onChange={e=>update('dominio',e.target.value)}><option>Já tenho</option><option>Ainda não tenho</option><option>Não sei</option></select></label><label>Quando gostaria de colocar no ar?<select value={s.prazo} onChange={e=>update('prazo',e.target.value)}><option value="">Selecione</option><option>O quanto antes</option><option>Até 15 dias</option><option>Até 30 dias</option><option>30 a 60 dias</option><option>Estou pesquisando</option></select></label></div></>}
           {step===5&&<><small>ETAPA 06 DE 06</small><h2>Sua ideia, pronta para conversar.</h2><p>Deixe seus dados para registrarmos o briefing antes de abrir o WhatsApp.</p><div className="sitesSummaryBox"><div><span>Projeto</span><b>{s.tipo}</b></div><div><span>Objetivo</span><b>{s.objetivo}</b></div><div><span>Estilo</span><b>{s.estilo}</b></div><div><span>Prazo</span><b>{s.prazo||'Não informado'}</b></div></div><div className="sitesFields"><label>Seu nome *<input value={s.nome} onChange={e=>update('nome',e.target.value)}/></label><label>Empresa<input value={s.empresa} onChange={e=>update('empresa',e.target.value)}/></label><label>WhatsApp *<input value={s.whatsapp} onChange={e=>update('whatsapp',e.target.value)} placeholder="(31) 99999-9999"/></label><label>E-mail<input type="email" value={s.email} onChange={e=>update('email',e.target.value)}/></label></div>{error&&<p className="sitesError">{error}</p>}<button className="sitesPrimary sitesSubmit" onClick={submit} disabled={sending}>{sending?'Enviando...':<><FileText/> Registrar briefing e continuar</>}</button></>}
-          <div className="sitesNav"><button onClick={()=>setStep(Math.max(0,step-1))} disabled={step===0}><ArrowLeft/> Voltar</button>{step<5&&<button className="sitesPrimary" disabled={!canContinue} onClick={()=>setStep(step+1)}>Continuar <ArrowRight/></button>}</div>
+          <div className="sitesNav"><button onClick={()=>goToStep(step-1)} disabled={step===0}><ArrowLeft/> Voltar</button>{step<5&&<button className="sitesPrimary" disabled={!canContinue} onClick={continueStep}>Continuar <ArrowRight/></button>}</div>
         </section>
         <aside className="sitesAside"><div className="sitesAsideHead"><div className="sitesAsideIcon"><FileText/></div><div className="sitesAsideTitle"><b>Seu projeto, em resumo</b><span>ESTIMATIVA</span></div></div><dl><div><dt>Projeto</dt><dd>{s.tipo}</dd></div><div><dt>Estilo</dt><dd>{s.estilo}</dd></div><div><dt>Recursos</dt><dd>{s.recursos.length||'Nenhum extra'}</dd></div></dl><hr/><small>INVESTIMENTO ESTIMADO</small><strong>{estimate}</strong><p>{sobConsulta?'Há itens que precisam de avaliação. A proposta final confirma o investimento.':'Estimativa inicial baseada nas escolhas realizadas. O valor final pode variar conforme o briefing.'}</p><ul><li>✓ Sem compromisso para começar</li><li>✓ Briefing organizado ao final</li><li>✓ Resposta consultiva da nossa equipe</li><li>✓ Cada detalhe pode ser ajustado</li></ul><a className="sitesAsideHelp" href={whatsappHref} target="_blank" rel="noreferrer"><Headphones/><span><b>Dúvidas? Fale com um especialista.</b><small>Receba orientação personalizada.</small></span><ArrowRight/></a></aside>
       </div>
