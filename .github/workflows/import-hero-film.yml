@@ -48,5 +48,7 @@ jobs:
           git add public/cinematic/wuniflow-hero-v4.mp4 public/cinematic/wuniflow-hero-v4-poster.webp
           if ! git diff --cached --quiet; then
             git commit -m 'assets: add optimized 12-second WuniFlow Hero V4 video and poster'
+            git fetch origin feature/new-hero-film-20261109
+            git rebase origin/feature/new-hero-film-20261109
             git push origin HEAD:feature/new-hero-film-20261109
           fi
