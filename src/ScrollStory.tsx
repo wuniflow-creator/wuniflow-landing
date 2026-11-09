@@ -154,7 +154,8 @@ export default function ScrollStory() {
     return ()=>{window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);if(frame)cancelAnimationFrame(frame)};
   },[desktop,reduced]);
 
-  const animated=desktop&&!reduced;
+  // Exibe as três etapas sem altura artificial enquanto o vídeo é apresentado no Hero.
+  const animated=false;
   const active=animated?Math.min(stages.length-1,Math.floor(progress*stages.length)):0;
   return (
     <section ref={section} className={'wfStory'+(animated?' wfStoryAnimated':'')} aria-label="Da estratégia aos sistemas e dashboards da WuniFlow">
