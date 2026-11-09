@@ -1,88 +1,146 @@
 import React from 'react';
+import { ArrowRight, BarChart3, Bot, CheckCircle2, ClipboardList, Code2, Database, GitBranch, LayoutDashboard, MapPin, Workflow } from 'lucide-react';
 import './scroll-story.css';
 
-const frames = [
-  { step: '01 / ESTRATÉGIA', title: 'Entendemos o desafio.', text: 'Antes de propor tecnologia, investigamos processos, pessoas e oportunidades reais.' },
-  { step: '02 / CRIAÇÃO', title: 'Projetamos a experiência.', text: 'Transformamos a estratégia em interfaces elegantes, acessíveis e orientadas à conversão.' },
-  { step: '03 / EVOLUÇÃO', title: 'Conectamos o negócio.', text: 'Unimos sistemas, dados e automação para gerar resultados que podem ser acompanhados.' }
-];
-const mediaUrl = import.meta.env.VITE_CINEMATIC_SCROLL_VIDEO as string | undefined;
+// Uma representação conceitual da entrega WuniFlow, não dados reais de clientes.
+const stages = [
+  {
+    kicker: '01 / DIAGNÓSTICO',
+    title: 'Do processo manual ao plano certo.',
+    description: 'Entendemos onde estão as planilhas, as mensagens e os gargalos. Mapeamos o fluxo antes de escrever uma linha de código.',
+    label: 'Mapeamento operacional'
+  },
+  {
+    kicker: '02 / DESENVOLVIMENTO + AUTOMAÇÃO',
+    title: 'Sistemas que conversam entre si.',
+    description: 'Criamos sites, plataformas e ferramentas conectadas a fluxos, APIs e inteligência artificial — respeitando cada regra de negócio.',
+    label: 'Arquitetura de soluções'
+  },
+  {
+    kicker: '03 / VISÃO PARA DECIDIR',
+    title: 'Da execução ao dado confiável.',
+    description: 'A operação ganha visibilidade por meio de painéis, acompanhamento de equipes e indicadores úteis para tomar decisões.',
+    label: 'Inteligência operacional'
+  }
+] as const;
+
+function ProcessVisual({ stage }: { stage: number }) {
+  return (
+    <div className="wfProcessDisplay" aria-label={stages[stage].label}>
+      <div className="wfProcessTop">
+        <span className="wfProcessBrand">W <span>WUNIFLOW / SOLUÇÕES DIGITAIS</span></span>
+        <span className="wfProcessDemo">ILUSTRAÇÃO CONCEITUAL</span>
+      </div>
+      <div className="wfProcessViewport">
+        <div className="wfProcessLayers" aria-hidden="true">
+          <div className={'wfProcessLayer' + (stage === 0 ? ' isActive' : '')}>
+            <div className="wfProcessPanel wfProcessIntake">
+              <span className="wfProcessTag"><ClipboardList size={15}/> DIAGNÓSTICO</span>
+              <h3>Como sua operação funciona hoje?</h3>
+              <div className="wfProcessField"><span>Solicitações em mensagens</span><span className="wfProcessPill">DESCONECTADO</span></div>
+              <div className="wfProcessField"><span>Controles em planilhas</span><span className="wfProcessPill">MANUAL</span></div>
+              <div className="wfProcessField"><span>Dados de diferentes equipes</span><span className="wfProcessPill">DISPERSOS</span></div>
+              <div className="wfProcessInsight"><CheckCircle2 size={16}/> Mapeamento de processos e oportunidades</div>
+            </div>
+            <div className="wfProcessSideNote"><MapPin size={17}/><span>CAMPO</span><i/><ClipboardList size={17}/><span>GESTÃO</span><i/><Database size={17}/><span>DADOS</span></div>
+          </div>
+          <div className={'wfProcessLayer' + (stage === 1 ? ' isActive' : '')}>
+            <div className="wfProcessSystemLabel"><Workflow size={16}/> ARQUITETURA INTEGRADA</div>
+            <div className="wfProcessFlow">
+              <div className="wfProcessNode"><Code2 size={25}/><b>Plataforma</b><small>Site, SaaS ou app</small></div>
+              <span className="wfProcessConnector"><ArrowRight size={22}/></span>
+              <div className="wfProcessNode"><GitBranch size={25}/><b>Integrações</b><small>APIs e workflows</small></div>
+              <span className="wfProcessConnector"><ArrowRight size={22}/></span>
+              <div className="wfProcessNode"><Bot size={25}/><b>Automação + IA</b><small>Fluxos inteligentes</small></div>
+            </div>
+            <div className="wfProcessInsight"><CheckCircle2 size={16}/> Processos conectados sem retrabalho</div>
+          </div>
+          <div className={'wfProcessLayer' + (stage === 2 ? ' isActive' : '')}>
+            <div className="wfProcessDashboard">
+              <div className="wfProcessDashboardTitle"><span><LayoutDashboard size={17}/> Visão operacional</span><small>PAINEL ILUSTRATIVO</small></div>
+              <div className="wfProcessKpis">
+                <div><MapPin size={17}/><span>Equipes e campo</span><b>Acompanhamento</b></div>
+                <div><Workflow size={17}/><span>Fluxos integrados</span><b>Visibilidade</b></div>
+                <div><BarChart3 size={17}/><span>Indicadores</span><b>Decisão</b></div>
+              </div>
+              <div className="wfProcessBars" aria-label="Representação decorativa de visualização de indicadores">
+                {[40,65,55,78,70,91,80,100].map((height,index) => <span key={index} style={{height: height+'%'}} />)}
+              </div>
+              <div className="wfProcessInsight"><CheckCircle2 size={16}/> Dados organizados para acompanhamento</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="wfProcessBottom"><span>ESTRATÉGIA</span><span>TECNOLOGIA</span><span>RESULTADOS</span></div>
+    </div>
+  );
+}
 
 export default function ScrollStory() {
-  const sectionRef = React.useRef<HTMLElement>(null);
-  const videoRef = React.useRef<HTMLVideoElement>(null);
-  const [progress, setProgress] = React.useState(0);
-  const [ready, setReady] = React.useState(false);
-  const [motion, setMotion] = React.useState(false);
-  const [desktop, setDesktop] = React.useState(false);
+  const section = React.useRef<HTMLElement>(null);
+  const [progress,setProgress] = React.useState(0);
+  const [reduced,setReduced] = React.useState(true);
+  const [desktop,setDesktop] = React.useState(false);
 
   React.useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const wide = window.matchMedia('(min-width: 768px)');
-    const update = () => { setMotion(!reduced.matches); setDesktop(wide.matches); };
-    update();
-    reduced.addEventListener('change', update);
-    wide.addEventListener('change', update);
-    return () => { reduced.removeEventListener('change', update); wide.removeEventListener('change', update); };
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const wideQuery = window.matchMedia('(min-width: 850px)');
+    const sync = () => {setReduced(motionQuery.matches);setDesktop(wideQuery.matches)};
+    sync();
+    motionQuery.addEventListener('change',sync);
+    wideQuery.addEventListener('change',sync);
+    return () => {motionQuery.removeEventListener('change',sync);wideQuery.removeEventListener('change',sync)};
   }, []);
 
   React.useEffect(() => {
-    if (!motion || !desktop) { setProgress(0); return; }
+    if (!desktop || reduced) {setProgress(0);return};
     let frame = 0;
-    const measure = () => {
-      frame = 0;
-      const node = sectionRef.current;
-      if (!node) return;
-      const rect = node.getBoundingClientRect();
-      const total = Math.max(1, rect.height - window.innerHeight);
-      const next = Math.max(0, Math.min(1, -rect.top / total));
-      setProgress(old => Math.abs(old - next) > 0.002 ? next : old);
+    const recalc = () => {
+      frame=0;
+      const node=section.current;
+      if(!node)return;
+      const rect=node.getBoundingClientRect();
+      const distance=Math.max(1,rect.height-window.innerHeight);
+      const value=Math.min(1,Math.max(0,-rect.top/distance));
+      setProgress(previous=>Math.abs(previous-value)>.003?value:previous);
     };
-    const schedule = () => { if (!frame) frame = requestAnimationFrame(measure); };
-    measure();
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    return () => { window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); if (frame) cancelAnimationFrame(frame); };
-  }, [motion, desktop]);
+    const schedule=()=>{if(!frame)frame=requestAnimationFrame(recalc)};
+    recalc();
+    window.addEventListener('scroll',schedule,{passive:true});
+    window.addEventListener('resize',schedule);
+    return ()=>{window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);if(frame)cancelAnimationFrame(frame)};
+  },[desktop,reduced]);
 
-  // Persist the latest scroll target while a previous seek is still in progress.
-  // Apply it again on `seeked` so rapid scrolling cannot leave the film behind.
-  const desiredTime = React.useRef(0);
-  const syncVideo = React.useCallback(() => {
-    const video = videoRef.current;
-    if (!video || !ready || !motion || !desktop || video.seeking || !Number.isFinite(video.duration) || video.duration <= 0) return;
-    const end = Math.max(0, video.duration - 0.05);
-    const target = Math.max(0, Math.min(end, desiredTime.current));
-    if (Math.abs(video.currentTime - target) > 0.055) {
-      try { video.currentTime = target; } catch { /* Keep the poster if seeking is unavailable. */ }
-    }
-  }, [ready, motion, desktop]);
-
-  React.useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !ready || !motion || !desktop || !Number.isFinite(video.duration)) return;
-    desiredTime.current = progress * video.duration;
-    syncVideo();
-  }, [progress, ready, motion, desktop, syncVideo]);
-
-  const active = motion && desktop ? Math.min(frames.length - 1, Math.floor(progress * frames.length)) : 0;
+  const animated=desktop&&!reduced;
+  const active=animated?Math.min(stages.length-1,Math.floor(progress*stages.length)):0;
   return (
-    <section ref={sectionRef} className={`wfStory ${motion && desktop ? 'wfStoryAnimated' : ''}`} aria-label="Como transformamos ideias em experiências digitais">
+    <section ref={section} className={'wfStory'+(animated?' wfStoryAnimated':'')} aria-label="Da estratégia aos sistemas e dashboards da WuniFlow">
       <div className="wfStorySticky">
-        <div className="wfStoryMedia" aria-hidden="true">
-          {mediaUrl && motion && desktop && <video ref={videoRef} muted playsInline preload="metadata" tabIndex={-1} onLoadedMetadata={() => setReady(true)} onSeeked={syncVideo} onError={() => setReady(false)} className={ready ? 'wfStoryVideo isReady' : 'wfStoryVideo'}><source src={mediaUrl} type="video/mp4" /></video>}
-          <img src="/assets/portfolio-gpstrade.webp" width="1536" height="1272" loading="lazy" decoding="async" alt="" className="wfStoryPoster" />
-          <div className="wfStoryShade"/>
-        </div>
-        <div className="wfStoryInner">
-          <p className="wfStoryKicker">WUNIFLOW / EXPERIÊNCIAS QUE MOVEM NEGÓCIOS</p>
-          <div className="wfStoryCopy" aria-live="off">
-            <span className="wfStoryIndex">{frames[active].step}</span>
-            <h2 key={active}>{frames[active].title}</h2>
-            <p key={`text-${active}`}>{frames[active].text}</p>
-            <a href="/diagnostico" className="wfStoryLink">Começar meu projeto <span aria-hidden="true">↗</span></a>
-          </div>
-          <div className="wfStoryProgress" aria-hidden="true"><span style={{ transform: `scaleX(${motion && desktop ? progress : 1})` }} /></div>
+        <div className="wfStoryContainer">
+          <div className="wfStoryHeading"><span>COMO A WUNIFLOW TRANSFORMA NEGÓCIOS</span><strong>PROCESSO → TECNOLOGIA → DECISÃO</strong></div>
+          {animated ? (
+            <div className="wfStoryGrid">
+              <div className="wfStoryCopy">
+                <span className="wfStoryIndex">{stages[active].kicker}</span>
+                <h2 key={'h'+active}>{stages[active].title}</h2>
+                <p key={'p'+active}>{stages[active].description}</p>
+                <a className="wfStoryLink" href="/diagnostico">Quero digitalizar minha operação <ArrowRight size={18}/></a>
+                <div className="wfStorySteps" aria-label="Etapas do processo">
+                  {stages.map((item,index)=><span key={item.kicker} className={index===active?'isActive':''}>{'0'+(index+1)}</span>)}
+                </div>
+              </div>
+              <ProcessVisual stage={active}/>
+            </div>
+          ) : (
+            <div className="wfStoryMobile">
+              {stages.map((stage,index)=><div className="wfStoryMobileStage" key={stage.kicker}>
+                <div className="wfStoryCopy"><span className="wfStoryIndex">{stage.kicker}</span><h2>{stage.title}</h2><p>{stage.description}</p></div>
+                <ProcessVisual stage={index}/>
+              </div>)}
+              <a className="wfStoryLink" href="/diagnostico">Quero digitalizar minha operação <ArrowRight size={18}/></a>
+            </div>
+          )}
+          {animated&&<div className="wfStoryProgress" aria-hidden="true"><span style={{transform:'scaleX('+progress+')'}}/></div>}
         </div>
       </div>
     </section>
