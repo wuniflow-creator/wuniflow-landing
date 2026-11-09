@@ -1,0 +1,30 @@
+{
+  "result": "passed",
+  "projectCount": 5,
+  "links": "correct destination and safe new tab",
+  "image": "1366x768 loaded",
+  "layouts": [
+    {
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "width": 1024,
+      "scrollWidth": 1024
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1440
+    }
+  ],
+  "pageErrors": [],
+  "testedAt": "2026-11-09T13:11:36.115Z"
+}

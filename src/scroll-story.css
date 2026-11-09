@@ -1,0 +1,93 @@
+/* WuniFlow Hybrid: quadros leves sobre processos reais, sem spacer artificial. */
+.wfStory{position:relative;isolation:isolate;background:radial-gradient(ellipse at 78% 24%,rgba(117,66,166,.1),transparent 42%),#08060d;color:#f5f1fa;padding:90px 0 100px;overflow:clip}
+.wfStoryContainer{width:min(100% - 56px,1240px);margin:auto}
+.wfStoryHeading{display:flex;justify-content:space-between;align-items:center;gap:14px;color:#bda3cf;font-size:11px;letter-spacing:.14em;font-weight:700;margin-bottom:30px}
+.wfStoryHeading strong{font-size:10px;color:#977da5;letter-spacing:.15em}
+.wfStoryCards{display:flex;flex-direction:column}
+.wfStoryCard{display:grid;grid-template-columns:.91fr 1.09fr;align-items:center;gap:clamp(28px,5vw,78px);min-height:520px;padding:54px 0;border-bottom:1px solid rgba(205,155,224,.16);position:relative;--wf-scroll:0}
+.wfStoryCard:last-child{border-bottom:0}
+.wfStoryReverse .wfStoryCopy{order:2}
+.wfStoryReverse .wfStoryFrame{order:1}
+.wfStoryCopy{max-width:550px}
+.wfStoryIndex{color:#e68ccc;font-weight:800;font-size:12px;letter-spacing:.17em}
+.wfStoryCopy h2{font:700 clamp(36px,4.4vw,64px)/1.09 WuniOutfit,Manrope,sans-serif;letter-spacing:-.05em;margin:24px 0;text-wrap:balance}
+.wfStoryCopy p{color:#c4b8cb;font:400 clamp(15px,1.4vw,18px)/1.72 WuniManrope,Manrope,sans-serif}
+.wfStoryLink{display:inline-flex;align-items:center;gap:13px;border-bottom:1px solid #d24bab;padding-bottom:10px;margin-top:24px;font-size:14px;font-weight:700;color:#fff}
+.wfStoryLink:focus-visible{outline:3px solid #e68ccc;outline-offset:5px}
+.wfStorySteps{display:flex;gap:24px;margin-top:38px}
+.wfStorySteps span{color:#695a70;font:700 12px WuniManrope,Manrope,sans-serif;border-top:2px solid #46324c;width:62px;padding-top:12px}
+.wfStorySteps span.isActive{color:#f3b2de;border-color:#db56ad}
+.wfStoryFrame{min-width:0;transform:translate3d(0,0,0)}
+.wfStoryMotion .wfStoryCard .wfStoryCopy,.wfStoryMotion .wfStoryCard .wfStoryFrame{opacity:0;transform:translate3d(0,26px,0);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
+.wfStoryMotion .wfStoryCard.isVisible .wfStoryCopy{opacity:1;transform:translate3d(0,0,0)}
+.wfStoryMotion .wfStoryCard.isVisible .wfStoryFrame{opacity:1;transform:translate3d(0,calc((.5 - var(--wf-scroll))*18px),0)}
+.wfStoryMotion .wfStoryCard.isVisible .wfProcessDisplay{box-shadow:0 28px 80px #0008,0 0 60px rgba(143,57,134,.16)}
+.wfStoryMotion .wfStoryCard.isVisible .wfProcessFlow .wfProcessNode{animation:wfNodeIn .5s both}
+.wfStoryMotion .wfStoryCard.isVisible .wfProcessFlow .wfProcessNode:nth-of-type(2){animation-delay:.17s}
+.wfStoryMotion .wfStoryCard.isVisible .wfProcessFlow .wfProcessNode:nth-of-type(3){animation-delay:.32s}
+.wfStoryMotion .wfStoryCard.isVisible .wfProcessBars span{animation:wfBarGrow .9s ease-out backwards;transform-origin:bottom center}
+.wfStoryMotion .wfStoryCard.isVisible .wfProcessBars span:nth-child(2n){animation-delay:.1s}
+.wfStoryMotion .wfStoryCard.isVisible .wfProcessBars span:nth-child(3n){animation-delay:.22s}
+@keyframes wfBarGrow{from{transform:scaleY(.05)}to{transform:scaleY(1)}}
+@keyframes wfNodeIn{from{opacity:.25;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.wfProcessDisplay{min-width:0;background:linear-gradient(145deg,#1b1423,#0e0b14);border:1px solid #5c3a65;border-radius:20px;box-shadow:0 28px 80px #0008;overflow:hidden}
+.wfProcessTop{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid #3a2a43}
+.wfProcessBrand{display:flex;align-items:center;gap:10px;font-weight:900;color:#e9ace3;font-size:23px}
+.wfProcessBrand span{font-weight:700;font-size:10px;letter-spacing:.14em;color:#dfc8e7}
+.wfProcessDemo{font-size:9px;letter-spacing:.1em;color:#b7a2bc}
+.wfProcessViewport{height:370px;position:relative;overflow:hidden}
+.wfProcessLayer{position:absolute;inset:0;padding:28px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.wfProcessPanel{width:100%;max-width:460px;border:1px solid #5a3b61;background:#18131e;border-radius:14px;padding:22px}
+.wfProcessTag,.wfProcessSystemLabel{display:flex;gap:8px;align-items:center;color:#e68ccc;font-size:10px;letter-spacing:.13em;font-weight:800}
+.wfProcessPanel h3{font-size:18px;margin:12px 0 16px;color:#f9effb}
+.wfProcessField{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #3c2c43;padding:12px 0;font-size:12px;color:#e2d1e7}
+.wfProcessPill{font-size:9px;color:#e5abc8;border:1px solid #77415c;border-radius:15px;padding:4px 7px;white-space:nowrap}
+.wfProcessInsight{display:flex;align-items:center;gap:9px;color:#dbc7e4;font-size:11px;background:#4e2a5b66;border-radius:9px;padding:11px 12px;width:100%}
+.wfProcessInsight svg{color:#d775c4;flex-shrink:0}
+.wfProcessSideNote{display:flex;align-items:center;gap:9px;color:#ab89bc;font-size:10px;letter-spacing:.12em}
+.wfProcessSideNote i{display:block;width:21px;height:1px;background:#694376}
+.wfProcessFlow{width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
+.wfProcessNode{min-width:0;flex:1;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;border:1px solid #654275;border-radius:13px;background:linear-gradient(135deg,#36213f,#17101c);text-align:center;padding:10px}
+.wfProcessNode svg{color:#db86cc}
+.wfProcessNode b{font-size:12px;line-height:1.2}
+.wfProcessNode small{color:#baa6c2;font-size:10px;line-height:1.4}
+.wfProcessConnector{color:#ce7bc5;flex:none}
+.wfProcessSystemLabel{align-self:flex-start}
+.wfProcessDashboard{width:100%;border:1px solid #5a3b61;border-radius:14px;padding:19px;background:#18131e}
+.wfProcessDashboardTitle{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.wfProcessDashboardTitle>span{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700}
+.wfProcessDashboardTitle>small{font-size:9px;color:#bb9fc2}
+.wfProcessKpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0}
+.wfProcessKpis>div{background:#2a1c32;border:1px solid #4b3157;border-radius:9px;padding:12px 9px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.wfProcessKpis svg{color:#d18ac6}
+.wfProcessKpis span{font-size:10px;color:#bba9c5}
+.wfProcessKpis b{font-size:11px;color:#fff;overflow-wrap:anywhere}
+.wfProcessBars{height:75px;display:flex;gap:10px;align-items:end;border-bottom:1px solid #765481;padding:0 9px}
+.wfProcessBars span{flex:1;max-width:45px;background:linear-gradient(0deg,#70449c,#ca55a6);border-radius:4px 4px 0 0;opacity:.88}
+.wfProcessDashboard .wfProcessInsight{margin-top:14px}
+.wfProcessBottom{display:flex;justify-content:space-between;gap:10px;padding:14px 20px;border-top:1px solid #3a2a43;color:#9b81a6;font-size:9px;letter-spacing:.15em;font-weight:800}
+@media(max-width:849px){
+.wfStory{padding:56px 0 66px}.wfStoryContainer{width:min(100% - 36px,700px)}
+.wfStoryHeading{flex-direction:column;align-items:flex-start;line-height:1.5;margin-bottom:20px}
+.wfStoryCard{grid-template-columns:1fr;min-height:0;padding:48px 0;gap:22px}
+.wfStoryReverse .wfStoryCopy,.wfStoryReverse .wfStoryFrame{order:unset}
+.wfStoryCopy h2{font-size:clamp(32px,6.5vw,48px)}
+.wfStoryCopy p{font-size:15px}.wfStorySteps{margin-top:22px}
+.wfProcessViewport{height:335px}.wfProcessLayer{padding:17px}
+.wfProcessTop{padding:12px}.wfProcessBrand span{font-size:8px}.wfProcessDemo{font-size:8px}
+}
+@media(max-width:460px){
+.wfProcessViewport{height:355px}.wfProcessLayer{padding:10px}
+.wfProcessPanel{padding:13px}.wfProcessPanel h3{font-size:15px}
+.wfProcessField{font-size:10px}.wfProcessPill{font-size:8px}
+.wfProcessNode{padding:7px 5px;min-height:125px}
+.wfProcessNode b{font-size:10px}.wfProcessNode small{font-size:9px}
+.wfProcessFlow{gap:3px}.wfProcessConnector svg{width:12px}
+.wfProcessKpis{gap:4px}.wfProcessKpis>div{padding:7px 5px}
+.wfProcessKpis b{font-size:9px}.wfProcessDashboard{padding:12px}
+.wfProcessDemo{display:none}.wfProcessBottom{font-size:8px;padding:12px}
+}
+@media(prefers-reduced-motion:reduce){
+.wfStoryMotion .wfStoryCard .wfStoryCopy,.wfStoryMotion .wfStoryCard .wfStoryFrame{opacity:1;transform:none;transition:none}
+.wfStoryMotion .wfStoryCard .wfProcessNode,.wfStoryMotion .wfStoryCard .wfProcessBars span{animation:none!important}
+}
