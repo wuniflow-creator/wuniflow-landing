@@ -63,3 +63,15 @@
 @media(max-width:849px){.wfStorySticky{padding:58px 0}.wfStoryContainer{width:min(100% - 36px,700px)}.wfStoryHeading{flex-direction:column;align-items:flex-start;line-height:1.5;margin-bottom:38px}.wfProcessViewport{height:335px}.wfProcessLayer{padding:17px}.wfProcessTop{padding:12px}.wfProcessBrand span{font-size:8px}.wfProcessDemo{font-size:8px}.wfStoryMobileStage{border-bottom:1px solid #42304b;padding-bottom:35px}.wfStoryMobileStage .wfStoryCopy p{font-size:15px}}
 @media(max-width:460px){.wfProcessViewport{height:365px}.wfProcessLayer{padding:10px}.wfProcessPanel{padding:13px}.wfProcessPanel h3{font-size:15px}.wfProcessField{font-size:10px}.wfProcessPill{font-size:8px}.wfProcessNode{padding:7px 5px;min-height:125px}.wfProcessNode b{font-size:10px}.wfProcessNode small{font-size:9px}.wfProcessFlow{gap:3px}.wfProcessConnector svg{width:12px}.wfProcessKpis{gap:4px}.wfProcessKpis>div{padding:7px 5px}.wfProcessKpis b{font-size:9px}.wfProcessDashboard{padding:12px}.wfProcessDemo{display:none}.wfProcessBottom{font-size:8px;padding:12px}}
 @media(prefers-reduced-motion:reduce){.wfStoryCopy h2,.wfStoryCopy p{animation:none}.wfProcessLayer{transition:none}}
+
+
+/* Vídeo real da WuniFlow na Preview: camada só aparece após metadados válidos. */
+.wfFilmShell{min-width:0;border-radius:20px;overflow:hidden;border:1px solid #5c3a65;background:#100b15;box-shadow:0 28px 80px #0008}
+.wfFilmScreen{position:relative;aspect-ratio:16/9;overflow:hidden;display:grid;place-items:center}
+.wfFilmVideo{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .25s ease}
+.wfFilmVideo.wfFilmReady{opacity:1}
+.wfFilmScreen>.wfProcessDisplay{width:100%;height:100%;border:0;border-radius:0;box-shadow:none}
+.wfFilmScreen .wfProcessViewport{height:calc(100% - 104px);min-height:200px}
+.wfFilmCaption{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:12px 17px;background:#140e1b;border-top:1px solid #46304e;color:#bca5c7;font-size:9px;letter-spacing:.11em;font-weight:700}
+@media(max-width:1100px){.wfFilmCaption{flex-wrap:wrap}.wfFilmScreen>.wfProcessDisplay .wfProcessLayer{padding:12px}.wfFilmScreen>.wfProcessDisplay .wfProcessViewport{height:calc(100% - 94px)}}
+@media(prefers-reduced-motion:reduce){.wfFilmVideo{display:none}}
