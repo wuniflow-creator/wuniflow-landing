@@ -21,12 +21,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -s public/cinematic/wuniflow-hero-v4.mp4
+          curl --fail --location --retry 3 --silent --show-error 'https://d2ol7oe51mr4n9.cloudfront.net/user_3LsFGNctOOVbUlii5OlzOFjOTeY/cb65ce53-ef54-44a2-b404-675484bc2a9d.mp4' -o /tmp/hero-source-1080p.mp4
+          test -s /tmp/hero-source-1080p.mp4
           mkdir -p public/cinematic/scroll-180
           ffmpeg -hide_banner -loglevel error -y \
-            -i public/cinematic/wuniflow-hero-v4.mp4 \
-            -vf "fps=15,scale=1280:-2:flags=lanczos" \
-            -frames:v 180 -c:v libwebp -quality 84 -compression_level 5 \
+            -i /tmp/hero-source-1080p.mp4 \
+            -vf "fps=15,scale=1920:-2:flags=lanczos" \
+            -frames:v 180 -c:v libwebp -quality 87 -compression_level 5 \
             public/cinematic/scroll-180/frame_%03d.webp
           count=$(find public/cinematic/scroll-180 -type f -name 'frame_*.webp' | wc -l)
           test "$count" -eq 180
