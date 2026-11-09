@@ -2,8 +2,8 @@ import React from 'react';
 
 // A mesma experiência visual cinematográfica é disponibilizada em desktop e mobile.
 // Em economizadores de dados, movimento reduzido ou falha de autoplay, permanece a capa do filme.
-const SOURCE = '/cinematic/wuniflow_video_sem_audio%20(online-video-cutter.com).mp4';
-const POSTER = '/cinematic/frames/frame_001.webp';
+const SOURCE = '/cinematic/wuniflow-hero-v4.mp4';
+const POSTER = '/cinematic/wuniflow-hero-v4-poster.webp';
 
 export default function HeroFilm() {
   const ref = React.useRef<HTMLVideoElement>(null);
