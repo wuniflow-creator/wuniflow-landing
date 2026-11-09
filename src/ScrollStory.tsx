@@ -77,7 +77,7 @@ function ProcessVisual({ stage }: { stage: number }) {
 }
 
 // O arquivo é servido apenas no ambiente onde estiver publicado.
-const VIDEO_SRC = '/cinematic/wuniflow-scroll.mp4';
+const VIDEO_SRC = '/cinematic/wuniflow_video_sem_audio%20(online-video-cutter.com).mp4';
 
 function VideoVisual({ progress }: { progress: number }) {
   const ref = React.useRef<HTMLVideoElement>(null);
