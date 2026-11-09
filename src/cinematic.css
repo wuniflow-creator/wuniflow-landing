@@ -60,3 +60,17 @@ a:focus-visible,button:focus-visible{outline:2px solid #dba9ec;outline-offset:4p
 .stageWindow .heroBrandFilm{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#0d0813;opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:1}
 .stageWindow.hasHeroBrandFilm .heroBrandFilm{opacity:1}
 @media(prefers-reduced-motion:reduce){.stageWindow .heroBrandFilm{display:none!important}.stageWindow.hasHeroBrandFilm .heroBrandFilm{opacity:0}}
+
+
+/* Full-screen cinema hero: retain current visual until a real film plays successfully. */
+.cinematicHero .heroFullVideo,.cinematicHero .heroFilmShade{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cinematicHero .heroFullVideo{display:block;object-fit:cover;object-position:center center;z-index:0;opacity:0;transition:opacity .65s ease}
+.cinematicHero .heroFilmShade{z-index:1;opacity:0;background:linear-gradient(90deg,rgba(8,6,13,.97) 0%,rgba(8,6,13,.81) 35%,rgba(8,6,13,.29) 67%,rgba(8,6,13,.12) 100%),linear-gradient(0deg,rgba(8,6,13,.60),transparent 20%,transparent 80%,rgba(8,6,13,.16));transition:opacity .6s ease}
+.cinematicHero .cinematicGrain{z-index:1}
+.cinematicHero.isHeroFilmReady{min-height:max(680px,calc(100svh - 78px));align-items:center;background:#08060d}
+.cinematicHero.isHeroFilmReady .heroFullVideo,.cinematicHero.isHeroFilmReady .heroFilmShade{opacity:1}
+.cinematicHero.isHeroFilmReady .cinematicVisual{opacity:0;visibility:hidden;pointer-events:none;animation:none}
+.cinematicHero.isHeroFilmReady .cinematicCopy{z-index:2;max-width:700px;text-shadow:0 2px 25px rgba(0,0,0,.2)}
+@media(max-width:980px){.cinematicHero.isHeroFilmReady{min-height:max(680px,100svh);grid-template-columns:1fr}.cinematicHero.isHeroFilmReady .cinematicVisual{display:none}.cinematicHero.isHeroFilmReady .heroFilmShade{background:linear-gradient(90deg,rgba(8,6,13,.96),rgba(8,6,13,.55)),linear-gradient(0deg,rgba(8,6,13,.7),transparent 45%)}}
+@media(max-width:800px){.cinematicHero.isHeroFilmReady{min-height:max(680px,calc(100svh - 68px));padding:85px 22px 65px}.cinematicHero.isHeroFilmReady .heroFullVideo{object-position:60% center}.cinematicHero.isHeroFilmReady .cinematicCopy h1{font-size:clamp(40px,9vw,64px)}}
+@media(prefers-reduced-motion:reduce){.cinematicHero .heroFullVideo{display:none!important}.cinematicHero .heroFilmShade{display:none!important}.cinematicHero.isHeroFilmReady .cinematicVisual{display:grid;visibility:visible;opacity:1}}
