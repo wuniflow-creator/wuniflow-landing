@@ -1,0 +1,52 @@
+name: Gerar frames otimizados do Hero
+on:
+  push:
+    branches:
+      - feature/hero-scroll-frames-20261109
+    paths:
+      - '.github/workflows/generate-hero-frames.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Instalar FFmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+      - name: Verificar fonte
+        run: |
+          test -f "public/cinematic/wuniflow_video_sem_audio (online-video-cutter.com).mp4"
+          ffmpeg -hide_banner -version | head -n 1
+      - name: Extrair doze quadros WebP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/cinematic/frames
+          for second in $(seq 0 11); do
+            number=$(printf "%03d" "$((second+1))")
+            ffmpeg -hide_banner -loglevel error -y -ss "$second" \
+              -i "public/cinematic/wuniflow_video_sem_audio (online-video-cutter.com).mp4" \
+              -frames:v 1 -vf "scale=1280:-2" -c:v libwebp -quality 78 \
+              "public/cinematic/frames/frame_${number}.webp"
+            test -s "public/cinematic/frames/frame_${number}.webp"
+          done
+          test "$(find public/cinematic/frames -maxdepth 1 -name 'frame_*.webp' | wc -l)" -eq 12
+      - name: Registrar apenas os frames
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/cinematic/frames/frame_*.webp
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: 12 quadros WebP do Hero cinematográfico"
+            git push origin HEAD:feature/hero-scroll-frames-20261109
+          fi
