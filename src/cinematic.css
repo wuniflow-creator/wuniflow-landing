@@ -91,3 +91,34 @@ a:focus-visible,button:focus-visible{outline:2px solid #dba9ec;outline-offset:4p
  .cinematicHero.isHeroFilmReady .heroFilmShade{display:block!important;opacity:1!important}
  .cinematicHero.isHeroFilmReady .cinematicVisual{display:none!important}
 }
+
+
+/* Experimental cinematic scroll sequence: feature-branch only. */
+.wfScrollSequence{position:relative;min-width:0}
+.wfScrollSequence.is-active{height:265svh;min-height:1250px}
+.wfScrollSequence.is-active>.cinematicHero{
+ position:sticky;top:78px;height:calc(100svh - 78px);
+ min-height:0;max-height:none;box-sizing:border-box;
+}
+.cinematicHero .heroScrollCanvas{
+ position:absolute;inset:0;display:block;width:100%;height:100%;
+ pointer-events:none;object-fit:cover;z-index:1;
+ opacity:0;transition:opacity .22s ease;
+}
+.cinematicHero.isHeroScrollReady .heroScrollCanvas.isReady{opacity:1}
+.cinematicHero.isHeroScrollReady .heroFullPoster{opacity:0}
+.cinematicHero.isHeroScrollReady .heroFullVideo{opacity:0!important}
+.cinematicHero.isHeroScrollReady .heroFilmShade{z-index:2;opacity:1}
+.cinematicHero.isHeroScrollReady .cinematicGrain{z-index:2}
+.cinematicHero.isHeroScrollReady .cinematicCopy{z-index:3}
+.wfScrollSequence.is-active>.cinematicHero .cinematicCopy{align-self:center}
+@media(max-height:750px) and (min-width:900px){
+ .wfScrollSequence.is-active>.cinematicHero{padding-top:30px;padding-bottom:25px}
+ .wfScrollSequence.is-active>.cinematicHero .cinematicCopy h1{font-size:clamp(40px,4.4vw,60px)}
+ .wfScrollSequence.is-active>.cinematicHero .heroProof{margin-top:15px}
+}
+@media(max-width:899px), (prefers-reduced-motion:reduce){
+ .wfScrollSequence.is-active{height:auto;min-height:0}
+ .wfScrollSequence.is-active>.cinematicHero{position:relative;top:auto;height:auto;min-height:680px}
+ .cinematicHero .heroScrollCanvas{display:none!important}
+}
