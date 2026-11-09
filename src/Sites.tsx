@@ -42,7 +42,6 @@ export default function Sites(){
     return()=>{ld.remove()};
   },[]);
   const[step,setStep]=React.useState(0);
-  const[furthestStep,setFurthestStep]=React.useState(0);
   const[sending,setSending]=React.useState(false);
   const[done,setDone]=React.useState(false);
   const[error,setError]=React.useState('');
@@ -57,21 +56,21 @@ export default function Sites(){
   const steps=['Projeto','Estrutura','Visual','Recursos','Operação','Resumo'];
   const validStep=(index:number)=>index===0?!!s.tipo:index===1?!!s.objetivo:index===2?!!s.estilo:index===4?!!s.prazo:true;
   const canContinue=validStep(step);
-  const canVisitStep=(target:number)=>target<=furthestStep && Array.from({length:target},(_,i)=>i).every(validStep);
   const goToStep=(target:number)=>{
-    if(target<0||target>=steps.length||!canVisitStep(target))return;
+    if(target<0||target>=steps.length)return;
     setStep(target);setError('');
     document.getElementById('sites-configurador')?.scrollIntoView({behavior:'smooth',block:'start'});
   };
   const continueStep=()=>{
     if(step>=steps.length-1||!canContinue)return;
     const next=step+1;
-    setFurthestStep(old=>Math.max(old,next));setStep(next);setError('');
+    setStep(next);setError('');
     document.getElementById('sites-configurador')?.scrollIntoView({behavior:'smooth',block:'start'});
   };
 
   async function submit(){
-    if(!s.nome||!s.whatsapp){setError('Informe seu nome e WhatsApp para receber a proposta.');return}
+    if(!s.prazo){setStep(4);setError('Informe quando gostaria de colocar o projeto no ar.');document.getElementById('sites-configurador')?.scrollIntoView({behavior:'smooth',block:'start'});return}
+    if(!s.nome.trim()||!s.whatsapp.trim()){setError('Informe seu nome e WhatsApp para receber a proposta.');return}
     setSending(true);setError('');
     try{
       const r=await fetch('/api/site-leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...s,estimativa:sobConsulta?null:total,origem:'Wuniflow Sites',pagina:window.location.href,submissionId:crypto.randomUUID()})});
@@ -117,7 +116,7 @@ export default function Sites(){
           <div className="sitesShowcaseBadge"><ShieldCheck/><span><b>Briefing inteligente</b><small>Escopo claro antes da proposta</small></span></div>
         </div>
       </section>
-      <nav className="sitesProgress" id="sites-configurador" aria-label="Etapas de configuração do site">{steps.map((x,i)=><button type="button" className={i===step?'active':i<step?'done':''} key={x} onClick={()=>goToStep(i)} disabled={!canVisitStep(i)} aria-current={i===step?'step':undefined} aria-label={`Etapa ${i+1} de ${steps.length}: ${x}${i>furthestStep?' (ainda não disponível)':''}`}><b aria-hidden="true">{i<step?'✓':i+1}</b><span className="sitesStepLong">{x}</span><span className="sitesStepShort">{['Proj.','Estr.','Visual','Extras','Oper.','Resumo'][i]}</span></button>)}</nav>
+      <nav className="sitesProgress" id="sites-configurador" aria-label="Etapas de configuração do site">{steps.map((x,i)=><button type="button" className={i===step?'active':i<step?'done':''} key={x} onClick={()=>goToStep(i)} aria-current={i===step?'step':undefined} aria-label={`Ir para etapa ${i+1} de ${steps.length}: ${x}`}><b aria-hidden="true">{i<step?'✓':i+1}</b><span className="sitesStepLong">{x}</span><span className="sitesStepShort">{['Proj.','Estr.','Visual','Extras','Oper.','Resumo'][i]}</span></button>)}</nav>
       <div className="sitesGrid">
         <section className="sitesCard">
           {step===0&&<><small>ETAPA 01 DE 06</small><h2>O que vamos criar?</h2><p>Escolha o formato que mais combina com o que você precisa hoje.</p><div className="sitesOptions">{projectTypes.map(([t,d])=><button className={s.tipo===t?'selected':''} onClick={()=>update('tipo',t)} key={t}><div className="sitesOptionTop"><i>{t==='Landing Page'?<LayoutTemplate/>:t==='Site Institucional'?<Building2/>:t==='Catálogo Digital'?<PackageOpen/>:t==='Loja Virtual'?<ShoppingCart/>:<SlidersHorizontal/>}</i><span className="sitesOptionRadio">{s.tipo===t?'✓':''}</span></div><b>{t}</b><span>{d}</span><small>{basePrices[t]===null?'Sob consulta':'A partir de '+basePrices[t]!.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</small></button>)}</div><div className="sitesFields"><label>Objetivo principal<select value={s.objetivo} onChange={e=>update('objetivo',e.target.value)}>{objectives.map(x=><option key={x}>{x}</option>)}</select></label><label>Segmento da empresa<input value={s.segmento} onChange={e=>update('segmento',e.target.value)} placeholder="Ex.: clínica, restaurante, consultoria..."/></label></div></>}
