@@ -1,0 +1,103 @@
+/* WuniFlow V4 — refinamento visual não destrutivo da landing.
+   Escopo intencional: componentes da home; não afeta /diagnostico, /sites ou /admin.
+   O Hero cinematográfico, seu vídeo e os componentes funcionais são preservados. */
+body:has(.landingHeader) {
+  --wf-surface-deep: #0b0810;
+  --wf-surface-1: #17111e;
+  --wf-surface-2: #211829;
+  --wf-surface-card: #261c2e;
+  --wf-copy-muted: #c7bdce;
+  --wf-border-clear: rgba(211,174,229,.23);
+}
+body:has(.landingHeader) .landingHeader {
+  background: #0b0810 !important;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-bottom: 1px solid rgba(211,174,229,.18);
+  box-shadow: 0 8px 24px rgba(4,2,7,.18);
+}
+body:has(.landingHeader) .landingHeaderInner { isolation:isolate; }
+body:has(.landingHeader) .landingNav.open { z-index:101; }
+/* Seções alternadas criam ritmo sem abandonar a identidade dark. */
+body:has(.landingHeader) .pain {
+  background: linear-gradient(160deg,#17111e 0%,#1d1525 58%,#130e19 100%);
+}
+body:has(.landingHeader) .statement {
+  background: radial-gradient(ellipse at 48% 0%,rgba(183,79,187,.20),transparent 65%),linear-gradient(135deg,#201328,#140e1b 80%);
+}
+body:has(.landingHeader) .cinematicPortfolio {
+  background: linear-gradient(180deg,#100c16 0%,#1a1321 55%,#120d19 100%);
+}
+body:has(.landingHeader) .build {
+  background: radial-gradient(ellipse at 90% 15%,rgba(187,58,163,.18),transparent 48%),#201729;
+}
+body:has(.landingHeader) .founder {
+  background: linear-gradient(135deg,#110c17,#1d1425);
+}
+body:has(.landingHeader) .process {
+  background:#17111e;
+}
+body:has(.landingHeader) .contact {
+  background:radial-gradient(ellipse at 10% 15%,rgba(187,58,163,.14),transparent 48%),#1b1322;
+}
+/* Os cards se destacam do painel sem recorrer a fundos claros. */
+body:has(.landingHeader) .painGrid article,
+body:has(.landingHeader) .cinematicProject,
+body:has(.landingHeader) .capGrid > div {
+  background:linear-gradient(145deg,rgba(56,41,66,.90),rgba(35,26,43,.96));
+  border-color:var(--wf-border-clear);
+  box-shadow:0 12px 32px rgba(5,2,9,.16);
+}
+body:has(.landingHeader) .painGrid article:hover,
+body:has(.landingHeader) .cinematicProject:hover,
+body:has(.landingHeader) .capGrid > div:hover {
+  border-color:rgba(227,164,228,.58);
+  box-shadow:0 18px 40px rgba(5,2,9,.25);
+}
+body:has(.landingHeader) .painGrid b {
+  background:#392442;
+  color:#f0b8ed;
+}
+body:has(.landingHeader) .painGrid h3,
+body:has(.landingHeader) .capGrid > div {color:#f5eef7;}
+body:has(.landingHeader) .painGrid p,
+body:has(.landingHeader) .cinematicProject > p,
+body:has(.landingHeader) .cinematicPortfolio .intro p,
+body:has(.landingHeader) .intro p,
+body:has(.landingHeader) .build p,
+body:has(.landingHeader) .founder p,
+body:has(.landingHeader) .contact > div p,
+body:has(.landingHeader) .statement p {color:var(--wf-copy-muted);}
+body:has(.landingHeader) .projectMeta {color:#c7a9d0;}
+body:has(.landingHeader) .projectLink {color:#f0c9f2;}
+body:has(.landingHeader) .tech span {
+  background:#3b2c46;
+  border-color:rgba(226,170,230,.34);
+  color:#f0e7f2;
+}
+body:has(.landingHeader) .steps div {border-color:rgba(219,172,233,.36);}
+body:has(.landingHeader) .steps b {color:#e3a0ea;}
+body:has(.landingHeader) .steps span {color:#f4edf7;}
+body:has(.landingHeader) .contactWhatsapp {color:#f0d2f3;border-color:rgba(218,163,227,.48);}
+body:has(.landingHeader) footer {background:#0c0911;border-color:rgba(211,174,229,.20);}
+body:has(.landingHeader) footer p,
+body:has(.landingHeader) footer small {color:#c3b6c9;}
+/* Alvos por âncora nunca ficam escondidos atrás do cabeçalho sticky. */
+body:has(.landingHeader) :is(#inicio,#cases,#solucoes,#processo,#contato) {scroll-margin-top:100px;}
+@media(max-width:800px){
+  body:has(.landingHeader) .landingHeader {background:#0b0810!important;}
+  body:has(.landingHeader) .landingHeaderInner {min-height:70px;}
+  body:has(.landingHeader) .painGrid article {padding:24px;}
+  body:has(.landingHeader) .cinematicProject {border-radius:18px;}
+  body:has(.landingHeader) .projectMedia {border:1px solid rgba(227,181,229,.12);}
+  body:has(.landingHeader) .pain,
+  body:has(.landingHeader) .cases,
+  body:has(.landingHeader) .build,
+  body:has(.landingHeader) .process {padding-top:80px;padding-bottom:80px;}
+  body:has(.landingHeader) :is(#inicio,#cases,#solucoes,#processo,#contato) {scroll-margin-top:78px;}
+}
+@media(prefers-reduced-motion:reduce){
+  body:has(.landingHeader) .painGrid article,
+  body:has(.landingHeader) .cinematicProject,
+  body:has(.landingHeader) .capGrid > div {transition:none;}
+}
