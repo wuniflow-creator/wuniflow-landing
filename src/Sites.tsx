@@ -79,6 +79,7 @@ export default function Sites(){
           <span className="sitesEyebrow"><Sparkles/> CRIE SEU PROJETO EM POUCOS MINUTOS</span>
           <h1>Seu próximo site.<br/><em>Do seu jeito.</em></h1>
           <p>Escolha o escopo, o estilo e os recursos. No final, veja uma estimativa e envie um briefing organizado para a Wuniflow.</p>
+          <a className="sitesHeroCta" href="#sites-configurador">Montar meu site <ArrowRight/></a>
           <div className="sitesTrustRow">
             <div><i><Zap/></i><span><b>Briefing</b><small>organizado</small></span></div>
             <div><i><Clock3/></i><span><b>Estimativa</b><small>rápida</small></span></div>
@@ -93,7 +94,7 @@ export default function Sites(){
             <div className="sitesBrowserBody">
               <div className="sitesBrowserNav"><b>CASA LUME</b><span>Ambientes&nbsp;&nbsp; Projetos&nbsp;&nbsp; Sobre</span><em>Agendar conversa</em></div>
               <div className="sitesBrowserContent">
-                <div><small>ARQUITETURA + INTERIORES</small><h3>Espaços feitos para viver melhor.</h3><p>Interiores autorais, com leveza, conforto e personalidade.</p><button>Ver projetos <ArrowRight/></button></div>
+                <div><small>ARQUITETURA + INTERIORES</small><h3>Espaços feitos para viver melhor.</h3><p>Interiores autorais, com leveza, conforto e personalidade.</p><span className="sitesDemoButton" aria-label="Botão demonstrativo">Ver projetos <ArrowRight/></span></div>
                 <div className="sitesBrowserVisual"><img src="/assets/cinematic/sites-landing-pages.webp" alt="Arte conceitual de exemplo visual para uma landing page de arquitetura" loading="lazy"/><span>CASA LUME<br/><small>ARQUITETURA & INTERIORES</small></span><b>PROJETO<br/>CONCEITUAL</b></div>
               </div>
             </div>
@@ -102,7 +103,7 @@ export default function Sites(){
           <div className="sitesShowcaseBadge"><ShieldCheck/><span><b>Briefing inteligente</b><small>Escopo claro antes da proposta</small></span></div>
         </div>
       </section>
-      <div className="sitesProgress">{steps.map((x,i)=><div className={i===step?'active':i<step?'done':''} key={x}><b>{i<step?'✓':i+1}</b><span className="sitesStepLong">{x}</span><span className="sitesStepShort">{['Proj.','Estr.','Visual','Extras','Oper.','Resumo'][i]}</span></div>)}</div>
+      <div className="sitesProgress" id="sites-configurador" aria-label="Etapas de configuração do site">{steps.map((x,i)=><div className={i===step?'active':i<step?'done':''} key={x}><b>{i<step?'✓':i+1}</b><span className="sitesStepLong">{x}</span><span className="sitesStepShort">{['Proj.','Estr.','Visual','Extras','Oper.','Resumo'][i]}</span></div>)}</div>
       <div className="sitesGrid">
         <section className="sitesCard">
           {step===0&&<><small>ETAPA 01 DE 06</small><h2>O que vamos criar?</h2><p>Escolha o formato que mais combina com o que você precisa hoje.</p><div className="sitesOptions">{projectTypes.map(([t,d])=><button className={s.tipo===t?'selected':''} onClick={()=>update('tipo',t)} key={t}><div className="sitesOptionTop"><i>{t==='Landing Page'?<LayoutTemplate/>:t==='Site Institucional'?<Building2/>:t==='Catálogo Digital'?<PackageOpen/>:t==='Loja Virtual'?<ShoppingCart/>:<SlidersHorizontal/>}</i><span className="sitesOptionRadio">{s.tipo===t?'✓':''}</span></div><b>{t}</b><span>{d}</span><small>{basePrices[t]===null?'Sob consulta':'A partir de '+basePrices[t]!.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</small></button>)}</div><div className="sitesFields"><label>Objetivo principal<select value={s.objetivo} onChange={e=>update('objetivo',e.target.value)}>{objectives.map(x=><option key={x}>{x}</option>)}</select></label><label>Segmento da empresa<input value={s.segmento} onChange={e=>update('segmento',e.target.value)} placeholder="Ex.: clínica, restaurante, consultoria..."/></label></div></>}
