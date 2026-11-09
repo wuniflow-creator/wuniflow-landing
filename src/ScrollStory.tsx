@@ -45,19 +45,32 @@ export default function ScrollStory() {
     return () => { window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); if (frame) cancelAnimationFrame(frame); };
   }, [motion, desktop]);
 
+  // Persist the latest scroll target while a previous seek is still in progress.
+  // Apply it again on `seeked` so rapid scrolling cannot leave the film behind.
+  const desiredTime = React.useRef(0);
+  const syncVideo = React.useCallback(() => {
+    const video = videoRef.current;
+    if (!video || !ready || !motion || !desktop || video.seeking || !Number.isFinite(video.duration) || video.duration <= 0) return;
+    const end = Math.max(0, video.duration - 0.05);
+    const target = Math.max(0, Math.min(end, desiredTime.current));
+    if (Math.abs(video.currentTime - target) > 0.055) {
+      try { video.currentTime = target; } catch { /* Keep the poster if seeking is unavailable. */ }
+    }
+  }, [ready, motion, desktop]);
+
   React.useEffect(() => {
     const video = videoRef.current;
     if (!video || !ready || !motion || !desktop || !Number.isFinite(video.duration)) return;
-    const target = Math.min(Math.max(0, video.duration - 0.05), progress * video.duration);
-    if (Math.abs(video.currentTime - target) > 0.055 && !video.seeking) video.currentTime = target;
-  }, [progress, ready, motion, desktop]);
+    desiredTime.current = progress * video.duration;
+    syncVideo();
+  }, [progress, ready, motion, desktop, syncVideo]);
 
   const active = motion && desktop ? Math.min(frames.length - 1, Math.floor(progress * frames.length)) : 0;
   return (
     <section ref={sectionRef} className={`wfStory ${motion && desktop ? 'wfStoryAnimated' : ''}`} aria-label="Como transformamos ideias em experiências digitais">
       <div className="wfStorySticky">
         <div className="wfStoryMedia" aria-hidden="true">
-          {mediaUrl && motion && desktop && <video ref={videoRef} muted playsInline preload="metadata" tabIndex={-1} onLoadedMetadata={() => setReady(true)} onError={() => setReady(false)} className={ready ? 'wfStoryVideo isReady' : 'wfStoryVideo'}><source src={mediaUrl} type="video/mp4" /></video>}
+          {mediaUrl && motion && desktop && <video ref={videoRef} muted playsInline preload="metadata" tabIndex={-1} onLoadedMetadata={() => setReady(true)} onSeeked={syncVideo} onError={() => setReady(false)} className={ready ? 'wfStoryVideo isReady' : 'wfStoryVideo'}><source src={mediaUrl} type="video/mp4" /></video>}
           <img src="/assets/portfolio-gpstrade.webp" width="1536" height="1272" loading="lazy" decoding="async" alt="" className="wfStoryPoster" />
           <div className="wfStoryShade"/>
         </div>
