@@ -54,3 +54,9 @@ a:focus-visible,button:focus-visible{outline:2px solid #dba9ec;outline-offset:4p
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 .contactWhatsapp{display:inline-flex;align-items:center;min-height:47px;margin:18px 0 0 14px;padding:0 17px;border:1px solid rgba(200,164,240,.35);border-radius:10px;color:#e2c4ef;font-size:12px;font-weight:700;transition:background .2s,border-color .2s}.contactWhatsapp:hover{background:rgba(255,255,255,.05);border-color:rgba(200,164,240,.7)}
 @media(max-width:480px){.contactWhatsapp{margin:10px 0 0}}
+
+
+/* Hero cinematográfico: vídeo em primeiro plano somente quando disponível e reproduzível. */
+.stageWindow .heroBrandFilm{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#0d0813;opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:1}
+.stageWindow.hasHeroBrandFilm .heroBrandFilm{opacity:1}
+@media(prefers-reduced-motion:reduce){.stageWindow .heroBrandFilm{display:none!important}.stageWindow.hasHeroBrandFilm .heroBrandFilm{opacity:0}}
