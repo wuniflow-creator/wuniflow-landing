@@ -76,6 +76,49 @@ function ProcessVisual({ stage }: { stage: number }) {
   );
 }
 
+// O arquivo é servido apenas no ambiente onde estiver publicado.
+const VIDEO_SRC = '/cinematic/wuniflow-scroll.mp4';
+
+function VideoVisual({ progress }: { progress: number }) {
+  const ref = React.useRef<HTMLVideoElement>(null);
+  const desired = React.useRef(0);
+  const [ready, setReady] = React.useState(false);
+  const [failed, setFailed] = React.useState(false);
+
+  const seekToScroll = React.useCallback(() => {
+    const video = ref.current;
+    if (!video || !ready || video.seeking || !Number.isFinite(video.duration) || video.duration <= 0) return;
+    const target = Math.min(Math.max(0, desired.current), Math.max(0, video.duration - .045));
+    if (Math.abs(video.currentTime - target) > .04) {
+      try { video.currentTime = target; } catch { setFailed(true); }
+    }
+  }, [ready]);
+
+  React.useEffect(() => {
+    const video = ref.current;
+    if (!video || !ready) return;
+    desired.current = progress * video.duration;
+    seekToScroll();
+  }, [progress, ready, seekToScroll]);
+
+  return (
+    <div className="wfFilmShell">
+      <div className="wfFilmScreen">
+        <video ref={ref} className={'wfFilmVideo'+(ready&&!failed?' wfFilmReady':'')}
+          src={VIDEO_SRC} playsInline muted preload="auto" aria-label="Vídeo ilustrativo dos serviços da WuniFlow"
+          onLoadedMetadata={() => { setReady(true); ref.current?.pause(); }}
+          onSeeked={seekToScroll}
+          onError={() => setFailed(true)}
+        />
+        {(!ready || failed) && <ProcessVisual stage={Math.min(stages.length-1,Math.floor(progress*stages.length))}/>}
+      </div>
+      <div className="wfFilmCaption">
+        <span>WUNIFLOW AUTOMATIONS</span><span>{ready&&!failed?'VÍDEO INTERATIVO · CONTROLE POR ROLAGEM':'NARRATIVA VISUAL · SISTEMAS E AUTOMAÇÃO'}</span>
+      </div>
+    </div>
+  );
+}
+
 export default function ScrollStory() {
   const section = React.useRef<HTMLElement>(null);
   const [progress,setProgress] = React.useState(0);
@@ -129,7 +172,7 @@ export default function ScrollStory() {
                   {stages.map((item,index)=><span key={item.kicker} className={index===active?'isActive':''}>{'0'+(index+1)}</span>)}
                 </div>
               </div>
-              <ProcessVisual stage={active}/>
+              <VideoVisual progress={progress}/>
             </div>
           ) : (
             <div className="wfStoryMobile">
