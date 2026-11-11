@@ -32,6 +32,7 @@ export default function PortfolioCarousel() {
   const currentIndexRef = React.useRef(0);
   const manuallyPausedRef = React.useRef(false);
   const visibleRef = React.useRef(false);
+  const touchStartRef = React.useRef<{ x:number; y:number } | null>(null);
   const [manuallyPaused,setManuallyPaused] = React.useState(false);
 
   // Any deliberate user interaction permanently suspends autoplay until they resume it.
@@ -76,7 +77,8 @@ export default function PortfolioCarousel() {
     const card = track.children[index] as HTMLElement | undefined;
     if (!card) return;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    viewport.scrollTo({left:card.offsetLeft - track.offsetLeft,behavior:reduced?'auto':'smooth'});
+    const left = card.offsetLeft - track.offsetLeft - (viewport.clientWidth - card.clientWidth) / 2;
+    viewport.scrollTo({left:Math.max(0,left),behavior:reduced?'auto':'smooth'});
     currentIndexRef.current = index;
     setMobileIndex(index);
   };
@@ -87,23 +89,26 @@ export default function PortfolioCarousel() {
     if (!root || !viewport) return;
     const mobile = window.matchMedia('(max-width: 899px)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const dataSaving = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    // Observe o próprio carrossel: a seção pode ser mais alta que a tela do telefone.
     const observer = typeof IntersectionObserver === 'undefined'
       ? null
       : new IntersectionObserver(entries => {
           visibleRef.current = entries.some(entry => entry.isIntersecting);
-        }, { threshold: 0.25 });
-    observer?.observe(root);
+        }, { threshold: 0.01 });
+    observer?.observe(viewport);
     if (!observer) visibleRef.current = true;
 
     const timer = window.setInterval(() => {
       if (!visibleRef.current || document.hidden || !mobile.matches ||
-          reducedMotion.matches || dataSaving?.saveData || manuallyPausedRef.current) return;
+          reducedMotion.matches || manuallyPausedRef.current) return;
       const next = (currentIndexRef.current + 1) % projects.length;
       const card = trackRef.current?.children[next] as HTMLElement | undefined;
       if (!card) return;
       // Move only the horizontal scroll container; never take over page scrolling.
-      viewport.scrollTo({left: card.offsetLeft - (trackRef.current?.offsetLeft ?? 0), behavior: 'smooth'});
+      const track = trackRef.current;
+      if (!track) return;
+      const left = card.offsetLeft - track.offsetLeft - (viewport.clientWidth - card.clientWidth) / 2;
+      viewport.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
       currentIndexRef.current = next;
       setMobileIndex(next);
     }, 6000);
@@ -118,7 +123,11 @@ export default function PortfolioCarousel() {
     const track = trackRef.current;
     if (!viewport || !track || window.matchMedia('(min-width: 900px)').matches) return;
     const children = Array.from(track.children) as HTMLElement[];
-    const index = children.reduce((best,child,i)=>Math.abs(child.offsetLeft - track.offsetLeft - viewport.scrollLeft) < Math.abs(children[best].offsetLeft - track.offsetLeft - viewport.scrollLeft)?i:best,0);
+    if (!children.length) return;
+    const center = viewport.scrollLeft + viewport.clientWidth / 2;
+    const index = children.reduce((best,child,i)=>
+      Math.abs(child.offsetLeft - track.offsetLeft + child.clientWidth/2 - center) <
+      Math.abs(children[best].offsetLeft - track.offsetLeft + children[best].clientWidth/2 - center) ? i : best,0);
     currentIndexRef.current = index;
     setMobileIndex(index);
   };
@@ -132,10 +141,21 @@ export default function PortfolioCarousel() {
       <span className="wfPortfolioHint" aria-hidden="true">EXPLORE OS PROJETOS <ArrowRight size={17}/></span>
     </div>
     <div className="wfPortfolioViewport" ref={viewportRef} onScroll={onMobileScroll}
-      onPointerDown={pauseAutoplay}
-      onKeyDown={pauseAutoplay}
-      onWheel={pauseAutoplay}
-      onFocusCapture={pauseAutoplay}
+      onTouchStart={event => {
+        touchStartRef.current = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+      }}
+      onTouchMove={event => {
+        const start = touchStartRef.current;
+        if (!start) return;
+        const dx = Math.abs(event.touches[0].clientX-start.x);
+        const dy = Math.abs(event.touches[0].clientY-start.y);
+        // Vertical page scrolling must NOT disable automatic playback.
+        if (dx > 16 && dx > dy * 1.2) { pauseAutoplay(); touchStartRef.current=null; }
+      }}
+      onTouchEnd={() => {touchStartRef.current=null}}
+      onKeyDown={event => {
+        if (['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) pauseAutoplay();
+      }}
       tabIndex={0} aria-label="Portfólio de projetos. No celular, deslize para ver os demais.">
       <div className="wfPortfolioTrack" ref={trackRef}>
         {projects.map((project,index)=><article className="wfPortfolioCard" key={project.href}>
