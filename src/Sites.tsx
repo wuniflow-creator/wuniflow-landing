@@ -123,7 +123,7 @@ export default function Sites(){
               onTouchStart={e=>{touchStartX.current=e.touches[0]?.clientX??null}}
               onTouchEnd={e=>{if(touchStartX.current===null)return;const dx=(e.changedTouches[0]?.clientX??touchStartX.current)-touchStartX.current;touchStartX.current=null;if(Math.abs(dx)>45)selectPortfolio(sitePortfolioIndex+(dx<0?1:-1))}}
             >
-              <img key={portfolio.image} src={portfolio.image} alt={portfolio.alt} loading={sitePortfolioIndex===0?'eager':'lazy'} decoding="async" />
+              <img key={portfolio.image} src={portfolio.image} alt={portfolio.alt} width={1366} height={768} loading={sitePortfolioIndex===0?'eager':'lazy'} fetchPriority={sitePortfolioIndex===0?'high':'auto'} decoding="async" />
               <div className="sitesRealShade" aria-hidden="true"/>
               <div className="sitesRealText">
                 <span className="sitesRealEyebrow">{portfolio.segment}</span>
