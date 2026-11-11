@@ -99,7 +99,7 @@ export default function SolutionsShowcase(){
         <span className="wfsCategoryIcon"><g.Icon size={26} strokeWidth={1.8}/></span>
         <strong>{g.title}</strong>
         <span className="wfsCategoryTeaser">{g.teaser}</span>
-        <span className="wfsCategoryBottom">{g.services.length} {g.services.length===1?'solução':'soluções'} <span>{selected===i?'Explorando':'Explorar'} <ArrowUpRight size={15}/></span></span>
+        <span className="wfsCategoryBottom">{g.services.length} {g.services.length===1?'solução':'soluções'} <span>{g.id==='digital'?'Explorar sites':selected===i?'Explorando':'Explorar'} <ArrowUpRight size={15}/></span></span>
       </button>)}
     </div>
     <div id="wfs-detail" className="wfsDetail" aria-label={'Detalhes: '+active.title}>
