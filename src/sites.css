@@ -287,3 +287,26 @@
 @media(max-width:360px){
  .sitesMobileHome{padding:9px 10px;font-size:11px}
 }
+
+/* Conteúdo comercial indexável e FAQ, sem dependências adicionais */
+.sitesSeoSection{max-width:1150px;margin:56px auto 72px;padding:0 24px;color:#f6f1f9}
+.sitesSeoIntro{max-width:790px;margin-bottom:26px}
+.sitesSeoKicker{display:block;font-size:11px;font-weight:800;letter-spacing:.16em;color:#e5a1f3;margin-bottom:14px}
+.sitesSeoSection h2{font-size:clamp(25px,3.5vw,39px);line-height:1.17;letter-spacing:-.025em;margin:0 0 14px;color:#fff}
+.sitesSeoSection h3{font-size:18px;line-height:1.35;margin:0 0 10px;color:#fff}
+.sitesSeoSection p{font-size:15px;line-height:1.7;color:#d8cfdc}
+.sitesSeoCards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.sitesSeoCards article{padding:24px;border:1px solid rgba(234,178,246,.20);border-radius:18px;background:linear-gradient(145deg,rgba(37,25,43,.96),rgba(17,17,21,.98))}
+.sitesSeoCards p{margin:0}
+.sitesSeoFaq{margin-top:48px;max-width:940px}
+.sitesSeoFaq details{border-bottom:1px solid rgba(255,255,255,.16);padding:17px 0}
+.sitesSeoFaq summary{cursor:pointer;list-style-position:inside;color:#fff;font-weight:700;line-height:1.5}
+.sitesSeoFaq details p{padding:4px 0 2px 21px;margin:10px 0}
+.sitesSeoClosing{margin-top:28px!important}
+.sitesSeoClosing a{color:#f5a8ff;text-decoration:underline;text-underline-offset:4px}
+.sitesSeoSection a:focus-visible,.sitesSeoFaq summary:focus-visible{outline:3px solid #e65af8;outline-offset:4px}
+@media(max-width:700px){.sitesSeoSection{margin:34px auto 55px;padding:0 17px}.sitesSeoCards{grid-template-columns:1fr}.sitesSeoCards article{padding:19px}.sitesSeoFaq{margin-top:35px}.sitesSeoSection p{font-size:14px}}
+
+/* Navegação nativa para o configurador e respeito às preferências de movimento */
+#sites-configurador{scroll-margin-top:90px}
+@media(prefers-reduced-motion:no-preference){html:has(.sitesSeoSection){scroll-behavior:smooth}}
