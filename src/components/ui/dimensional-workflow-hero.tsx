@@ -47,13 +47,14 @@ export default function DimensionalWorkflowHero({content=defaultContent}:{conten
     const viewport=element.querySelector<HTMLElement>('.dw-viewport')!;
     const intro=element.querySelector('.dw-deck-intro');
     const fit=()=>Math.max(.28,Math.min(1,(phone?element.clientWidth*.88:element.clientWidth*.51)/600,phone?(viewport.clientHeight-310)/430:1));
+    element.style.setProperty('--dw-fit',String(fit()));
     const sync=(index:number)=>{if(current.current!==index){current.current=index;setActive(index)}copies.forEach((copy,i)=>{copy.inert=i!==index;copy.setAttribute('aria-hidden',String(i!==index))})};
     sync(-1);
     gsap.set(copies,{autoAlpha:0,y:25});
     gsap.set(stages,{left:phone?'50%':'72%',top:phone?'65%':'51%',xPercent:-50,yPercent:-50});
     gsap.set(panels,{transformPerspective:1400,transformOrigin:'50% 50%'});
     panels.forEach((panel,i)=>gsap.set(panel,{x:(i-1)*(phone?50:105),y:(i===1?-14:22),z:-i*100,rotationY:-34,rotationX:14,rotationZ:-5+i*2,scale:fit()*.78,autoAlpha:1,zIndex:3-i}));
-    const timeline=gsap.timeline({defaults:{ease:'power2.inOut'},scrollTrigger:{trigger:viewport,start:()=>phone?'top 70px':'top 80px',end:()=>'+='+Math.min(viewport.clientHeight*(phone?1.12:1.05),950)*cards.length,pin:true,scrub:.55,invalidateOnRefresh:true,onUpdate:self=>{const time=self.animation?.time()??0;sync(time<1?-1:time>=12?3:Math.min(2,Math.floor((time-1)/3.7)))}}});tl.current=timeline;
+    const timeline=gsap.timeline({defaults:{ease:'power2.inOut'},scrollTrigger:{trigger:viewport,start:()=>phone?'top 70px':'top 80px',end:()=>'+='+Math.min(viewport.clientHeight*(phone?1.12:1.05),950)*cards.length,pin:true,scrub:.55,invalidateOnRefresh:true,onRefresh:()=>element.style.setProperty('--dw-fit',String(fit())),onUpdate:self=>{const time=self.animation?.time()??0;sync(time<1?-1:time>=12?3:Math.min(2,Math.floor((time-1)/3.7)))}}});tl.current=timeline;
     timeline.to(intro,{autoAlpha:0,y:-28,duration:.6},.35);
     cards.forEach((card,i)=>{
      const t=1+i*3.7;timeline.addLabel('chapter-'+i,t+.5);

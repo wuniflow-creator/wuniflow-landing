@@ -47,3 +47,11 @@
 .dw-phone .dw-deck-close{inset:24% 5% auto}
 .dw-phone .dw-deck-close h3{font-size:clamp(32px,8vw,42px)}
 @media(prefers-reduced-motion:reduce){.dw-deck-intro,.dw-deck-close{display:none!important}}
+
+/* Preserve label legibility after fitting the 600px stage to a phone. */
+.dw-phone .dw-node>strong{font-size:max(11px,calc(9px / var(--dw-fit,1)))}
+.dw-phone .dw-node>small,.dw-phone .dw-art-note{display:none}
+.dw-phone .dw-node>svg{width:max(22px,calc(12px / var(--dw-fit,1)));height:max(22px,calc(12px / var(--dw-fit,1)))}
+.dw-phone .dw-panel-bar strong{font-size:max(12px,calc(9px / var(--dw-fit,1)))}
+.dw-phone .dw-panel-bar>span{font-size:max(7px,calc(7px / var(--dw-fit,1)))}
+.dw-phone .dw-panel-footer{font-size:max(9px,calc(7px / var(--dw-fit,1)))}
