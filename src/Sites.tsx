@@ -109,8 +109,8 @@ export default function Sites(){
   }
   // O clique abre WhatsApp; o visitante precisa enviar a mensagem para acionar Evolution → n8n.
   const whatsappMessage=done
-    ? 'Olá! Vim pelo configurador de sites da WuniFlow. Meu briefing já foi registrado. Projeto: '+s.tipo+'. Objetivo: '+s.objetivo+'. Gostaria de receber orientação sobre a proposta.'
-    : 'Olá! Vim pela página de criação de sites da WuniFlow e gostaria de orientação para desenvolver um site para minha empresa.';
+    ? 'Olá! Vim pelo configurador de soluções digitais da WuniFlow. Meu briefing já foi registrado. Tipo de projeto: '+s.tipo+'. Objetivo: '+s.objetivo+'. Gostaria de receber orientação sobre a proposta.'
+    : 'Olá! Vim pelo configurador de soluções digitais da WuniFlow. Tenho interesse em '+s.tipo+'. Meu objetivo é '+s.objetivo+'. Gostaria de orientação para meu projeto.';
   const whatsappHref='https://wa.me/5561981240476?text='+encodeURIComponent(whatsappMessage);
 
   if(done)return <div className="sitesPage"><div className="sitesDone"><CheckCircle2/><span>BRIEFING RECEBIDO</span><h1>Seu projeto já está com a Wuniflow.</h1><p>Registramos suas escolhas. Agora você pode abrir o WhatsApp com a conversa iniciada.</p><a className="sitesPrimary" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle/> Continuar no WhatsApp</a><a href="/">Voltar para a Wuniflow</a></div></div>;
