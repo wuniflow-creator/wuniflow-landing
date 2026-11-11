@@ -306,3 +306,7 @@
 .sitesSeoClosing a{color:#f5a8ff;text-decoration:underline;text-underline-offset:4px}
 .sitesSeoSection a:focus-visible,.sitesSeoFaq summary:focus-visible{outline:3px solid #e65af8;outline-offset:4px}
 @media(max-width:700px){.sitesSeoSection{margin:34px auto 55px;padding:0 17px}.sitesSeoCards{grid-template-columns:1fr}.sitesSeoCards article{padding:19px}.sitesSeoFaq{margin-top:35px}.sitesSeoSection p{font-size:14px}}
+
+/* Navegação nativa para o configurador e respeito às preferências de movimento */
+#sites-configurador{scroll-margin-top:90px}
+@media(prefers-reduced-motion:no-preference){html:has(.sitesSeoSection){scroll-behavior:smooth}}
