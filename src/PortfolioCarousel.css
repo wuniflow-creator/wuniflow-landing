@@ -1,0 +1,51 @@
+/* Wuniflow portfolio — independent styling; no shadcn/Tailwind required. */
+.wfPortfolio{--wfp-text:#f5eff9;--wfp-muted:#cbbfd1;position:relative;isolation:isolate;background:radial-gradient(ellipse at 85% 12%,rgba(158,84,183,.16),transparent 56%),linear-gradient(180deg,#140e1b,#201529 52%,#130e1a);color:var(--wfp-text);padding:clamp(64px,6vw,100px) max(24px,calc((100vw - 1240px)/2)) 36px;scroll-margin-top:78px;overflow:hidden}
+.wfPortfolio *{box-sizing:border-box}
+.wfPortfolioHeading{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:28px}
+.wfPortfolioHeading>div{max-width:850px}
+.wfPortfolioEyebrow{font-size:10px;font-weight:800;letter-spacing:.15em;color:#e6a8e4}
+.wfPortfolioHeading h2{font:700 clamp(38px,5.1vw,68px)/1.06 WuniOutfit,WuniManrope,sans-serif;letter-spacing:-.055em;margin:16px 0}
+.wfPortfolioHeading h2 em{font-style:normal;color:#dea5ec}
+.wfPortfolioHeading p{font-size:clamp(14px,1.35vw,17px);line-height:1.65;color:var(--wfp-muted);max-width:690px;margin:0}
+.wfPortfolioHint{display:flex;align-items:center;gap:10px;color:#ddb2ea;white-space:nowrap;font-size:10px;font-weight:800;letter-spacing:.12em;padding-bottom:10px}
+.wfPortfolioViewport{width:100%;min-width:0;outline-offset:5px}
+.wfPortfolioTrack{display:flex;align-items:stretch;gap:clamp(18px,2vw,30px);width:max-content;padding:10px 0 20px;transform:translate3d(0,0,0)}
+.wfPortfolioCard{width:clamp(370px,58vw,760px);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;padding:14px 14px 22px;border:1px solid rgba(224,173,237,.25);border-radius:21px;background:linear-gradient(145deg,rgba(66,46,78,.64),rgba(29,21,36,.9));box-shadow:0 18px 44px rgba(0,0,0,.23)}
+.wfPortfolioMedia{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border-radius:13px;background:#1a1322}
+.wfPortfolioMedia img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.wfPortfolioMedia:hover img,.wfPortfolioMedia:focus-visible img{transform:scale(1.035)}
+.wfPortfolioVisit{position:absolute;right:14px;bottom:14px;display:flex;align-items:center;gap:9px;padding:10px 13px;border:1px solid rgba(255,255,255,.23);border-radius:9px;background:rgba(15,9,20,.81);backdrop-filter:blur(12px);color:#fff;font-size:12px;font-weight:700}
+.wfPortfolioMeta{display:flex;justify-content:space-between;gap:16px;margin:19px 7px 7px;font-size:10px;font-weight:700;letter-spacing:.10em;color:#dfaedf}
+.wfPortfolioCard h3{margin:8px 7px 6px;font:700 clamp(25px,3vw,38px)/1.12 WuniOutfit,sans-serif}
+.wfPortfolioCard p{margin:0 7px 19px;max-width:65ch;color:#d2c4d9;font-size:14px;line-height:1.65}
+.wfPortfolioLink{display:inline-flex;align-items:center;gap:8px;margin:auto auto 0 7px;color:#f1bced;font-size:13px;font-weight:700}
+.wfPortfolioFooter{display:flex;align-items:center;gap:22px;min-height:40px;margin-top:4px}
+.wfPortfolioCounter{white-space:nowrap;font-size:12px;color:#bba8c7}
+.wfPortfolioCounter b{color:#fff;font-size:17px}
+.wfPortfolioProgress{height:3px;flex:1;max-width:700px;background:rgba(220,176,230,.19);border-radius:20px;overflow:hidden}
+.wfPortfolioProgress span{display:block;transform-origin:left;width:100%;height:100%;background:linear-gradient(90deg,#9855be,#ed82cf)}
+.wfPortfolioMobileControls{display:none;gap:10px;margin-left:auto}
+.wfPortfolioMobileControls button{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(229,181,238,.31);border-radius:50%;color:#fff;background:rgba(255,255,255,.06);cursor:pointer}
+.wfPortfolioMobileControls button:disabled{opacity:.34;cursor:not-allowed}
+.wfPortfolio :is(a,button,.wfPortfolioViewport):focus-visible{outline:2px solid #e9b0ef;outline-offset:4px}
+@media(max-width:899px){
+ .wfPortfolio{padding:65px 0 45px;overflow:visible}
+ .wfPortfolioHeading{padding:0 22px;margin-bottom:22px}
+ .wfPortfolioHint{display:none}
+ .wfPortfolioHeading h2{font-size:clamp(36px,9vw,56px)}
+ .wfPortfolioViewport{overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+ .wfPortfolioViewport::-webkit-scrollbar{display:none}
+ .wfPortfolioTrack{gap:14px;padding:7px 22px 18px;width:max-content;transform:none!important}
+ .wfPortfolioCard{width:min(84vw,480px);scroll-snap-align:center;padding:10px 10px 19px;border-radius:16px}
+ .wfPortfolioCard h3{font-size:25px}
+ .wfPortfolioCard p{font-size:12px;line-height:1.55}
+ .wfPortfolioMeta{font-size:8px;gap:8px}
+ .wfPortfolioVisit{padding:8px 10px;font-size:10px}
+ .wfPortfolioFooter{margin:5px 22px 0}
+ .wfPortfolioMobileControls{display:flex}
+ .wfPortfolioProgress{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+ .wfPortfolioMedia img{transition:none}
+ .wfPortfolioViewport{scroll-behavior:auto}
+}
