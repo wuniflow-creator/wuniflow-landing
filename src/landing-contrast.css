@@ -101,3 +101,44 @@ body:has(.landingHeader) :is(#inicio,#cases,#solucoes,#processo,#contato) {scrol
   body:has(.landingHeader) .cinematicProject,
   body:has(.landingHeader) .capGrid > div {transition:none;}
 }
+
+/* V4 premium experimental hero: image-led motion instead of the blurry original film.
+   Apply only when HeroFilm adds isHeroStill; original hero can be compared via ?hero=video. */
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady {
+  background:#110b19;
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady .heroFullPoster {
+  opacity:1;
+  object-position: 58% center;
+  transform:scale(1.035);
+  animation:wfPremiumHeroDrift 24s cubic-bezier(.42,0,.58,1) infinite alternate;
+  will-change:transform;
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady .heroFilmShade {
+  opacity:1;
+  background:linear-gradient(90deg,rgba(9,5,15,.88) 0%,rgba(13,7,20,.66) 43%,rgba(9,6,16,.17) 82%),
+             linear-gradient(0deg,rgba(9,5,15,.64),transparent 30%,transparent 76%,rgba(9,5,15,.10));
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill .cinematicGrain { opacity:.035; }
+body:has(.landingHeader) .cinematicHero.isHeroStill .cinematicCopy h1 {
+  text-shadow: 0 3px 32px rgba(4,2,10,.38);
+  letter-spacing:-.052em;
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill .cinematicCopy>p {color:#eee5f2;}
+body:has(.landingHeader) .cinematicHero.isHeroStill .heroProof span {color:#d3c8d9;}
+@keyframes wfPremiumHeroDrift {
+  from { transform:scale(1.035) translate3d(0,0,0); }
+  to { transform:scale(1.105) translate3d(-1.25%,.65%,0); }
+}
+@media(max-width:800px) {
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady .heroFullPoster {object-position:61% center;}
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady .heroFilmShade {
+    background:linear-gradient(90deg,rgba(9,5,15,.87),rgba(9,5,15,.37)),
+               linear-gradient(0deg,rgba(9,5,15,.68),transparent 58%);
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady .heroFullPoster {
+    animation:none;transform:none;will-change:auto;
+  }
+}
