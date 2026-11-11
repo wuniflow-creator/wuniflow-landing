@@ -23,4 +23,10 @@ assert.ok(sitemap.includes(origin+'/sites'));
 assert.ok(!sitemap.includes('/admin'));
 assert.ok(!sitemap.includes('/diagnostico'));
 assert.ok(existsSync('dist/assets/social-preview.png'),'OG preview image missing');
+
+const sitesSource=readFileSync('src/Sites.tsx','utf8');
+assert.ok(sitesSource.includes('id="sites-configurador"'),'sites configurator anchor missing');
+assert.ok(sitesSource.includes('href="#sites-configurador"'),'sites direct anchor link missing');
+assert.ok(sitesSource.includes('<h1>Sites profissionais.'),'sites headline missing');
+assert.ok(sitesSource.includes('sitesSeoFaq'),'sites FAQ missing');
 console.log('SEO smoke tests: 5 routes, metadata, robots, sitemap, JSON-LD OK');
