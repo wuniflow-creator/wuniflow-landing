@@ -36,12 +36,14 @@ export default function DimensionalWorkflowHero({content=defaultContent}:{conten
  const root=useRef<HTMLElement>(null);const tl=useRef<gsap.core.Timeline|null>(null);const [active,setActive]=useState(0);const current=useRef(0);
  useGSAP(()=>{
   const element=root.current!;const cards=Array.from(element.querySelectorAll<HTMLElement>('.dw-chapter'));const mm=gsap.matchMedia();
-  mm.add({room:'(min-height: 650px)',phone:'(max-width: 999px)',motion:'(prefers-reduced-motion: no-preference)'},context=>{
+  mm.add({room:'(min-height: 650px) and (min-width: 1000px)',phone:'(max-width: 999px)',motion:'(prefers-reduced-motion: no-preference)'},context=>{
    const motion=context.conditions?.motion;const phone=!!context.conditions?.phone;
    const panels=cards.map(c=>c.querySelector<HTMLElement>('.dw-panel')!);
    const stages=cards.map(c=>c.querySelector<HTMLElement>('.dw-stage')!);
    const copies=cards.map(c=>c.querySelector<HTMLElement>('.dw-copy')!);
-   if(!motion)return;
+   // On phones, use native page scrolling and readable stacked chapters: no pinned GSAP stage.
+   // This avoids overlapping 3D panels during touch/click and browser viewport resize.
+   if(!motion || phone)return;
    if(context.conditions?.room){
     element.classList.add('dw-pinned');element.classList.toggle('dw-phone',phone);
     const viewport=element.querySelector<HTMLElement>('.dw-viewport')!;
@@ -77,7 +79,7 @@ export default function DimensionalWorkflowHero({content=defaultContent}:{conten
   let mounted=true;document.fonts.ready.then(()=>{if(mounted)ScrollTrigger.refresh()});
   return ()=>{mounted=false;mm.revert()};
  },{scope:root,dependencies:[content],revertOnUpdate:true});
- const go=(index:number)=>{const timeline=tl.current;const trigger=timeline?.scrollTrigger;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;if(timeline&&trigger){window.scrollTo({top:trigger.start+(timeline.labels['chapter-'+index]+.5)/timeline.duration()*(trigger.end-trigger.start),behavior:reduced?'instant':'smooth'})}else root.current?.querySelectorAll<HTMLElement>('.dw-chapter')[index]?.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'})};
+ const go=(index:number)=>{const timeline=tl.current;const trigger=timeline?.scrollTrigger;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;if(timeline&&trigger){window.scrollTo({top:trigger.start+(timeline.labels['chapter-'+index]+.5)/timeline.duration()*(trigger.end-trigger.start),behavior:reduced?'auto':'smooth'})}else root.current?.querySelectorAll<HTMLElement>('.dw-chapter')[index]?.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'})};
  return <section ref={root} className="dw-experience" aria-label="Explore as soluções Wuniflow">
   <div className="dw-heading"><span>COMO A WUNIFLOW CONECTA SEU NEGÓCIO</span><h2>{content.title}</h2><p>{content.description}</p><a className="dw-skip" href="#dw-end">Pular demonstração ↓</a></div>
   <div className="dw-viewport">
