@@ -62,7 +62,7 @@ export default function Sites(){
       <section className="sitesHero">
         <div className="sitesHeroCopy">
           <span className="sitesEyebrow"><Sparkles/> CRIE SEU PROJETO EM POUCOS MINUTOS</span>
-          <h1>Seu próximo site.<br/><em>Do seu jeito.</em></h1>
+          <h1>Sites profissionais.<br/><em>Do seu jeito.</em></h1>
           <p>Escolha o escopo, o estilo e os recursos. No final, veja uma estimativa e envie um briefing organizado para a Wuniflow.</p>
           <div className="sitesTrustRow">
             <div><i><Zap/></i><span><b>Briefing</b><small>organizado</small></span></div>
@@ -87,7 +87,7 @@ export default function Sites(){
           <div className="sitesShowcaseBadge"><ShieldCheck/><span><b>Briefing inteligente</b><small>Escopo claro antes da proposta</small></span></div>
         </div>
       </section>
-      <div className="sitesProgress">{steps.map((x,i)=><div className={i===step?'active':i<step?'done':''} key={x}><b>{i<step?'✓':i+1}</b><span className="sitesStepLong">{x}</span><span className="sitesStepShort">{['Proj.','Estr.','Visual','Extras','Oper.','Resumo'][i]}</span></div>)}</div>
+      <div id="sites-configurador" className="sitesProgress">{steps.map((x,i)=><div className={i===step?'active':i<step?'done':''} key={x}><b>{i<step?'✓':i+1}</b><span className="sitesStepLong">{x}</span><span className="sitesStepShort">{['Proj.','Estr.','Visual','Extras','Oper.','Resumo'][i]}</span></div>)}</div>
       <div className="sitesGrid">
         <section className="sitesCard">
           {step===0&&<><small>ETAPA 01 DE 06</small><h2>O que vamos criar?</h2><p>Escolha o formato que mais combina com o que você precisa hoje.</p><div className="sitesOptions">{projectTypes.map(([t,d])=><button className={s.tipo===t?'selected':''} onClick={()=>update('tipo',t)} key={t}><div className="sitesOptionTop"><i>{t==='Landing Page'?<LayoutTemplate/>:t==='Site Institucional'?<Building2/>:t==='Catálogo Digital'?<PackageOpen/>:t==='Loja Virtual'?<ShoppingCart/>:<SlidersHorizontal/>}</i><span className="sitesOptionRadio">{s.tipo===t?'✓':''}</span></div><b>{t}</b><span>{d}</span><small>{basePrices[t]===null?'Sob consulta':'A partir de '+basePrices[t]!.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</small></button>)}</div><div className="sitesFields"><label>Objetivo principal<select value={s.objetivo} onChange={e=>update('objetivo',e.target.value)}>{objectives.map(x=><option key={x}>{x}</option>)}</select></label><label>Segmento da empresa<input value={s.segmento} onChange={e=>update('segmento',e.target.value)} placeholder="Ex.: clínica, restaurante, consultoria..."/></label></div></>}
@@ -119,7 +119,7 @@ export default function Sites(){
           <details><summary>A Wuniflow desenvolve sites para celular?</summary><p>O projeto pode incluir layouts responsivos para computadores, tablets e celulares. Os requisitos de cada dispositivo são considerados durante a definição do escopo.</p></details>
           <details><summary>É possível integrar o site ao WhatsApp ou ao CRM?</summary><p>Sim, essas integrações podem ser avaliadas no briefing, conforme a plataforma utilizada e os requisitos de segurança e operação.</p></details>
         </div>
-        <p className="sitesSeoClosing">Quer discutir seu projeto? <a href="#sitesSeoTitle" onClick={e=>{e.preventDefault();document.querySelector('.sitesProgress')?.scrollIntoView({behavior:'smooth',block:'start'})}}>Voltar ao configurador de sites</a> ou <a href={whatsappHref} target="_blank" rel="noopener noreferrer">falar com a Wuniflow pelo WhatsApp</a>.</p>
+        <p className="sitesSeoClosing">Quer discutir seu projeto? <a href="#sites-configurador">Voltar ao configurador de sites</a> ou <a href={whatsappHref} target="_blank" rel="noopener noreferrer">falar com a Wuniflow pelo WhatsApp</a>.</p>
       </section>
     </main>
   </div>
