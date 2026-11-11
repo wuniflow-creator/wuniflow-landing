@@ -130,3 +130,76 @@
 @media(prefers-reduced-motion:reduce){
   .sitesPage .sitesProgress > button{transition:none}
 }
+
+
+/* Vitrine de projetos reais /sites — isolada do configurador e da landing principal. */
+.sitesPage .sitesShowcase.sitesRealShowcase{
+  position:relative;display:block!important;width:100%;height:auto!important;min-height:0;
+  max-width:690px;margin:0;overflow:hidden;
+}
+.sitesPage .sitesRealWindow{
+  position:relative;isolation:isolate;width:100%;overflow:hidden;border-radius:20px;
+  border:1px solid rgba(208,120,217,.42);background:#0d0a13;
+  box-shadow:0 22px 66px rgba(0,0,0,.42),0 0 44px rgba(175,44,176,.10);
+}
+.sitesPage .sitesRealBrowserBar{height:34px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;border-bottom:1px solid rgba(255,255,255,.10);background:#141019}
+.sitesPage .sitesRealDots{display:flex;align-items:center;gap:5px}
+.sitesPage .sitesRealDots i{display:block;width:7px;height:7px;border-radius:50%;background:#77617d}
+.sitesPage .sitesRealDots i:first-child{background:#c24ca9}
+.sitesPage .sitesRealDomain{font:750 9px/1.2 WuniManrope,Arial,sans-serif;letter-spacing:.14em;color:#c7aecb}
+.sitesPage .sitesRealBrand{display:grid;place-items:center;flex:none;width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,#9b24ad,#e52bc6);font:800 11px/1 Arial,sans-serif;color:#fff}
+.sitesPage .sitesRealScene{position:relative;min-height:clamp(310px,37vw,400px);touch-action:pan-y;background:#130d19}
+.sitesPage .sitesRealScene>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block;animation:sitesRealFade .4s ease-out}
+.sitesPage .sitesRealShade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,7,15,.96) 0%,rgba(12,8,18,.90) 33%,rgba(12,8,19,.35) 72%,rgba(12,8,19,.18) 100%),linear-gradient(0deg,rgba(8,6,13,.68),transparent 45%);pointer-events:none}
+.sitesPage .sitesRealText{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:clamp(310px,37vw,400px);width:min(79%,360px);padding:30px 22px 32px}
+.sitesPage .sitesRealEyebrow{font-size:9px;font-weight:800;letter-spacing:.15em;color:#eda4ea}
+.sitesPage .sitesRealText h3{font:800 clamp(23px,3.1vw,35px)/1.08 WuniOutfit,Arial,sans-serif;color:#fff;letter-spacing:-.04em;margin:12px 0 10px;max-width:310px;text-wrap:balance}
+.sitesPage .sitesRealText p{font-size:clamp(11px,1.4vw,13px);line-height:1.55;color:#ebdce9;margin:0 0 15px;max-width:285px}
+.sitesPage .sitesRealProjectName{display:flex;flex-direction:column;gap:4px;font-size:8px;letter-spacing:.12em;color:#c7abc8}
+.sitesPage .sitesRealProjectName b{font-size:13px;letter-spacing:0;color:#fff}
+.sitesPage .sitesRealActions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:19px}
+.sitesPage .sitesRealActions a{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:41px;border-radius:11px;padding:10px 13px;text-decoration:none;font-weight:800;font-size:11px;white-space:nowrap;transition:transform .2s,filter .2s}
+.sitesPage .sitesRealActions a:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.sitesPage .sitesRealActions .sitesRealPrimary{color:#fff;background:linear-gradient(110deg,#a526ba,#db37be);border:1px solid rgba(255,255,255,.14)}
+.sitesPage .sitesRealActions .sitesRealExternal{color:#f6e6f5;background:rgba(26,16,34,.8);border:1px solid rgba(236,188,239,.38)}
+.sitesPage .sitesRealControls{min-height:50px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-top:1px solid rgba(255,255,255,.10);background:#19111e}
+.sitesPage .sitesRealControls>span{font-size:8px;letter-spacing:.1em;font-weight:800;color:#bda0c0}
+.sitesPage .sitesRealPagination{display:flex;gap:7px}
+.sitesPage .sitesRealPagination button{width:29px;height:29px;border:1px solid rgba(222,167,223,.33);border-radius:9px;background:#261b2c;color:#d5c2d9;font-size:10px;cursor:pointer}
+.sitesPage .sitesRealPagination button.isActive{background:#b32db2;color:#fff;border-color:#e0a3e4}
+.sitesPage .sitesRealPause{min-width:77px;min-height:29px;border:1px solid rgba(224,174,231,.33);border-radius:9px;background:#261b2c;color:#e4c9e6;font-size:10px;font-weight:700;cursor:pointer}
+.sitesPage .sitesRealControls button:hover{border-color:#e4a9e5}
+.sitesPage .sitesRealControls button:focus-visible,.sitesPage .sitesRealActions a:focus-visible{outline:2px solid #e99be6;outline-offset:3px}
+@keyframes sitesRealFade{from{opacity:.45;filter:blur(3px)}to{opacity:1;filter:blur(0)}}
+@media(max-width:900px){
+  .sitesPage .sitesShowcase.sitesRealShowcase{margin:16px auto 22px;max-width:630px}
+  .sitesPage .sitesRealScene,.sitesPage .sitesRealText{min-height:320px}
+}
+@media(max-width:620px){
+  .sitesPage .sitesShowcase.sitesRealShowcase{width:100%;height:auto!important;margin:16px auto 22px;max-width:none}
+  .sitesPage .sitesRealWindow{border-radius:15px}
+  .sitesPage .sitesRealBrowserBar{height:30px;padding:0 9px}
+  .sitesPage .sitesRealDomain{font-size:7px}
+  .sitesPage .sitesRealScene,.sitesPage .sitesRealText{min-height:330px}
+  .sitesPage .sitesRealScene>img{object-position:center top}
+  .sitesPage .sitesRealShade{background:linear-gradient(90deg,rgba(8,6,14,.97),rgba(10,7,17,.84) 54%,rgba(12,8,17,.18)),linear-gradient(0deg,rgba(8,6,13,.5),transparent 58%)}
+  .sitesPage .sitesRealText{width:min(84%,320px);padding:22px 14px}
+  .sitesPage .sitesRealEyebrow{font-size:8px}
+  .sitesPage .sitesRealText h3{font-size:clamp(24px,7.2vw,31px)}
+  .sitesPage .sitesRealText p{font-size:11px;max-width:240px}
+  .sitesPage .sitesRealActions{gap:7px;margin-top:15px}
+  .sitesPage .sitesRealActions a{font-size:10px;padding:9px 10px;min-height:39px}
+  .sitesPage .sitesRealControls{padding:10px 8px;min-height:51px}
+  .sitesPage .sitesRealControls>span{display:none}
+  .sitesPage .sitesRealPagination button{width:37px;height:33px}
+  .sitesPage .sitesRealPause{min-height:33px;min-width:92px}
+}
+@media(max-width:360px){
+  .sitesPage .sitesRealText{width:92%}
+  .sitesPage .sitesRealText h3{font-size:24px}
+  .sitesPage .sitesRealScene,.sitesPage .sitesRealText{min-height:350px}
+}
+@media(prefers-reduced-motion:reduce){
+ .sitesPage .sitesRealScene>img{animation:none}
+ .sitesPage .sitesRealActions a{transition:none}
+}

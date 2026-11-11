@@ -24,6 +24,13 @@ const objectives=['Receber contatos','Apresentar minha empresa','Vender produtos
 const styles=['Minimalista Premium','Corporativo Moderno','Tecnológico','Criativo','Luxo'];
 const resources=['Blog','Agendamento','SEO','Analytics + Pixel','Área administrativa','Chat com IA','Integração CRM','Pagamento online','Multi-idioma'];
 
+const sitePortfolioExamples=[
+  {name:'HI TECH',segment:'ESTÉTICA AUTOMOTIVA',headline:'Sites que valorizam o seu negócio.',description:'Design, presença e conversão para marcas que querem se destacar.',image:'/assets/portfolio-hi-tech.jpg',alt:'Captura real da landing page HI TECH, projeto de estética automotiva',url:'https://hi-tech-alpha.vercel.app'},
+  {name:'Barbearia Quaresma',segment:'SERVIÇOS E AGENDAMENTO',headline:'Sua marca com presença profissional.',description:'Projetos pensados para apresentar serviços e facilitar contatos.',image:'/assets/portfolio-barbearia-quaresma.jpg',alt:'Captura real do site Barbearia Quaresma',url:'https://barbearia-quaresma.vercel.app/'},
+  {name:'NYX Tarot',segment:'EXPERIÊNCIA DIGITAL',headline:'Uma experiência com identidade própria.',description:'Cada negócio pode ter uma vitrine digital com personalidade.',image:'/assets/portfolio-nyx-tarot.jpg',alt:'Captura real do site NYX Tarot',url:'https://nyx-tarot.lovable.app'}
+] as const;
+
+
 export default function Sites(){
   React.useEffect(()=>{
     const title='Criação de Sites Profissionais | Wuniflow';
@@ -41,6 +48,27 @@ export default function Sites(){
     const ld=document.createElement('script');ld.type='application/ld+json';ld.id='wuniflow-sites-ld';ld.text=JSON.stringify({'@context':'https://schema.org','@type':'Service',name:'Criação de Sites Profissionais — Wuniflow',provider:{'@type':'Organization',name:'Wuniflow Automations',url:'https://www.wuniflow.site/'},areaServed:'BR',serviceType:'Criação de sites, landing pages, sites institucionais, catálogos digitais e lojas virtuais',url:'https://www.wuniflow.site/sites'});document.getElementById('wuniflow-sites-ld')?.remove();document.head.appendChild(ld);
     return()=>{ld.remove()};
   },[]);
+  const[sitePortfolioIndex,setSitePortfolioIndex]=React.useState(0);
+  const[portfolioAutoplay,setPortfolioAutoplay]=React.useState(()=>typeof window!=='undefined'&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const[portfolioInView,setPortfolioInView]=React.useState(false);
+  const portfolioRef=React.useRef<HTMLDivElement|null>(null);
+  const touchStartX=React.useRef<number|null>(null);
+  React.useEffect(()=>{
+    const node=portfolioRef.current;
+    if(!node||typeof IntersectionObserver==='undefined'){setPortfolioInView(true);return}
+    const observer=new IntersectionObserver(entries=>setPortfolioInView(Boolean(entries[0]?.isIntersecting)),{threshold:0.3});
+    observer.observe(node);
+    return ()=>observer.disconnect();
+  },[]);
+  React.useEffect(()=>{
+    if(!portfolioAutoplay||!portfolioInView)return;
+    const id=window.setInterval(()=>{
+      if(document.visibilityState==='visible')setSitePortfolioIndex(i=>(i+1)%sitePortfolioExamples.length);
+    },6500);
+    return ()=>window.clearInterval(id);
+  },[portfolioAutoplay,portfolioInView]);
+  const selectPortfolio=(index:number)=>{setPortfolioAutoplay(false);setSitePortfolioIndex((index+sitePortfolioExamples.length)%sitePortfolioExamples.length)};
+  const portfolio=sitePortfolioExamples[sitePortfolioIndex];
   const[step,setStep]=React.useState(0);
   const[sending,setSending]=React.useState(false);
   const[done,setDone]=React.useState(false);
@@ -100,20 +128,32 @@ export default function Sites(){
             <div><i><PanelsTopLeft/></i><span><b>Projeto</b><small>sob medida</small></span></div>
           </div>
         </div>
-        <div className="sitesShowcase" aria-label="Prévia conceitual de um site premium para arquitetura e interiores">
-          <div className="sitesShowcaseAura"></div>
-          <div className="sitesBrowser">
-            <div className="sitesBrowserBar"><div><i></i><i></i><i></i></div><span>exemplo.wuniflow.site</span><b>W</b></div>
-            <div className="sitesBrowserBody">
-              <div className="sitesBrowserNav"><b>CASA LUME</b><span>Ambientes&nbsp;&nbsp; Projetos&nbsp;&nbsp; Sobre</span><em>Agendar conversa</em></div>
-              <div className="sitesBrowserContent">
-                <div><small>ARQUITETURA + INTERIORES</small><h3>Espaços feitos para viver melhor.</h3><p>Interiores autorais, com leveza, conforto e personalidade.</p><span className="sitesDemoButton" aria-label="Botão demonstrativo">Ver projetos <ArrowRight/></span></div>
-                <div className="sitesBrowserVisual"><img src="/assets/cinematic/sites-landing-pages.webp" alt="Arte conceitual de exemplo visual para uma landing page de arquitetura" loading="lazy"/><span>CASA LUME<br/><small>ARQUITETURA & INTERIORES</small></span><b>PROJETO<br/>CONCEITUAL</b></div>
+        <div className="sitesShowcase sitesRealShowcase" ref={portfolioRef} aria-roledescription="carrossel" aria-label="Portfólio real de sites desenvolvidos">
+          <div className="sitesRealWindow">
+            <div className="sitesRealBrowserBar"><span className="sitesRealDots" aria-hidden="true"><i/><i/><i/></span><span className="sitesRealDomain">PROJETOS REAIS · WUNIFLOW</span><span className="sitesRealBrand">W</span></div>
+            <div className="sitesRealScene"
+              onTouchStart={e=>{touchStartX.current=e.touches[0]?.clientX??null}}
+              onTouchEnd={e=>{if(touchStartX.current===null)return;const dx=(e.changedTouches[0]?.clientX??touchStartX.current)-touchStartX.current;touchStartX.current=null;if(Math.abs(dx)>45)selectPortfolio(sitePortfolioIndex+(dx<0?1:-1))}}
+            >
+              <img key={portfolio.image} src={portfolio.image} alt={portfolio.alt} loading={sitePortfolioIndex===0?'eager':'lazy'} decoding="async" />
+              <div className="sitesRealShade" aria-hidden="true"/>
+              <div className="sitesRealText">
+                <span className="sitesRealEyebrow">{portfolio.segment}</span>
+                <h3>{portfolio.headline}</h3>
+                <p>{portfolio.description}</p>
+                <span className="sitesRealProjectName">PROJETO REAL <b>{portfolio.name}</b></span>
+                <div className="sitesRealActions">
+                  <a className="sitesRealPrimary" href="#sites-configurador">Quero um site assim <ArrowRight size={16}/></a>
+                  <a className="sitesRealExternal" href={portfolio.url} target="_blank" rel="noopener noreferrer">Ver projeto <ArrowRight size={14}/></a>
+                </div>
               </div>
             </div>
+            <div className="sitesRealControls" aria-label="Controles da vitrine">
+              <span>PROJETOS QUE INSPIRAM</span>
+              <div className="sitesRealPagination" role="group" aria-label="Selecionar projeto">{sitePortfolioExamples.map((example,i)=><button key={example.name} type="button" className={i===sitePortfolioIndex?'isActive':''} aria-label={`Visualizar projeto ${example.name}`} aria-current={i===sitePortfolioIndex?'true':undefined} onClick={()=>selectPortfolio(i)}>{i+1}</button>)}</div>
+              <button type="button" className="sitesRealPause" aria-label={portfolioAutoplay?'Pausar troca automática':'Retomar troca automática'} onClick={()=>setPortfolioAutoplay(value=>!value)}>{portfolioAutoplay?'Pausar':'Reproduzir'}</button>
+            </div>
           </div>
-          <div className="sitesShowcaseCard"><div><Sparkles/></div><span><small>EXEMPLO VISUAL</small><b>Um site premium com imagem e identidade</b></span></div>
-          <div className="sitesShowcaseBadge"><ShieldCheck/><span><b>Briefing inteligente</b><small>Escopo claro antes da proposta</small></span></div>
         </div>
       </section>
       <nav className="sitesProgress" id="sites-configurador" aria-label="Etapas de configuração do site">{steps.map((x,i)=><button type="button" className={i===step?'active':i<step?'done':''} key={x} onClick={()=>goToStep(i)} aria-current={i===step?'step':undefined} aria-label={`Ir para etapa ${i+1} de ${steps.length}: ${x}`}><b aria-hidden="true">{i<step?'✓':i+1}</b><span className="sitesStepLong">{x}</span><span className="sitesStepShort">{['Proj.','Estr.','Visual','Extras','Oper.','Resumo'][i]}</span></button>)}</nav>
