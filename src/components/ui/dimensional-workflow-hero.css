@@ -11,3 +11,39 @@
 @media(max-width:999px){.dw-experience{padding:55px 22px}.dw-nav{gap:10px}.dw-nav button{display:block;font-size:10px;line-height:1.5;padding:12px 0}.dw-nav button>span{display:block;margin-bottom:4px}.dw-chapter{grid-template-columns:1fr;gap:16px;padding:34px 0 48px}.dw-copy{max-width:650px}.dw-stage{width:min(100%,650px);margin:auto}.dw-copy>h3{font-size:clamp(30px,6vw,44px)}.dw-copy ol{margin:18px 0}.dw-canvas{height:300px}.dw-node{height:68px}.dw-node>strong{font-size:10px}.dw-node>small{font-size:5px}.dw-panel-bar{padding:14px 12px}.dw-panel-bar strong{font-size:11px}.dw-build-scene{min-height:300px;padding:20px}.dw-finished{padding:0;min-height:0}.dw-finale{padding-top:55px}}
 @media(max-width:390px){.dw-experience{padding-left:18px;padding-right:18px}.dw-panel-bar>span{font-size:6px}.dw-canvas{height:270px}.dw-node>strong{font-size:9px}.dw-node>small{display:none}.dw-panel-footer{font-size:8px}.dw-heading>span{font-size:8px}}
 @media(prefers-reduced-motion:reduce){.dw-experience *{animation:none!important;transition:none!important;scroll-behavior:auto!important}.dw-stage{perspective:none}}
+/* Dimensional deck: one shared stage, fanned opening and choreographed chapters. */
+.dw-deck-intro,.dw-deck-close{display:none}
+.dw-pinned .dw-viewport{height:calc(100svh - 88px);min-height:0;max-height:none;overflow:clip;background:radial-gradient(ellipse at 72% 53%,#8f4eb229,transparent 58%),#100a18}
+.dw-pinned .dw-chapters,.dw-pinned .dw-chapter{display:contents}
+.dw-pinned .dw-copy{position:absolute;left:0;top:18%;width:40%;z-index:20}
+.dw-pinned .dw-copy>h3{font-size:clamp(30px,3.25vw,46px)}
+.dw-pinned .dw-stage{position:absolute;width:600px;height:435px;padding:0;margin:0;perspective:1400px}
+.dw-pinned .dw-panel{position:relative;width:600px;height:435px;overflow:visible;transform-style:preserve-3d}
+.dw-pinned .dw-panel-bar{border-radius:16px 16px 0 0}
+.dw-pinned .dw-canvas,.dw-pinned .dw-build{height:340px;min-height:340px}
+.dw-pinned .dw-panel-footer{border-radius:0 0 16px 16px;background:#23152f}
+.dw-pinned .dw-canvas{transform-style:preserve-3d}
+.dw-pinned .dw-node{transform-style:preserve-3d}
+.dw-pinned .dw-nav{position:absolute;bottom:12px;left:0;right:0;background:transparent;z-index:30;padding:0}
+.dw-pinned .dw-deck-intro{display:block;position:absolute;left:0;top:21%;width:41%;z-index:20}
+.dw-deck-intro>span,.dw-deck-close>span{font-size:9px;font-weight:800;letter-spacing:.16em;color:#dfa1d6}
+.dw-deck-intro h3,.dw-deck-close h3{font:500 clamp(38px,4.2vw,62px)/1.08 WuniOutfit,sans-serif;letter-spacing:-.05em;margin:22px 0}
+.dw-deck-intro em,.dw-deck-close em{font-style:normal;color:#e879cf}
+.dw-deck-intro p,.dw-deck-close p{font-size:14px;line-height:1.6;color:#d0bddb}
+.dw-deck-intro button{border:1px solid #d88bc27a;color:#fff;background:linear-gradient(110deg,#8141ad,#bd3d9f);padding:15px 20px;border-radius:8px;font:600 12px WuniManrope,sans-serif;cursor:pointer;margin-top:10px}
+.dw-pinned .dw-deck-close{display:block;position:absolute;inset:20% 5% auto;z-index:22;text-align:center;visibility:hidden;pointer-events:none}
+.dw-pinned .dw-deck-close:before{content:'';position:absolute;inset:-70px;z-index:-1;background:radial-gradient(ellipse,#100a18e8,transparent 75%)}
+.dw-pinned.dw-phone .dw-viewport{height:calc(100svh - 76px)}
+.dw-phone .dw-copy,.dw-phone .dw-deck-intro{top:18px!important;left:5%!important;width:90%!important}
+.dw-phone .dw-copy>h3,.dw-phone .dw-deck-intro h3{font-size:clamp(29px,7.6vw,40px);line-height:1.06;margin:14px 0 12px}
+.dw-phone .dw-copy>p,.dw-phone .dw-deck-intro p{font-size:13px;line-height:1.5;margin:0 0 12px}
+.dw-phone .dw-copy>span,.dw-phone .dw-deck-intro>span{font-size:8px}
+.dw-phone .dw-copy ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
+.dw-phone .dw-copy li{font-size:9px;line-height:1.4;display:block;padding:8px 0}
+.dw-phone .dw-copy li>span{display:block;margin-bottom:3px;font-size:8px}
+.dw-phone .dw-copy>a{font-size:10px;padding-bottom:5px}
+.dw-phone .dw-nav{left:5%;right:5%;bottom:8px}
+.dw-phone .dw-nav button{min-height:50px;font-size:10px}
+.dw-phone .dw-deck-close{inset:24% 5% auto}
+.dw-phone .dw-deck-close h3{font-size:clamp(32px,8vw,42px)}
+@media(prefers-reduced-motion:reduce){.dw-deck-intro,.dw-deck-close{display:none!important}}
