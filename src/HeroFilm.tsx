@@ -15,6 +15,12 @@ export default function HeroFilm() {
   const [videoAllowed, setVideoAllowed] = React.useState(false);
   const [motionAllowed, setMotionAllowed] = React.useState(false);
   const [inView, setInView] = React.useState(true);
+  const [pageVisible, setPageVisible] = React.useState(!document.hidden);
+  React.useEffect(() => {
+    const update = () => setPageVisible(!document.hidden);
+    document.addEventListener('visibilitychange', update);
+    return () => document.removeEventListener('visibilitychange', update);
+  }, []);
   const requestedLegacyVideo = new URLSearchParams(window.location.search).get('hero') === 'video';
 
   React.useEffect(() => {
@@ -45,18 +51,18 @@ export default function HeroFilm() {
     hero.classList.toggle('isHeroFilmReady', imageReady || videoPlaying);
     hero.classList.toggle('isHeroStill', !showVideo);
     hero.classList.toggle('isHeroReal', imageReady && !legacyFallback);
-    hero.classList.toggle('isHeroMotion', motionAllowed && !showVideo && inView);
+    hero.classList.toggle('isHeroMotion', motionAllowed && !showVideo && inView && pageVisible);
     return () => {
       hero.classList.remove('isHeroFilmReady', 'isHeroStill', 'isHeroReal', 'isHeroMotion');
     };
-  }, [imageReady, videoPlaying, showVideo, legacyFallback, motionAllowed, inView]);
+  }, [imageReady, videoPlaying, showVideo, legacyFallback, motionAllowed, inView, pageVisible]);
 
   React.useEffect(() => {
     const video = videoRef.current;
     if (!video || !showVideo) return;
-    if (inView) video.play().catch(() => setVideoPlaying(false));
+    if (inView && pageVisible) video.play().catch(() => setVideoPlaying(false));
     else video.pause();
-  }, [inView, showVideo]);
+  }, [inView, pageVisible, showVideo]);
 
   return (
     <>
@@ -67,6 +73,9 @@ export default function HeroFilm() {
           src={legacyFallback ? LEGACY_POSTER : NEW_DESKTOP}
           alt=""
           aria-hidden="true"
+          width={1672}
+          height={941}
+          loading="eager"
           decoding="async"
           fetchPriority="high"
           onLoad={() => setImageReady(true)}
@@ -92,34 +101,7 @@ export default function HeroFilm() {
         onPause={() => setVideoPlaying(false)}
         onError={() => { setVideoAllowed(false); setVideoPlaying(false); }}
       />}
-      <style>{`
-        .cinematicHero.isHeroReal.isHeroFilmReady .heroFullPoster {
-          object-position: center center;
-        }
-        .cinematicHero.isHeroReal.isHeroMotion .heroFullPoster {
-          animation: wfRealHeroMotion 21s ease-in-out infinite alternate;
-          will-change: transform;
-        }
-        .cinematicHero.isHeroReal.isHeroFilmReady .heroFilmShade {
-          opacity: 1;
-          background: linear-gradient(90deg, rgba(13,9,18,.75), rgba(13,9,18,.42) 48%, rgba(13,9,18,.10) 92%),
-            linear-gradient(0deg,rgba(11,7,14,.48),transparent 38%);
-        }
-        @keyframes wfRealHeroMotion {
-          from { transform: scale(1.018) translate3d(0,0,0); }
-          to { transform: scale(1.09) translate3d(-.8%,.5%,0); }
-        }
-        @media(max-width:800px) {
-          .cinematicHero.isHeroReal.isHeroFilmReady .heroFullPoster { object-position:center 60%; }
-          .cinematicHero.isHeroReal.isHeroFilmReady .heroFilmShade {
-            opacity: 1;
-            background: linear-gradient(180deg,rgba(11,7,14,.48) 0%,rgba(11,7,14,.18) 45%,rgba(11,7,14,.62) 100%);
-          }
-        }
-        @media(prefers-reduced-motion:reduce) {
-          .cinematicHero.isHeroReal .heroFullPoster { animation:none!important;will-change:auto!important;transform:none!important; }
-        }
-      `}</style>
+
     </>
   );
 }
