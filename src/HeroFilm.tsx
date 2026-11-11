@@ -26,8 +26,7 @@ export default function HeroFilm() {
   React.useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
     const update = () => {
-      const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-      setMotionAllowed(!reduce.matches && !connection?.saveData);
+      setMotionAllowed(!reduce.matches);
     };
     update();
     reduce.addEventListener('change', update);

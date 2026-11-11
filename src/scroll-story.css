@@ -21,73 +21,39 @@
 .wfStoryMotion .wfStoryCard .wfStoryCopy,.wfStoryMotion .wfStoryCard .wfStoryFrame{opacity:0;transform:translate3d(0,26px,0);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
 .wfStoryMotion .wfStoryCard.isVisible .wfStoryCopy{opacity:1;transform:translate3d(0,0,0)}
 .wfStoryMotion .wfStoryCard.isVisible .wfStoryFrame{opacity:1;transform:translate3d(0,calc((.5 - var(--wf-scroll))*18px),0)}
-.wfStoryMotion .wfStoryCard.isVisible .wfProcessDisplay{box-shadow:0 28px 80px #0008,0 0 60px rgba(143,57,134,.16)}
-.wfStoryMotion .wfStoryCard.isVisible .wfProcessFlow .wfProcessNode{animation:wfNodeIn .5s both}
-.wfStoryMotion .wfStoryCard.isVisible .wfProcessFlow .wfProcessNode:nth-of-type(2){animation-delay:.17s}
-.wfStoryMotion .wfStoryCard.isVisible .wfProcessFlow .wfProcessNode:nth-of-type(3){animation-delay:.32s}
-.wfStoryMotion .wfStoryCard.isVisible .wfProcessBars span{animation:wfBarGrow .9s ease-out backwards;transform-origin:bottom center}
-.wfStoryMotion .wfStoryCard.isVisible .wfProcessBars span:nth-child(2n){animation-delay:.1s}
-.wfStoryMotion .wfStoryCard.isVisible .wfProcessBars span:nth-child(3n){animation-delay:.22s}
-@keyframes wfBarGrow{from{transform:scaleY(.05)}to{transform:scaleY(1)}}
-@keyframes wfNodeIn{from{opacity:.25;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.wfProcessDisplay{min-width:0;background:linear-gradient(145deg,#1b1423,#0e0b14);border:1px solid #5c3a65;border-radius:20px;box-shadow:0 28px 80px #0008;overflow:hidden}
-.wfProcessTop{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid #3a2a43}
-.wfProcessBrand{display:flex;align-items:center;gap:10px;font-weight:900;color:#e9ace3;font-size:23px}
-.wfProcessBrand span{font-weight:700;font-size:10px;letter-spacing:.14em;color:#dfc8e7}
-.wfProcessDemo{font-size:9px;letter-spacing:.1em;color:#b7a2bc}
-.wfProcessViewport{height:370px;position:relative;overflow:hidden}
-.wfProcessLayer{position:absolute;inset:0;padding:28px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
-.wfProcessPanel{width:100%;max-width:460px;border:1px solid #5a3b61;background:#18131e;border-radius:14px;padding:22px}
-.wfProcessTag,.wfProcessSystemLabel{display:flex;gap:8px;align-items:center;color:#e68ccc;font-size:10px;letter-spacing:.13em;font-weight:800}
-.wfProcessPanel h3{font-size:18px;margin:12px 0 16px;color:#f9effb}
-.wfProcessField{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #3c2c43;padding:12px 0;font-size:12px;color:#e2d1e7}
-.wfProcessPill{font-size:9px;color:#e5abc8;border:1px solid #77415c;border-radius:15px;padding:4px 7px;white-space:nowrap}
-.wfProcessInsight{display:flex;align-items:center;gap:9px;color:#dbc7e4;font-size:11px;background:#4e2a5b66;border-radius:9px;padding:11px 12px;width:100%}
-.wfProcessInsight svg{color:#d775c4;flex-shrink:0}
-.wfProcessSideNote{display:flex;align-items:center;gap:9px;color:#ab89bc;font-size:10px;letter-spacing:.12em}
-.wfProcessSideNote i{display:block;width:21px;height:1px;background:#694376}
-.wfProcessFlow{width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
-.wfProcessNode{min-width:0;flex:1;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;border:1px solid #654275;border-radius:13px;background:linear-gradient(135deg,#36213f,#17101c);text-align:center;padding:10px}
-.wfProcessNode svg{color:#db86cc}
-.wfProcessNode b{font-size:12px;line-height:1.2}
-.wfProcessNode small{color:#baa6c2;font-size:10px;line-height:1.4}
-.wfProcessConnector{color:#ce7bc5;flex:none}
-.wfProcessSystemLabel{align-self:flex-start}
-.wfProcessDashboard{width:100%;border:1px solid #5a3b61;border-radius:14px;padding:19px;background:#18131e}
-.wfProcessDashboardTitle{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.wfProcessDashboardTitle>span{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700}
-.wfProcessDashboardTitle>small{font-size:9px;color:#bb9fc2}
-.wfProcessKpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0}
-.wfProcessKpis>div{background:#2a1c32;border:1px solid #4b3157;border-radius:9px;padding:12px 9px;display:flex;flex-direction:column;gap:6px;min-width:0}
-.wfProcessKpis svg{color:#d18ac6}
-.wfProcessKpis span{font-size:10px;color:#bba9c5}
-.wfProcessKpis b{font-size:11px;color:#fff;overflow-wrap:anywhere}
-.wfProcessBars{height:75px;display:flex;gap:10px;align-items:end;border-bottom:1px solid #765481;padding:0 9px}
-.wfProcessBars span{flex:1;max-width:45px;background:linear-gradient(0deg,#70449c,#ca55a6);border-radius:4px 4px 0 0;opacity:.88}
-.wfProcessDashboard .wfProcessInsight{margin-top:14px}
-.wfProcessBottom{display:flex;justify-content:space-between;gap:10px;padding:14px 20px;border-top:1px solid #3a2a43;color:#9b81a6;font-size:9px;letter-spacing:.15em;font-weight:800}
+
+.wfShowcase{border:1px solid #63406f;border-radius:22px;overflow:hidden;background:#1a1322;box-shadow:0 24px 70px #0006;min-width:0}
+.wfShowcaseMedia{position:relative;aspect-ratio:4/3;overflow:hidden;background:radial-gradient(ellipse at 70% 30%,#653e76,#21152d 70%);isolation:isolate}
+.wfShowcaseMedia:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#0d0715e8,transparent 48%);pointer-events:none}
+.wfShowcaseMedia img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s ease,object-position 1s ease}
+.isProduct .wfShowcaseMedia img{width:88%;height:80%;object-fit:cover;object-position:top;border:1px solid #bca0ca66;border-radius:9px;position:absolute;left:6%;top:10%;box-shadow:0 20px 44px #0009;transform:perspective(1100px) rotateY(-7deg) rotateX(3deg)}
+.wfShowcaseTag{position:absolute;z-index:1;top:20px;left:20px;background:#150d20d9;border:1px solid #eab9f244;border-radius:30px;padding:9px 12px;font-size:9px;font-weight:800;letter-spacing:.1em;color:#f2d7f6}
+.wfShowcaseCaption{position:absolute;z-index:1;left:24px;right:20px;bottom:24px;display:grid;gap:8px}
+.wfShowcaseCaption small{font-size:11px;color:#e3d5e9}
+.wfShowcaseCaption strong{font:600 clamp(24px,3vw,38px)/1.1 WuniOutfit,sans-serif;letter-spacing:-.025em}
+.wfShowcaseFooter{padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.wfShowcaseFooter>span{font-size:8px;color:#bca6ca;letter-spacing:.1em}
+.wfShowcaseFooter button,.wfShowcaseFooter a,.wfShowcaseVisit{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;color:#f2c1e8;font:600 12px WuniManrope,sans-serif;cursor:pointer;text-align:left}
+.wfShowcaseFooter button:focus-visible,.wfShowcaseFooter a:focus-visible,.wfShowcaseVisit:focus-visible{outline:2px solid #e991d4;outline-offset:5px}
+.wfShowcaseVisit{padding:0 20px 18px}
+.wfStoryMotion .isVisible .isPhoto img{animation:wfWorkshopDrift 10s ease-in-out infinite alternate}
+.wfStoryMotion .isVisible .isProduct:not(.isExpanded) img{animation:wfProductFloat 5s ease-in-out infinite alternate}
+.isProduct.isExpanded .wfShowcaseMedia{aspect-ratio:4/4.5}
+.isProduct.isExpanded .wfShowcaseMedia img{width:100%;height:100%;left:0;top:0;object-fit:contain;transform:none;border-radius:0;animation:none}
+.isExpanded .wfShowcaseCaption{display:none}
+@keyframes wfWorkshopDrift{from{transform:scale(1.02)}to{transform:scale(1.12) translate3d(-1%,.4%,0)}}
+@keyframes wfProductFloat{from{transform:perspective(1100px) rotateY(-7deg) rotateX(3deg) translateY(0)}to{transform:perspective(1100px) rotateY(-3deg) rotateX(1deg) translateY(-12px)}}
 @media(max-width:849px){
-.wfStory{padding:56px 0 66px}.wfStoryContainer{width:min(100% - 36px,700px)}
-.wfStoryHeading{flex-direction:column;align-items:flex-start;line-height:1.5;margin-bottom:20px}
-.wfStoryCard{grid-template-columns:1fr;min-height:0;padding:48px 0;gap:22px}
-.wfStoryReverse .wfStoryCopy,.wfStoryReverse .wfStoryFrame{order:unset}
-.wfStoryCopy h2{font-size:clamp(32px,6.5vw,48px)}
-.wfStoryCopy p{font-size:15px}.wfStorySteps{margin-top:22px}
-.wfProcessViewport{height:335px}.wfProcessLayer{padding:17px}
-.wfProcessTop{padding:12px}.wfProcessBrand span{font-size:8px}.wfProcessDemo{font-size:8px}
-}
-@media(max-width:460px){
-.wfProcessViewport{height:355px}.wfProcessLayer{padding:10px}
-.wfProcessPanel{padding:13px}.wfProcessPanel h3{font-size:15px}
-.wfProcessField{font-size:10px}.wfProcessPill{font-size:8px}
-.wfProcessNode{padding:7px 5px;min-height:125px}
-.wfProcessNode b{font-size:10px}.wfProcessNode small{font-size:9px}
-.wfProcessFlow{gap:3px}.wfProcessConnector svg{width:12px}
-.wfProcessKpis{gap:4px}.wfProcessKpis>div{padding:7px 5px}
-.wfProcessKpis b{font-size:9px}.wfProcessDashboard{padding:12px}
-.wfProcessDemo{display:none}.wfProcessBottom{font-size:8px;padding:12px}
+ .wfStory{padding:52px 0 60px}.wfStoryContainer{width:min(100% - 36px,700px)}
+ .wfStoryHeading{flex-direction:column;align-items:flex-start;line-height:1.5;margin-bottom:10px}
+ .wfStoryCard{grid-template-columns:1fr;min-height:0;padding:36px 0;gap:24px}
+ .wfStoryReverse .wfStoryCopy,.wfStoryReverse .wfStoryFrame{order:unset}
+ .wfStoryCopy h2{font-size:clamp(32px,6.5vw,48px);margin:18px 0}
+ .wfStoryCopy p{font-size:15px}.wfStorySteps{display:none}
+ .wfShowcaseMedia{aspect-ratio:1.1}.wfShowcaseFooter{padding:16px;flex-wrap:wrap}
+ .wfShowcaseTag{left:16px;top:16px;font-size:8px}.wfShowcaseCaption{left:18px;bottom:20px}
 }
 @media(prefers-reduced-motion:reduce){
-.wfStoryMotion .wfStoryCard .wfStoryCopy,.wfStoryMotion .wfStoryCard .wfStoryFrame{opacity:1;transform:none;transition:none}
-.wfStoryMotion .wfStoryCard .wfProcessNode,.wfStoryMotion .wfStoryCard .wfProcessBars span{animation:none!important}
+ .wfStoryMotion .wfStoryCard .wfStoryCopy,.wfStoryMotion .wfStoryCard .wfStoryFrame{opacity:1;transform:none;transition:none}
+ .wfShowcase img{animation:none!important;transition:none!important}
 }

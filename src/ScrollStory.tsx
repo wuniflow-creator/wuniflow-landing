@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, BarChart3, Bot, CheckCircle2, ClipboardList, Code2, Database, GitBranch, LayoutDashboard, MapPin, Workflow } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import './scroll-story.css';
 
 // Demonstração visual dos serviços WuniFlow; não representa dados reais de clientes.
@@ -24,60 +24,32 @@ const stages = [
   }
 ] as const;
 
+const showcases = [
+  {src:'/cinematic/wuniflow-workshop.webp',alt:'Cena conceitual de profissionais analisando processos em um estúdio de tecnologia',tag:'DA CONVERSA AO PLANO',name:'Estratégia antes do código',note:'Cena conceitual gerada com IA',href:'/diagnostico'},
+  {src:'/assets/portfolio-barbearia-quaresma.jpg',alt:'Captura real do site Barbearia Quaresma',tag:'PROJETO REAL · SITE',name:'Barbearia Quaresma',note:'Design aplicado a um negócio real',href:'https://barbearia-quaresma.vercel.app/'},
+  {src:'/assets/portfolio-gpstrade.webp',alt:'Captura real da interface do GPSTRADE',tag:'PRODUTO WUNIFLOW · SISTEMA',name:'GPSTRADE',note:'Interface real de gestão operacional',href:'/diagnostico'}
+];
 function ProcessVisual({ stage }: { stage: number }) {
-  return (
-    <div className="wfProcessDisplay" aria-label={stages[stage].label}>
-      <div className="wfProcessTop">
-        <span className="wfProcessBrand">W <span>WUNIFLOW / SOLUÇÕES DIGITAIS</span></span>
-        <span className="wfProcessDemo">ILUSTRAÇÃO CONCEITUAL</span>
-      </div>
-      <div className="wfProcessViewport">
-        {stage === 0 && <div className="wfProcessLayer isActive">
-          <div className="wfProcessPanel wfProcessIntake">
-            <span className="wfProcessTag"><ClipboardList size={15}/> DIAGNÓSTICO OPERACIONAL</span>
-            <h3>Como sua operação funciona hoje?</h3>
-            <div className="wfProcessField"><span>Solicitações em mensagens</span><span className="wfProcessPill">DESCONECTADO</span></div>
-            <div className="wfProcessField"><span>Controles em planilhas</span><span className="wfProcessPill">MANUAL</span></div>
-            <div className="wfProcessField"><span>Dados de diferentes equipes</span><span className="wfProcessPill">DISPERSOS</span></div>
-            <div className="wfProcessInsight"><CheckCircle2 size={16}/> Mapeamento de processos e oportunidades</div>
-          </div>
-          <div className="wfProcessSideNote"><MapPin size={17}/><span>CAMPO</span><i/><ClipboardList size={17}/><span>GESTÃO</span><i/><Database size={17}/><span>DADOS</span></div>
-        </div>}
-        {stage === 1 && <div className="wfProcessLayer isActive">
-          <div className="wfProcessSystemLabel"><Workflow size={16}/> ARQUITETURA INTEGRADA</div>
-          <div className="wfProcessFlow">
-            <div className="wfProcessNode"><Code2 size={25}/><b>Plataforma</b><small>Sites, SaaS e apps</small></div>
-            <span className="wfProcessConnector"><ArrowRight size={22}/></span>
-            <div className="wfProcessNode"><GitBranch size={25}/><b>Integrações</b><small>APIs e workflows</small></div>
-            <span className="wfProcessConnector"><ArrowRight size={22}/></span>
-            <div className="wfProcessNode"><Bot size={25}/><b>Automação + IA</b><small>Fluxos inteligentes</small></div>
-          </div>
-          <div className="wfProcessInsight"><CheckCircle2 size={16}/> Sistemas conectados, menos retrabalho</div>
-        </div>}
-        {stage === 2 && <div className="wfProcessLayer isActive">
-          <div className="wfProcessDashboard">
-            <div className="wfProcessDashboardTitle"><span><LayoutDashboard size={17}/> Visão operacional</span><small>PAINEL ILUSTRATIVO</small></div>
-            <div className="wfProcessKpis">
-              <div><MapPin size={17}/><span>Equipes e campo</span><b>Acompanhamento</b></div>
-              <div><Workflow size={17}/><span>Fluxos integrados</span><b>Visibilidade</b></div>
-              <div><BarChart3 size={17}/><span>Indicadores</span><b>Decisão</b></div>
-            </div>
-            <div className="wfProcessBars" aria-label="Gráfico ilustrativo, sem dados reais">
-              {[40,65,55,78,70,91,80,100].map((height,index) => <span key={index} style={{height: height+'%'}} />)}
-            </div>
-            <div className="wfProcessInsight"><CheckCircle2 size={16}/> Dados organizados para acompanhamento</div>
-          </div>
-        </div>}
-      </div>
-      <div className="wfProcessBottom"><span>ESTRATÉGIA</span><span>TECNOLOGIA</span><span>RESULTADOS</span></div>
+  const [expanded,setExpanded] = React.useState(false);
+  const item=showcases[stage];
+  return <div className={'wfShowcase '+(stage===0?'isPhoto':'isProduct')+(expanded?' isExpanded':'')}>
+    <div className="wfShowcaseMedia">
+      <img src={item.src} alt={item.alt} loading="lazy" decoding="async" width={1536} height={stage===2?1272:1024}/>
+      <span className="wfShowcaseTag">{item.tag}</span>
+      <div className="wfShowcaseCaption"><small>{item.note}</small><strong>{item.name}</strong></div>
     </div>
-  );
+    <div className="wfShowcaseFooter">
+      <span>WUNIFLOW / {stage===0?'ESTRATÉGIA':'PORTFÓLIO'}</span>
+      {stage===0?<a href={item.href}>Conversar sobre meu projeto <ArrowUpRight size={16}/></a>:<button type="button" onClick={()=>setExpanded(!expanded)} aria-expanded={expanded}>{expanded?'Ver composição':'Ampliar interface'} <ArrowUpRight size={16}/></button>}
+    </div>
+    {stage===1&&<a className="wfShowcaseVisit" href={item.href} target="_blank" rel="noopener noreferrer">Explorar site publicado <ArrowUpRight size={16}/></a>}
+  </div>;
 }
 
 export default function ScrollStory() {
   const cards = React.useRef<(HTMLElement | null)[]>([]);
   const [visible, setVisible] = React.useState<boolean[]>([false,false,false]);
-  const [motionEnabled, setMotionEnabled] = React.useState(false);
+  const [motionEnabled, setMotionEnabled] = React.useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   React.useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
