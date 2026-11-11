@@ -29,6 +29,16 @@ export default function PortfolioCarousel() {
   const viewportRef = React.useRef<HTMLDivElement>(null);
   const [progress,setProgress] = React.useState(0);
   const [mobileIndex,setMobileIndex] = React.useState(0);
+  const currentIndexRef = React.useRef(0);
+  const manuallyPausedRef = React.useRef(false);
+  const visibleRef = React.useRef(false);
+  const [manuallyPaused,setManuallyPaused] = React.useState(false);
+
+  // Any deliberate user interaction permanently suspends autoplay until they resume it.
+  const pauseAutoplay = () => {
+    manuallyPausedRef.current = true;
+    setManuallyPaused(true);
+  };
 
   React.useEffect(() => {
     const section = sectionRef.current;
@@ -67,8 +77,41 @@ export default function PortfolioCarousel() {
     if (!card) return;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     viewport.scrollTo({left:card.offsetLeft - track.offsetLeft,behavior:reduced?'auto':'smooth'});
+    currentIndexRef.current = index;
     setMobileIndex(index);
   };
+
+  React.useEffect(() => {
+    const root = sectionRef.current;
+    const viewport = viewportRef.current;
+    if (!root || !viewport) return;
+    const mobile = window.matchMedia('(max-width: 899px)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const dataSaving = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    const observer = typeof IntersectionObserver === 'undefined'
+      ? null
+      : new IntersectionObserver(entries => {
+          visibleRef.current = entries.some(entry => entry.isIntersecting);
+        }, { threshold: 0.25 });
+    observer?.observe(root);
+    if (!observer) visibleRef.current = true;
+
+    const timer = window.setInterval(() => {
+      if (!visibleRef.current || document.hidden || !mobile.matches ||
+          reducedMotion.matches || dataSaving?.saveData || manuallyPausedRef.current) return;
+      const next = (currentIndexRef.current + 1) % projects.length;
+      const card = trackRef.current?.children[next] as HTMLElement | undefined;
+      if (!card) return;
+      // Move only the horizontal scroll container; never take over page scrolling.
+      viewport.scrollTo({left: card.offsetLeft - (trackRef.current?.offsetLeft ?? 0), behavior: 'smooth'});
+      currentIndexRef.current = next;
+      setMobileIndex(next);
+    }, 6000);
+    return () => {
+      window.clearInterval(timer);
+      observer?.disconnect();
+    };
+  }, []);
 
   const onMobileScroll = () => {
     const viewport = viewportRef.current;
@@ -76,6 +119,7 @@ export default function PortfolioCarousel() {
     if (!viewport || !track || window.matchMedia('(min-width: 900px)').matches) return;
     const children = Array.from(track.children) as HTMLElement[];
     const index = children.reduce((best,child,i)=>Math.abs(child.offsetLeft - track.offsetLeft - viewport.scrollLeft) < Math.abs(children[best].offsetLeft - track.offsetLeft - viewport.scrollLeft)?i:best,0);
+    currentIndexRef.current = index;
     setMobileIndex(index);
   };
 
@@ -87,7 +131,12 @@ export default function PortfolioCarousel() {
       </div>
       <span className="wfPortfolioHint" aria-hidden="true">EXPLORE OS PROJETOS <ArrowRight size={17}/></span>
     </div>
-    <div className="wfPortfolioViewport" ref={viewportRef} onScroll={onMobileScroll} tabIndex={0} aria-label="Portfólio de projetos. No celular, deslize para ver os demais.">
+    <div className="wfPortfolioViewport" ref={viewportRef} onScroll={onMobileScroll}
+      onPointerDown={pauseAutoplay}
+      onKeyDown={pauseAutoplay}
+      onWheel={pauseAutoplay}
+      onFocusCapture={pauseAutoplay}
+      tabIndex={0} aria-label="Portfólio de projetos. No celular, deslize para ver os demais.">
       <div className="wfPortfolioTrack" ref={trackRef}>
         {projects.map((project,index)=><article className="wfPortfolioCard" key={project.href}>
           <a className="wfPortfolioMedia" href={project.href} target="_blank" rel="noopener noreferrer" aria-label={'Visitar '+project.name+' em nova aba'}>
@@ -104,9 +153,14 @@ export default function PortfolioCarousel() {
     <div className="wfPortfolioFooter">
       <span className="wfPortfolioCounter"><b>{String(mobileIndex+1).padStart(2,'0')}</b><span> / {String(projects.length).padStart(2,'0')}</span></span>
       <div className="wfPortfolioProgress" aria-hidden="true"><span style={{transform:'scaleX('+progress+')'}}/></div>
+      <div className="wfPortfolioMobileAutoplay">
+        {manuallyPaused
+          ? <button type="button" onClick={() => {manuallyPausedRef.current=false;setManuallyPaused(false)}} aria-label="Retomar passagem automática dos projetos">Retomar automático</button>
+          : <span aria-label="Passagem automática a cada seis segundos">Auto · 6 s</span>}
+      </div>
       <div className="wfPortfolioMobileControls" aria-label="Navegação do portfólio">
-        <button type="button" aria-label="Projeto anterior" disabled={mobileIndex===0} onClick={()=>goTo(mobileIndex-1)}><ArrowLeft size={19}/></button>
-        <button type="button" aria-label="Próximo projeto" disabled={mobileIndex===projects.length-1} onClick={()=>goTo(mobileIndex+1)}><ArrowRight size={19}/></button>
+        <button type="button" aria-label="Projeto anterior" disabled={mobileIndex===0} onClick={()=>{pauseAutoplay();goTo(mobileIndex-1)}}><ArrowLeft size={19}/></button>
+        <button type="button" aria-label="Próximo projeto" disabled={mobileIndex===projects.length-1} onClick={()=>{pauseAutoplay();goTo(mobileIndex+1)}}><ArrowRight size={19}/></button>
       </div>
     </div>
   </section>;
