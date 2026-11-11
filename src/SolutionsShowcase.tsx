@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './SolutionsShowcase.css';
 import { HrSystemPreview, AutomationFlowPreview } from './SolutionsVisuals';
 
+const MK9_CRM_SCREENSHOT='/assets/mk9-crm-dashboard-anonimizado.webp';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const groups = [
@@ -24,9 +26,9 @@ const groups = [
     teaser:'Organize sua operação em uma plataforma feita para sua realidade.',
     details:'Softwares para equipes, RH, controle comercial e rotinas operacionais.',
     services:['Gestão de promotores','Jornada e geolocalização','RH operacional','Faltas e atestados','Gestão comercial e CRM'],
-    example:'FALTAS & ATESTADOS · PRÉVIA ILUSTRATIVA',
+    example:'MK9 CRM · DASHBOARD REAL',
     image:null,
-    imageAlt:'Prévia ilustrativa do módulo de Faltas e Atestados, sem dados reais',
+    imageAlt:'Captura de tela do dashboard operacional MK9 CRM, com nomes pessoais ocultados',
     link:null,
     Icon:LayoutDashboard
   },
@@ -57,6 +59,7 @@ const groups = [
 export default function SolutionsShowcase(){
   const sectionRef = React.useRef<HTMLElement>(null);
   const [selected,setSelected] = React.useState(0);
+  const [dashboardImageAvailable,setDashboardImageAvailable] = React.useState(true);
   const active=groups[selected];
   const total=groups.reduce((n,g)=>n+g.services.length,0);
 
@@ -110,7 +113,7 @@ export default function SolutionsShowcase(){
         <a className="wfsMainCta" href="/diagnostico">Planejar minha solução <ArrowUpRight size={17}/></a>
       </div>
       <div className="wfsVisual">
-        {active.id==='management' ? <HrSystemPreview/>
+        {active.id==='management' ? dashboardImageAvailable ? <div className="wfsVisualImage wfsRealDashboard"><img src={MK9_CRM_SCREENSHOT} alt="Dashboard real do MK9 CRM: visão gerencial de ausências, indicadores, pendências e alertas, com nomes pessoais ocultados" width={1672} height={941} loading="lazy" decoding="async" onError={()=>setDashboardImageAvailable(false)}/><span>{active.example}</span></div> : <HrSystemPreview/>
           : active.id==='automation' ? <AutomationFlowPreview/>
           : active.image ? <div className="wfsVisualImage"><img key={active.image+active.id} src={active.image} alt={active.imageAlt} width={1366} height={768} loading="lazy" decoding="async"/><span>{active.example}</span></div>
           : null}
