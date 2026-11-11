@@ -1,0 +1,211 @@
+/* WuniFlow Sites — refinamento V2. Isolado em .sitesPage.
+   Preserva formulários, cálculos e integração /api/site-leads. */
+.sitesPage{
+  --sites-text:#f8f3fa;
+  --sites-muted:#c6b9cb;
+  --sites-card:#1b1422;
+  --sites-line:rgba(218,167,228,.23);
+}
+.sitesPage .sitesHeader{background:#0c0911;border-color:var(--sites-line);backdrop-filter:none;-webkit-backdrop-filter:none}
+.sitesPage .sitesHero p,.sitesPage .sitesCard>p{color:var(--sites-muted)}
+.sitesPage .sitesHeroCopy{min-width:0}
+.sitesPage .sitesHeroCta{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:22px;min-height:48px;padding:12px 21px;background:linear-gradient(110deg,#8534b4,#bd379f);border:1px solid rgba(255,255,255,.19);border-radius:12px;color:#fff;font-weight:800;text-decoration:none;box-shadow:0 12px 34px rgba(167,38,148,.19)}
+.sitesPage .sitesHeroCta svg{width:18px;height:18px}
+.sitesPage .sitesHeroCta:hover{filter:brightness(1.12)}
+.sitesPage .sitesShowcaseBadge{left:12px;top:14px}
+.sitesPage .sitesShowcaseCard{right:9px;bottom:8px}
+.sitesPage .sitesBrowserContent .sitesDemoButton{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#b800c9,#e22ce4);color:#fff;border-radius:7px;padding:8px 10px;font-size:8px;font-weight:800;cursor:default}
+.sitesPage .sitesBrowserContent .sitesDemoButton svg{width:11px;height:11px}
+.sitesPage .sitesProgress{border-color:var(--sites-line);background:#17111e;scroll-margin-top:100px}
+.sitesPage .sitesProgress .active{color:#fff}
+.sitesPage .sitesProgress>div:not(.active):not(.done){color:#c0b4c5}
+.sitesPage .sitesProgress>div:not(.active):not(.done) b{border-color:#55445e;color:#ddd0e1}
+.sitesPage .sitesGrid{background:linear-gradient(180deg,#1a1321,#100c16);border-color:var(--sites-line)}
+.sitesPage .sitesCard,.sitesPage .sitesAside{background:linear-gradient(150deg,#21192a,#17121e);border-color:var(--sites-line)}
+.sitesPage .sitesCard>small,.sitesPage .sitesAside dt,.sitesPage .sitesAside>small{color:#d3addd}
+.sitesPage .sitesOptions button,.sitesPage .sitesStyleGrid button,.sitesPage .sitesChecks label,.sitesPage .sitesResourceList label{background:#261d2f;border-color:rgba(211,174,229,.25)}
+.sitesPage .sitesOptions button.selected,.sitesPage .sitesStyleGrid button.selected{background:#37213e;border-color:#d96bd3;box-shadow:inset 0 0 0 1px rgba(217,107,211,.45)}
+.sitesPage .sitesOptions button>span,.sitesPage .sitesStyleGrid button>span,.sitesPage .sitesResourceList span{color:#cec1d3}
+.sitesPage .sitesCard input,.sitesPage .sitesCard textarea,.sitesPage .sitesCard select{background:#130f1a;border-color:rgba(211,174,229,.3)}
+.sitesPage .sitesAside>p,.sitesPage .sitesAside ul{color:#cec1d3}
+.sitesPage .sitesAside dl>div{border-color:rgba(211,174,229,.2)}
+.sitesPage .sitesSummaryBox{background:#1a1322;border-color:var(--sites-line)}
+.sitesPage .sitesSummaryBox span{color:#c3b3ca}
+.sitesPage :is(a,button,input,select,textarea):focus-visible{outline:2px solid #e8a8e7;outline-offset:3px}
+@media(max-width:900px){
+  .sitesPage .sitesShell{padding-top:30px}
+  .sitesPage .sitesHero{gap:18px}
+  .sitesPage .sitesHeroCopy{padding:8px 0 0}
+  .sitesPage .sitesHero h1{line-height:1.02}
+  .sitesPage .sitesHeroCta{width:100%}
+  .sitesPage .sitesShowcase{height:auto;min-height:0;max-width:600px;margin:8px auto 22px;display:block!important}
+  .sitesPage .sitesBrowser{width:100%;max-width:none;transform:none}
+  .sitesPage .sitesBrowserBody{padding:10px}
+  .sitesPage .sitesBrowserContent{min-height:170px;gap:10px}
+  .sitesPage .sitesBrowserContent h3{font-size:clamp(18px,4vw,26px);line-height:1.12}
+  .sitesPage .sitesBrowserContent p{font-size:clamp(8px,1.8vw,10px)}
+  .sitesPage .sitesBrowserVisual{min-height:170px}
+  .sitesPage .sitesShowcaseBadge,.sitesPage .sitesShowcaseCard{display:none}
+  .sitesPage .sitesProgress{margin-bottom:0;padding:15px 10px;gap:4px}
+  .sitesPage .sitesProgress b{width:30px;height:30px;font-size:11px}
+  .sitesPage .sitesProgress .sitesStepShort{font-size:9px;white-space:normal;line-height:1.2}
+  .sitesPage .sitesAside{order:0}
+  .sitesPage .sitesCard{order:0}
+  .sitesPage .sitesGrid{display:flex;flex-direction:column}
+  .sitesPage .sitesCard,.sitesPage .sitesAside{width:100%}
+  .sitesPage .sitesAside{position:static}
+}
+@media(max-width:620px){
+  .sitesPage .sitesHero h1{font-size:clamp(36px,10.4vw,47px)}
+  .sitesPage .sitesHero p{font-size:15px;line-height:1.62}
+  .sitesPage .sitesTrustRow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}
+  .sitesPage .sitesTrustRow>div{min-width:0}
+  .sitesPage .sitesTrustRow small{font-size:11px;color:#c7b7cc}
+  .sitesPage .sitesShowcase{margin-top:18px}
+  .sitesPage .sitesBrowserNav>span,.sitesPage .sitesBrowserNav>em{display:none}
+  .sitesPage .sitesBrowserBar{height:31px}
+  .sitesPage .sitesBrowserContent{min-height:158px;grid-template-columns:1fr 1.1fr;gap:8px;padding:10px 0 0}
+  .sitesPage .sitesBrowserVisual{min-height:154px}
+  .sitesPage .sitesBrowserContent>div:first-child{padding:6px 0}
+  .sitesPage .sitesBrowserContent h3{font-size:clamp(17px,4.9vw,23px)}
+  .sitesPage .sitesBrowserContent p{font-size:9px}
+  .sitesPage .sitesProgress{padding:12px 4px;gap:1px}
+  .sitesPage .sitesProgress b{width:27px;height:27px}
+  .sitesPage .sitesProgress .sitesStepShort{font-size:8px}
+  .sitesPage .sitesGrid{padding:10px;gap:12px}
+  .sitesPage .sitesCard{padding:20px}
+  .sitesPage .sitesOptions{grid-template-columns:1fr!important}
+  .sitesPage .sitesOptions button{min-height:0;padding:17px;display:grid;grid-template-columns:42px 1fr;gap:2px 10px}
+  .sitesPage .sitesOptions .sitesOptionTop{grid-row:1 / span 3;align-self:start;display:flex;flex-direction:column;gap:8px}
+  .sitesPage .sitesOptions svg{margin:0}
+  .sitesPage .sitesOptions button b{font-size:15px}
+  .sitesPage .sitesOptions button>span{font-size:12px;min-height:0}
+  .sitesPage .sitesOptions button>small{font-size:11px;margin-top:4px}
+  .sitesPage .sitesAside{padding:18px!important}
+  .sitesPage .sitesAside dt,.sitesPage .sitesAside dd{font-size:11px}
+  .sitesPage .sitesAside>p{font-size:12px}
+  .sitesPage .sitesAsideHelp b{font-size:11px}
+  .sitesPage .sitesAsideHelp small{font-size:10px}
+}
+@media(max-width:380px){
+ .sitesPage .sitesBrowserContent p{display:none}
+ .sitesPage .sitesProgress .sitesStepShort{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){.sitesPage .sitesHeroCta{transition:none}}
+
+/* Navegação acessível do briefing: seis etapas interativas. */
+.sitesPage .sitesProgress > button{
+  appearance:none;min-width:0;display:flex;align-items:center;justify-content:flex-start;gap:10px;
+  padding:5px 3px;border:1px solid transparent;border-radius:11px;
+  font:inherit;color:#c5b7ca;background:transparent;text-align:left;
+  cursor:pointer;transition:background .18s,border-color .18s,color .18s;
+}
+.sitesPage .sitesProgress > button b{
+  display:grid;place-items:center;flex:none;width:30px;height:30px;
+  border:1px solid #5b4a63;border-radius:50%;font-size:11px;
+  color:#e0d5e4;background:#211829;
+}
+.sitesPage .sitesProgress > button.active{color:#fff}
+.sitesPage .sitesProgress > button.active b{
+  border-color:#e66edb;background:linear-gradient(135deg,#a82ab8,#dd39b9);
+  color:#fff;box-shadow:0 0 19px rgba(198,63,166,.26);
+}
+.sitesPage .sitesProgress > button.done b{background:#392641;color:#f0c0e9;border-color:#aa73b2}
+.sitesPage .sitesProgress > button:not(:disabled):hover{
+  background:rgba(211,174,229,.10);border-color:rgba(211,174,229,.30);
+}
+.sitesPage .sitesProgress > button:disabled{opacity:.58;cursor:not-allowed}
+.sitesPage .sitesProgress > button:focus-visible{outline:2px solid #f0b9e9;outline-offset:2px}
+.sitesPage #sites-configurador{scroll-margin-top:92px}
+@media(max-width:900px){
+  .sitesPage .sitesProgress > button{
+    flex-direction:column;justify-content:center;align-items:center;
+    gap:6px;padding:7px 1px;text-align:center;
+  }
+}
+@media(max-width:620px){
+  .sitesPage .sitesProgress > button{gap:5px;padding:6px 0}
+  .sitesPage .sitesProgress > button b{width:27px;height:27px;font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  .sitesPage .sitesProgress > button{transition:none}
+}
+
+
+/* Vitrine de projetos reais /sites — isolada do configurador e da landing principal. */
+.sitesPage .sitesShowcase.sitesRealShowcase{
+  position:relative;display:block!important;width:100%;height:auto!important;min-height:0;
+  max-width:690px;margin:0;overflow:hidden;
+}
+.sitesPage .sitesRealWindow{
+  position:relative;isolation:isolate;width:100%;overflow:hidden;border-radius:20px;
+  border:1px solid rgba(208,120,217,.42);background:#0d0a13;
+  box-shadow:0 22px 66px rgba(0,0,0,.42),0 0 44px rgba(175,44,176,.10);
+}
+.sitesPage .sitesRealBrowserBar{height:34px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;border-bottom:1px solid rgba(255,255,255,.10);background:#141019}
+.sitesPage .sitesRealDots{display:flex;align-items:center;gap:5px}
+.sitesPage .sitesRealDots i{display:block;width:7px;height:7px;border-radius:50%;background:#77617d}
+.sitesPage .sitesRealDots i:first-child{background:#c24ca9}
+.sitesPage .sitesRealDomain{font:750 9px/1.2 WuniManrope,Arial,sans-serif;letter-spacing:.14em;color:#c7aecb}
+.sitesPage .sitesRealBrand{display:grid;place-items:center;flex:none;width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,#9b24ad,#e52bc6);font:800 11px/1 Arial,sans-serif;color:#fff}
+.sitesPage .sitesRealScene{position:relative;min-height:clamp(310px,37vw,400px);touch-action:pan-y;background:#130d19}
+.sitesPage .sitesRealScene>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block;animation:sitesRealFade .4s ease-out}
+.sitesPage .sitesRealShade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,7,15,.82) 0%,rgba(12,8,18,.55) 30%,rgba(12,8,19,.05) 64%,transparent 100%),linear-gradient(0deg,rgba(8,6,13,.28),transparent 40%);pointer-events:none}
+.sitesPage .sitesRealText{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:clamp(310px,37vw,400px);width:min(79%,360px);padding:30px 22px 32px}
+.sitesPage .sitesRealEyebrow{font-size:9px;font-weight:800;letter-spacing:.15em;color:#eda4ea}
+.sitesPage .sitesRealText h3{font:800 clamp(23px,3.1vw,35px)/1.08 WuniOutfit,Arial,sans-serif;color:#fff;letter-spacing:-.04em;margin:12px 0 10px;max-width:310px;text-wrap:balance}
+.sitesPage .sitesRealText p{font-size:clamp(11px,1.4vw,13px);line-height:1.55;color:#ebdce9;margin:0 0 15px;max-width:285px}
+.sitesPage .sitesRealProjectName{display:flex;flex-direction:column;gap:4px;font-size:8px;letter-spacing:.12em;color:#c7abc8}
+.sitesPage .sitesRealProjectName b{font-size:13px;letter-spacing:0;color:#fff}
+.sitesPage .sitesRealActions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:19px}
+.sitesPage .sitesRealActions a{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:41px;border-radius:11px;padding:10px 13px;text-decoration:none;font-weight:800;font-size:11px;white-space:nowrap;transition:transform .2s,filter .2s}
+.sitesPage .sitesRealActions a:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.sitesPage .sitesRealActions .sitesRealPrimary{color:#fff;background:linear-gradient(110deg,#a526ba,#db37be);border:1px solid rgba(255,255,255,.14)}
+.sitesPage .sitesRealActions .sitesRealExternal{color:#f6e6f5;background:rgba(26,16,34,.8);border:1px solid rgba(236,188,239,.38)}
+.sitesPage .sitesRealControls{min-height:50px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-top:1px solid rgba(255,255,255,.10);background:#19111e}
+.sitesPage .sitesRealControls>span{font-size:8px;letter-spacing:.1em;font-weight:800;color:#bda0c0}
+.sitesPage .sitesRealPagination{display:flex;gap:7px}
+.sitesPage .sitesRealPagination button{width:29px;height:29px;border:1px solid rgba(222,167,223,.33);border-radius:9px;background:#261b2c;color:#d5c2d9;font-size:10px;cursor:pointer}
+.sitesPage .sitesRealPagination button.isActive{background:#b32db2;color:#fff;border-color:#e0a3e4}
+.sitesPage .sitesRealPause{min-width:77px;min-height:29px;border:1px solid rgba(224,174,231,.33);border-radius:9px;background:#261b2c;color:#e4c9e6;font-size:10px;font-weight:700;cursor:pointer}
+.sitesPage .sitesRealControls button:hover{border-color:#e4a9e5}
+.sitesPage .sitesRealControls button:focus-visible,.sitesPage .sitesRealActions a:focus-visible{outline:2px solid #e99be6;outline-offset:3px}
+@keyframes sitesRealFade{from{opacity:.45;filter:blur(3px)}to{opacity:1;filter:blur(0)}}
+@media(max-width:900px){
+  .sitesPage .sitesShowcase.sitesRealShowcase{margin:16px auto 22px;max-width:630px}
+  .sitesPage .sitesRealScene,.sitesPage .sitesRealText{min-height:320px}
+}
+@media(max-width:620px){
+  .sitesPage .sitesShowcase.sitesRealShowcase{width:100%;height:auto!important;margin:16px auto 22px;max-width:none}
+  .sitesPage .sitesRealWindow{border-radius:15px}
+  .sitesPage .sitesRealBrowserBar{height:30px;padding:0 9px}
+  .sitesPage .sitesRealDomain{font-size:7px}
+  .sitesPage .sitesRealScene,.sitesPage .sitesRealText{min-height:330px}
+  .sitesPage .sitesRealScene>img{object-position:center top}
+  .sitesPage .sitesRealShade{background:linear-gradient(90deg,rgba(8,6,14,.81),rgba(10,7,17,.55) 45%,rgba(12,8,17,.04) 80%),linear-gradient(0deg,rgba(8,6,13,.27),transparent 48%)}
+  .sitesPage .sitesRealText{width:min(84%,320px);padding:22px 14px}
+  .sitesPage .sitesRealEyebrow{font-size:8px}
+  .sitesPage .sitesRealText h3{font-size:clamp(24px,7.2vw,31px)}
+  .sitesPage .sitesRealText p{font-size:11px;max-width:240px}
+  .sitesPage .sitesRealActions{gap:7px;margin-top:15px}
+  .sitesPage .sitesRealActions a{font-size:10px;padding:9px 10px;min-height:39px}
+  .sitesPage .sitesRealControls{padding:10px 8px;min-height:51px}
+  .sitesPage .sitesRealControls>span{display:none}
+  .sitesPage .sitesRealPagination button{width:37px;height:33px}
+  .sitesPage .sitesRealPause{min-height:33px;min-width:92px}
+}
+@media(max-width:360px){
+  .sitesPage .sitesRealText{width:92%}
+  .sitesPage .sitesRealText h3{font-size:24px}
+  .sitesPage .sitesRealScene,.sitesPage .sitesRealText{min-height:350px}
+}
+@media(prefers-reduced-motion:reduce){
+ .sitesPage .sitesRealScene>img{animation:none}
+ .sitesPage .sitesRealActions a{transition:none}
+}
+
+/* Real project photography: higher clarity without sacrificing text contrast. */
+.sitesPage .sitesRealScene>img{filter:brightness(1.16) contrast(1.04) saturate(1.08)}
+.sitesPage .sitesRealText h3,.sitesPage .sitesRealText p,.sitesPage .sitesRealProjectName{text-shadow:0 2px 14px rgba(0,0,0,.65)}
+.sitesPage .sitesRealText{width:min(70%,330px)}
+@media(max-width:620px){.sitesPage .sitesRealText{width:min(78%,300px)}}

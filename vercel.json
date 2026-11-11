@@ -1,14 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/admin-sites",
-      "destination": "/admin-sites/index.html"
-    },
-    {
-      "source": "/admin-sites/",
-      "destination": "/admin-sites/index.html"
-    },
-    {
       "source": "/sites",
       "destination": "/sites/index.html"
     },
@@ -31,27 +23,17 @@
     {
       "source": "/admin/",
       "destination": "/admin/index.html"
-    }
-  ],
-  "headers": [
+    },
     {
       "source": "/admin-sites",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive"
-        }
-      ]
+      "destination": "/admin-sites/index.html"
     },
     {
       "source": "/admin-sites/",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive"
-        }
-      ]
-    },
+      "destination": "/admin-sites/index.html"
+    }
+  ],
+  "headers": [
     {
       "source": "/admin",
       "headers": [
@@ -63,6 +45,24 @@
     },
     {
       "source": "/admin/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
+      "source": "/admin-sites",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
+      "source": "/admin-sites/",
       "headers": [
         {
           "key": "X-Robots-Tag",
