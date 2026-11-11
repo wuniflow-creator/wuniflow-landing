@@ -79,7 +79,7 @@ export default function Sites(){
               <div className="sitesBrowserNav"><b>CASA LUME</b><span>Ambientes&nbsp;&nbsp; Projetos&nbsp;&nbsp; Sobre</span><em>Agendar conversa</em></div>
               <div className="sitesBrowserContent">
                 <div><small>ARQUITETURA + INTERIORES</small><h3>Espaços feitos para viver melhor.</h3><p>Interiores autorais, com leveza, conforto e personalidade.</p><button>Ver projetos <ArrowRight/></button></div>
-                <div className="sitesBrowserVisual"><img src="/assets/cinematic/sites-landing-pages.webp" alt="Arte conceitual de exemplo visual para uma landing page de arquitetura" loading="lazy"/><span>CASA LUME<br/><small>ARQUITETURA & INTERIORES</small></span><b>PROJETO<br/>CONCEITUAL</b></div>
+                <div className="sitesBrowserVisual"><img src="/assets/cinematic/sites-landing-pages.webp" alt="Prévia conceitual de landing page para escritório de arquitetura e interiores" width={960} height={640} loading="lazy" decoding="async"/><span>CASA LUME<br/><small>ARQUITETURA & INTERIORES</small></span><b>PROJETO<br/>CONCEITUAL</b></div>
               </div>
             </div>
           </div>
@@ -100,6 +100,27 @@ export default function Sites(){
         </section>
         <aside className="sitesAside"><div className="sitesAsideHead"><div className="sitesAsideIcon"><FileText/></div><div className="sitesAsideTitle"><b>Seu projeto, em resumo</b><span>ESTIMATIVA</span></div></div><dl><div><dt>Projeto</dt><dd>{s.tipo}</dd></div><div><dt>Estilo</dt><dd>{s.estilo}</dd></div><div><dt>Recursos</dt><dd>{s.recursos.length||'Nenhum extra'}</dd></div></dl><hr/><small>INVESTIMENTO ESTIMADO</small><strong>{estimate}</strong><p>{sobConsulta?'Há itens que precisam de avaliação. A proposta final confirma o investimento.':'Estimativa inicial baseada nas escolhas realizadas. O valor final pode variar conforme o briefing.'}</p><ul><li>✓ Sem compromisso para começar</li><li>✓ Briefing organizado ao final</li><li>✓ Resposta consultiva da nossa equipe</li><li>✓ Cada detalhe pode ser ajustado</li></ul><a className="sitesAsideHelp" href={whatsappHref} target="_blank" rel="noreferrer"><Headphones/><span><b>Dúvidas? Fale com um especialista.</b><small>Receba orientação personalizada.</small></span><ArrowRight/></a></aside>
       </div>
+      <section className="sitesSeoSection" aria-labelledby="sitesSeoTitle">
+        <div className="sitesSeoIntro">
+          <span className="sitesSeoKicker">PRESENÇA DIGITAL PARA NEGÓCIOS</span>
+          <h2 id="sitesSeoTitle">Criação de sites profissionais e landing pages para sua empresa</h2>
+          <p>Seu site precisa representar a marca com clareza e ajudar o cliente a encontrar o próximo passo. A Wuniflow planeja projetos digitais de acordo com o objetivo, o público e as funcionalidades necessárias.</p>
+        </div>
+        <div className="sitesSeoCards">
+          <article><h3>Landing pages para captar contatos</h3><p>Páginas voltadas a campanhas, lançamento de serviços e geração de oportunidades, com conteúdo direto e chamadas para ação.</p></article>
+          <article><h3>Sites institucionais</h3><p>Apresente a empresa, seus diferenciais, serviços e formas de contato em uma experiência responsiva e organizada.</p></article>
+          <article><h3>Catálogos digitais e lojas virtuais</h3><p>Organize produtos e serviços em um catálogo ou solicite um projeto de comércio eletrônico com escopo e integrações definidos na proposta.</p></article>
+          <article><h3>Integrações e recursos sob medida</h3><p>Considere formulários, agendamentos, CRM, automações, análises de acesso e outras funcionalidades conforme a necessidade do negócio.</p></article>
+        </div>
+        <div className="sitesSeoFaq" aria-labelledby="sitesFaqTitle">
+          <h2 id="sitesFaqTitle">Perguntas frequentes sobre criação de sites</h2>
+          <details><summary>Qual a diferença entre um site institucional e uma landing page?</summary><p>O site institucional apresenta a empresa e diferentes serviços ou áreas. A landing page concentra a experiência em uma oferta e em uma ação principal, como solicitar orçamento ou enviar uma mensagem.</p></details>
+          <details><summary>Como funciona a estimativa de investimento?</summary><p>Você escolhe o tipo de projeto e os recursos desejados no configurador acima. A estimativa é inicial; a proposta final depende da análise do briefing, das integrações e do escopo aprovado.</p></details>
+          <details><summary>A Wuniflow desenvolve sites para celular?</summary><p>O projeto pode incluir layouts responsivos para computadores, tablets e celulares. Os requisitos de cada dispositivo são considerados durante a definição do escopo.</p></details>
+          <details><summary>É possível integrar o site ao WhatsApp ou ao CRM?</summary><p>Sim, essas integrações podem ser avaliadas no briefing, conforme a plataforma utilizada e os requisitos de segurança e operação.</p></details>
+        </div>
+        <p className="sitesSeoClosing">Quer discutir seu projeto? <a href="#sitesSeoTitle" onClick={e=>{e.preventDefault();document.querySelector('.sitesProgress')?.scrollIntoView({behavior:'smooth',block:'start'})}}>Voltar ao configurador de sites</a> ou <a href={whatsappHref} target="_blank" rel="noopener noreferrer">falar com a Wuniflow pelo WhatsApp</a>.</p>
+      </section>
     </main>
   </div>
 }
