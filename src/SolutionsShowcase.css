@@ -68,3 +68,9 @@
 }
 @media(max-width:370px){.wfsCategories{grid-template-columns:1fr}.wfsCategory{min-height:0}.wfsCategoryTeaser{margin-bottom:15px}}
 @media(prefers-reduced-motion:reduce){.wfsCategory{transition:none!important}.wfsVisualImage img{animation:none!important}}
+
+/* Captura real sem cortes no desktop ou celular. */
+.wfsRealDashboard{min-height:0;background:#111927;border-color:rgba(231,175,238,.4)}
+.wfsRealDashboard img{width:100%;height:auto;max-height:none;aspect-ratio:1672/941;object-fit:contain;object-position:center;display:block}
+.wfsRealDashboard>span{bottom:12px;left:12px;letter-spacing:.06em}
+@media(max-width:620px){.wfsRealDashboard>span{font-size:8px;padding:6px 8px}}
