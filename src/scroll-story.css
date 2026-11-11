@@ -38,8 +38,8 @@
 .wfShowcaseVisit{padding:0 20px 18px}
 .wfStoryMotion .isVisible .isPhoto img{animation:wfWorkshopDrift 10s ease-in-out infinite alternate}
 .wfStoryMotion .isVisible .isProduct:not(.isExpanded) img{animation:wfProductFloat 5s ease-in-out infinite alternate}
-.isProduct.isExpanded .wfShowcaseMedia{aspect-ratio:4/4.5}
-.isProduct.isExpanded .wfShowcaseMedia img{width:100%;height:100%;left:0;top:0;object-fit:contain;transform:none;border-radius:0;animation:none}
+.isProduct.isExpanded .wfShowcaseMedia{aspect-ratio:auto}
+.isProduct.isExpanded .wfShowcaseMedia img{position:relative;width:100%;height:auto;left:0;top:0;object-fit:contain;transform:none;border-radius:0;animation:none}
 .isExpanded .wfShowcaseCaption{display:none}
 @keyframes wfWorkshopDrift{from{transform:scale(1.02)}to{transform:scale(1.12) translate3d(-1%,.4%,0)}}
 @keyframes wfProductFloat{from{transform:perspective(1100px) rotateY(-7deg) rotateX(3deg) translateY(0)}to{transform:perspective(1100px) rotateY(-3deg) rotateX(1deg) translateY(-12px)}}
