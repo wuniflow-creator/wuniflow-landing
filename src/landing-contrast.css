@@ -142,3 +142,32 @@ body:has(.landingHeader) .cinematicHero.isHeroStill .heroProof span {color:#d3c8
     animation:none;transform:none;will-change:auto;
   }
 }
+
+/* Fotografia realista 2026: prioridade sobre a animação do poster legado. */
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady .heroFullPoster {
+  animation: wfRealHeroMotion 21s ease-in-out infinite alternate;
+  object-position: center center;
+  filter: none;
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal:not(.isHeroMotion) .heroFullPoster {
+  animation: none;
+  transform: scale(1.025);
+  will-change: auto;
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady .heroFilmShade {
+  background: linear-gradient(90deg,rgba(11,7,15,.72),rgba(11,7,15,.36) 48%,rgba(11,7,15,.08) 95%),
+    linear-gradient(0deg,rgba(11,7,15,.36),transparent 45%);
+}
+@media(max-width:800px){
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady .heroFullPoster {
+    object-position: center 60%;
+  }
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady .heroFilmShade {
+    background:linear-gradient(180deg,rgba(11,7,15,.54),rgba(11,7,15,.16) 50%,rgba(11,7,15,.65));
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady .heroFullPoster {
+    animation:none!important;transform:none!important;will-change:auto!important;
+  }
+}
