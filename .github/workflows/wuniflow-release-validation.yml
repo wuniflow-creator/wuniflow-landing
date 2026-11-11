@@ -29,3 +29,9 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: TypeScript, Vite, SEO and commercial contracts
         run: npm run build
+      - name: Install headless browser test dependencies
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Browser smoke (desktop and mobile)
+        run: node scripts/verify-browser.mjs
