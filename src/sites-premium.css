@@ -150,7 +150,7 @@
 .sitesPage .sitesRealBrand{display:grid;place-items:center;flex:none;width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,#9b24ad,#e52bc6);font:800 11px/1 Arial,sans-serif;color:#fff}
 .sitesPage .sitesRealScene{position:relative;min-height:clamp(310px,37vw,400px);touch-action:pan-y;background:#130d19}
 .sitesPage .sitesRealScene>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block;animation:sitesRealFade .4s ease-out}
-.sitesPage .sitesRealShade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,7,15,.96) 0%,rgba(12,8,18,.90) 33%,rgba(12,8,19,.35) 72%,rgba(12,8,19,.18) 100%),linear-gradient(0deg,rgba(8,6,13,.68),transparent 45%);pointer-events:none}
+.sitesPage .sitesRealShade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,7,15,.82) 0%,rgba(12,8,18,.55) 30%,rgba(12,8,19,.05) 64%,transparent 100%),linear-gradient(0deg,rgba(8,6,13,.28),transparent 40%);pointer-events:none}
 .sitesPage .sitesRealText{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:clamp(310px,37vw,400px);width:min(79%,360px);padding:30px 22px 32px}
 .sitesPage .sitesRealEyebrow{font-size:9px;font-weight:800;letter-spacing:.15em;color:#eda4ea}
 .sitesPage .sitesRealText h3{font:800 clamp(23px,3.1vw,35px)/1.08 WuniOutfit,Arial,sans-serif;color:#fff;letter-spacing:-.04em;margin:12px 0 10px;max-width:310px;text-wrap:balance}
@@ -182,7 +182,7 @@
   .sitesPage .sitesRealDomain{font-size:7px}
   .sitesPage .sitesRealScene,.sitesPage .sitesRealText{min-height:330px}
   .sitesPage .sitesRealScene>img{object-position:center top}
-  .sitesPage .sitesRealShade{background:linear-gradient(90deg,rgba(8,6,14,.97),rgba(10,7,17,.84) 54%,rgba(12,8,17,.18)),linear-gradient(0deg,rgba(8,6,13,.5),transparent 58%)}
+  .sitesPage .sitesRealShade{background:linear-gradient(90deg,rgba(8,6,14,.81),rgba(10,7,17,.55) 45%,rgba(12,8,17,.04) 80%),linear-gradient(0deg,rgba(8,6,13,.27),transparent 48%)}
   .sitesPage .sitesRealText{width:min(84%,320px);padding:22px 14px}
   .sitesPage .sitesRealEyebrow{font-size:8px}
   .sitesPage .sitesRealText h3{font-size:clamp(24px,7.2vw,31px)}
@@ -203,3 +203,9 @@
  .sitesPage .sitesRealScene>img{animation:none}
  .sitesPage .sitesRealActions a{transition:none}
 }
+
+/* Real project photography: higher clarity without sacrificing text contrast. */
+.sitesPage .sitesRealScene>img{filter:brightness(1.16) contrast(1.04) saturate(1.08)}
+.sitesPage .sitesRealText h3,.sitesPage .sitesRealText p,.sitesPage .sitesRealProjectName{text-shadow:0 2px 14px rgba(0,0,0,.65)}
+.sitesPage .sitesRealText{width:min(70%,330px)}
+@media(max-width:620px){.sitesPage .sitesRealText{width:min(78%,300px)}}
