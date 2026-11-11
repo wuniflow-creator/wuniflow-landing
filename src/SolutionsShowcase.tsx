@@ -3,6 +3,7 @@ import { ArrowUpRight, Bot, ChartNoAxesCombined, CheckCircle2, LayoutDashboard, 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './SolutionsShowcase.css';
+import { HrSystemPreview, AutomationFlowPreview } from './SolutionsVisuals';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,9 +24,9 @@ const groups = [
     teaser:'Organize sua operação em uma plataforma feita para sua realidade.',
     details:'Softwares para equipes, RH, controle comercial e rotinas operacionais.',
     services:['Gestão de promotores','Jornada e geolocalização','RH operacional','Faltas e atestados','Gestão comercial e CRM'],
-    example:'GPSTRADE · DASHBOARD REAL',
-    image:'/assets/portfolio-gpstrade.webp',
-    imageAlt:'Captura real do dashboard GPSTRADE',
+    example:'FALTAS & ATESTADOS · PRÉVIA ILUSTRATIVA',
+    image:null,
+    imageAlt:'Prévia ilustrativa do módulo de Faltas e Atestados, sem dados reais',
     link:null,
     Icon:LayoutDashboard
   },
@@ -109,16 +110,10 @@ export default function SolutionsShowcase(){
         <a className="wfsMainCta" href="/diagnostico">Planejar minha solução <ArrowUpRight size={17}/></a>
       </div>
       <div className="wfsVisual">
-        {active.image
-          ? <div className="wfsVisualImage"><img key={active.image+active.id} src={active.image} alt={active.imageAlt} width={1366} height={768} loading="lazy" decoding="async"/><span>{active.example}</span></div>
-          : <div className="wfsFlowExample" aria-label="Representação ilustrativa de automação com IA">
-              <div><Bot size={30}/><strong>Atendimento</strong></div>
-              <ArrowUpRight size={21}/>
-              <div><Workflow size={30}/><strong>Integração</strong></div>
-              <ArrowUpRight size={21}/>
-              <div><ShieldCheck size={30}/><strong>Equipe</strong></div>
-              <span>EXEMPLO ILUSTRATIVO · SEM DADOS DE CLIENTES</span>
-            </div>}
+        {active.id==='management' ? <HrSystemPreview/>
+          : active.id==='automation' ? <AutomationFlowPreview/>
+          : active.image ? <div className="wfsVisualImage"><img key={active.image+active.id} src={active.image} alt={active.imageAlt} width={1366} height={768} loading="lazy" decoding="async"/><span>{active.example}</span></div>
+          : null}
         {active.link&&<a className="wfsExampleLink" href={active.link} target="_blank" rel="noopener noreferrer">Abrir projeto real <ArrowUpRight size={16}/></a>}
       </div>
     </div>
