@@ -19,6 +19,12 @@ async function testPage(browser,viewport,label){
  const page=await browser.newPage({viewport,deviceScaleFactor:1});
  const errors=[];
  page.on('pageerror',e=>errors.push(String(e)));
+ // Vite preview ignores vercel.json rewrites. Mirror Vercel's /sites -> /sites/index.html
+ // while keeping the browser address at /sites, so route-specific metadata is tested.
+ await page.route(address+'/sites',async route=>{
+  const response=await route.fetch({url:address+'/sites/index.html'});
+  await route.fulfill({response});
+ });
  try {
   const home=await page.goto(address+'/',{waitUntil:'domcontentloaded'});
   assert.equal(home.status(),200,label+' home status');
