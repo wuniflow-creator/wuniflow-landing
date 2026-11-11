@@ -55,3 +55,38 @@
 .dw-phone .dw-panel-bar strong{font-size:max(12px,calc(9px / var(--dw-fit,1)))}
 .dw-phone .dw-panel-bar>span{font-size:max(7px,calc(7px / var(--dw-fit,1)))}
 .dw-phone .dw-panel-footer{font-size:max(9px,calc(7px / var(--dw-fit,1)))}
+
+
+/* Mobile stability: natural scroll, no pinned/staged overlays, legible cards.
+   Desktop 3D GSAP stage is unchanged. */
+@media (max-width:999px) {
+ .dw-experience {overflow-x:clip; padding:52px 18px 60px}
+ .dw-experience .dw-viewport {height:auto;min-height:0;overflow:visible;background:transparent}
+ .dw-experience .dw-deck-intro,.dw-experience .dw-deck-close {display:none!important}
+ .dw-experience .dw-nav {position:relative;inset:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 0 18px;margin:0;background:transparent}
+ .dw-experience .dw-nav button {min-width:0;min-height:70px;display:block;white-space:normal;overflow-wrap:anywhere;font-size:11px;line-height:1.35;padding:12px 7px;color:#e7d6ee;border-top:2px solid rgba(204,132,223,.5)}
+ .dw-experience .dw-nav button>span {font-size:11px;margin-bottom:7px}
+ .dw-experience .dw-nav button i {display:none}
+ .dw-experience .dw-chapters {display:block;position:static;height:auto}
+ .dw-experience .dw-chapter {display:grid;position:relative;inset:auto;grid-template-columns:minmax(0,1fr);gap:15px;padding:28px 0 34px;min-height:0;border-bottom:1px solid var(--dw-line);scroll-margin-top:85px}
+ .dw-experience .dw-copy {display:block;position:static;inset:auto;width:100%;max-width:none;opacity:1;visibility:visible;transform:none}
+ .dw-experience .dw-copy>h3 {font-size:clamp(27px,7.2vw,39px);line-height:1.12;letter-spacing:-.035em;margin:12px 0}
+ .dw-experience .dw-copy>p {font-size:14px;line-height:1.65}
+ .dw-experience .dw-copy ol {display:block;margin:14px 0}
+ .dw-experience .dw-copy li {font-size:12px;line-height:1.5;padding:10px 0}
+ .dw-experience .dw-stage {position:relative;inset:auto;display:block;width:100%;height:auto;min-height:0;margin:0;padding:8px 0 10px;perspective:none;transform:none}
+ .dw-experience .dw-panel {position:relative;width:100%;height:auto;max-width:none;min-height:0;transform:none;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+ .dw-experience .dw-canvas {height:clamp(235px,62vw,315px)}
+ .dw-experience .dw-node {width:28%;min-height:58px;height:auto;padding:10px 3px;gap:4px}
+ .dw-experience .dw-node>strong {font-size:clamp(8px,2.5vw,11px);text-align:center;line-height:1.2;overflow-wrap:anywhere}
+ .dw-experience .dw-node>small {font-size:6px;line-height:1.2;text-align:center}
+ .dw-experience .dw-node svg {width:19px;height:19px}
+ .dw-experience .dw-build {min-height:0;height:auto;overflow:hidden}
+ .dw-experience .dw-build-scene {position:relative;inset:auto;min-height:0;opacity:1;visibility:visible;transform:none}
+ .dw-experience .dw-build-scene.dw-plan,.dw-experience .dw-build-scene.dw-code {display:none}
+ .dw-experience .dw-build-scene.dw-finished {display:block;padding:0}
+ .dw-experience .dw-finished img {width:100%;height:auto;object-fit:contain}
+ .dw-experience .dw-panel-footer {font-size:9px;line-height:1.5}
+ .dw-experience .dw-finale {padding:55px 0 15px}
+ .dw-experience .dw-skip {display:none}
+}
