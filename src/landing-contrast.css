@@ -101,3 +101,100 @@ body:has(.landingHeader) :is(#inicio,#cases,#solucoes,#processo,#contato) {scrol
   body:has(.landingHeader) .cinematicProject,
   body:has(.landingHeader) .capGrid > div {transition:none;}
 }
+
+/* V4 premium experimental hero: image-led motion instead of the blurry original film.
+   Apply only when HeroFilm adds isHeroStill; original hero can be compared via ?hero=video. */
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady {
+  background:#110b19;
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady .heroFullPoster {
+  opacity:1;
+  object-position: 58% center;
+  transform:scale(1.035);
+  animation:wfPremiumHeroDrift 24s cubic-bezier(.42,0,.58,1) infinite alternate;
+  will-change:transform;
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady .heroFilmShade {
+  opacity:1;
+  background:linear-gradient(90deg,rgba(9,5,15,.88) 0%,rgba(13,7,20,.66) 43%,rgba(9,6,16,.17) 82%),
+             linear-gradient(0deg,rgba(9,5,15,.64),transparent 30%,transparent 76%,rgba(9,5,15,.10));
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill .cinematicGrain { opacity:.035; }
+body:has(.landingHeader) .cinematicHero.isHeroStill .cinematicCopy h1 {
+  text-shadow: 0 3px 32px rgba(4,2,10,.38);
+  letter-spacing:-.052em;
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill .cinematicCopy>p {color:#eee5f2;}
+body:has(.landingHeader) .cinematicHero.isHeroStill .heroProof span {color:#d3c8d9;}
+@keyframes wfPremiumHeroDrift {
+  from { transform:scale(1.035) translate3d(0,0,0); }
+  to { transform:scale(1.105) translate3d(-1.25%,.65%,0); }
+}
+@media(max-width:800px) {
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady .heroFullPoster {object-position:61% center;}
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady .heroFilmShade {
+    background:linear-gradient(90deg,rgba(9,5,15,.87),rgba(9,5,15,.37)),
+               linear-gradient(0deg,rgba(9,5,15,.68),transparent 58%);
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroFilmReady .heroFullPoster {
+    animation:none;transform:none;will-change:auto;
+  }
+}
+
+/* Fotografia realista 2026: prioridade sobre a animação do poster legado. */
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady .heroFullPoster {
+  animation: wfRealHeroMotion 12s ease-in-out infinite alternate;
+  animation-play-state: paused;
+  object-position: center center;
+  filter: none;
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal:not(.isHeroMotion) .heroFullPoster {
+  animation-play-state: paused;
+  transform: scale(1.018);
+  will-change: auto;
+}
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady .heroFilmShade {
+  background: linear-gradient(90deg,rgba(11,7,15,.46),rgba(11,7,15,.22) 48%,rgba(11,7,15,.03) 95%),
+    linear-gradient(0deg,rgba(11,7,15,.36),transparent 45%);
+}
+@media(max-width:800px){
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady .heroFullPoster {
+    object-position: center 60%;
+  }
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady .heroFilmShade {
+    background:linear-gradient(180deg,rgba(11,7,15,.54),rgba(11,7,15,.16) 50%,rgba(11,7,15,.65));
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady .heroFullPoster {
+    animation:none!important;transform:none!important;will-change:auto!important;
+  }
+}
+
+/* Reserve final geometry before image decode; avoid layout shifts. */
+body:has(.landingHeader) .cinematicHero {min-height:max(680px,calc(100svh - 78px));align-items:center;}
+body:has(.landingHeader) .cinematicHero .cinematicVisual {display:none;}
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady.isHeroMotion .heroFullPoster {animation-play-state:running;}
+@keyframes wfRealHeroMotion {
+  from {transform:scale(1.018) translate3d(0,0,0);}
+  to {transform:scale(1.13) translate3d(-1.4%,.8%,0);}
+}
+@media(max-width:980px) {
+  body:has(.landingHeader) .cinematicHero {min-height:max(680px,100svh);grid-template-columns:1fr;}
+}
+@media(max-width:800px) {
+  body:has(.landingHeader) .cinematicHero {min-height:max(680px,calc(100svh - 68px));padding:85px 22px 65px;}
+}
+/* The picture wrapper must not consume the first grid column. */
+body:has(.landingHeader) .cinematicHero > picture {display:contents;}
+body:has(.landingHeader) .cinematicHero > .cinematicCopy {grid-column:1;grid-row:1;}
+
+/* Keep the mobile composition compact enough to reveal the photographic scene. */
+@media(max-width:800px) {
+ body:has(.landingHeader) .cinematicHero {padding-top:48px;padding-bottom:38px;}
+ body:has(.landingHeader) .cinematicHero.isHeroFilmReady {padding-top:48px;padding-bottom:38px;}
+ body:has(.landingHeader) .cinematicCopy h1 {font-size:clamp(36px,8.8vw,58px);line-height:1.04;}
+ body:has(.landingHeader) .cinematicCopy .heroProof {display:none;}
+}

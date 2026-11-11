@@ -1,0 +1,98 @@
+/* Dedicated, data-safe visual previews for SolutionsShowcase. */
+.wfsAppPreview,.wfsAutoSystem{width:100%;min-width:0;overflow:hidden;border:1px solid rgba(232,170,237,.35);border-radius:15px;background:#f5f0f8;color:#24192f;box-shadow:0 16px 50px rgba(0,0,0,.3)}
+.wfsAppTop{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:#211329;color:#f4e9f6}
+.wfsAppBrand{display:flex;align-items:center;gap:9px;min-width:0}
+.wfsAppBrandMark{display:grid;place-items:center;width:31px;height:31px;border-radius:8px;background:linear-gradient(140deg,#8a3cae,#d056ab)}
+.wfsAppBrand strong{display:block;font:700 13px/1.2 WuniOutfit,sans-serif}
+.wfsAppBrand small{display:block;font-size:9px;color:#d5c4de}
+.wfsAppDemo{font:700 8px/1.3 WuniManrope,sans-serif;color:#edb9e7;letter-spacing:.1em;text-align:right}
+.wfsAppBody{display:grid;grid-template-columns:104px minmax(0,1fr);min-height:280px}
+.wfsAppSide{display:flex;flex-direction:column;gap:5px;background:#301f3c;color:#d8c9e2;padding:15px 8px}
+.wfsAppSide span{display:flex;align-items:center;gap:7px;font-size:9px;padding:10px 7px;border-radius:7px}
+.wfsAppSide span.isCurrent{color:#fff;background:rgba(199,100,206,.26)}
+.wfsAppContent{padding:18px;min-width:0}
+.wfsAppIntro{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.wfsAppIntro small{font-size:8px;letter-spacing:.1em;color:#9c63a5;font-weight:800}
+.wfsAppIntro h4{font:700 21px/1.2 WuniOutfit,sans-serif;margin:4px 0 0;color:#271a31}
+.wfsAppIntro>span{display:flex;align-items:center;gap:4px;color:#845690;font-size:9px;font-weight:700;white-space:nowrap}
+.wfsAppStats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.wfsAppStats>div{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:85px;padding:11px;border:1px solid #e6ddec;border-radius:9px;background:#fff}
+.wfsAppStats>div span{font-size:9px;color:#71647c}
+.wfsAppStats>div svg{color:#a755b5;margin-top:7px}
+.wfsAppStats>div strong{font-size:10px;line-height:1.3;color:#382642;margin-top:7px}
+.wfsAppOverview{display:grid;grid-template-columns:1.25fr .75fr;gap:8px;margin-top:9px}
+.wfsAppChart,.wfsAppStatus{border:1px solid #e6ddec;background:#fff;border-radius:9px;padding:11px;min-width:0}
+.wfsAppChart>span,.wfsAppStatus>span{font-size:10px;font-weight:800;color:#3e2a48}
+.wfsAppChart>span small{display:block;margin-top:4px;font-size:8px;color:#a48daf;font-weight:500}
+.wfsAppChart svg{display:block;width:100%;height:113px;margin-top:8px}
+.wfsAppStatus p{display:flex;align-items:start;gap:5px;margin:13px 0;color:#715b79;font-size:9px;line-height:1.35}
+.wfsAppStatus svg{flex-shrink:0;color:#9957ac}
+.wfsAppBottom{padding:9px 12px;border-top:1px solid #e4d9eb;color:#80618c;background:#f5f0f8;font-size:8px;font-weight:800;letter-spacing:.1em;text-align:center}
+.wfsAutoSystem{background:#140b1d;color:#fff;border-color:rgba(217,133,224,.4);box-shadow:inset 0 1px rgba(255,255,255,.06),0 20px 46px rgba(0,0,0,.32)}
+.wfsAutoTop,.wfsAutoTop>div{display:flex;align-items:center;gap:10px}
+.wfsAutoTop{justify-content:space-between;gap:12px;padding:14px;background:#26152f;border-bottom:1px solid rgba(223,153,230,.19)}
+.wfsAutoTopIcon{display:grid;place-items:center;width:29px;height:29px;border:1px solid rgba(233,156,225,.35);border-radius:7px;background:rgba(214,107,222,.13);color:#efb1eb}
+.wfsAutoTop strong{font-size:11px;color:#f7e9fa}
+.wfsAutoTopTag{display:flex;align-items:center;gap:6px;font-size:7px;letter-spacing:.09em;color:#e6b5e2;font-weight:800;white-space:nowrap}
+.wfsAutoTopTag>span,.wfsAutoBottomDot{width:7px;height:7px;flex-shrink:0;border-radius:50%;background:#d77bcb;box-shadow:0 0 12px rgba(222,126,213,.6)}
+.wfsAutoHero{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:24px 23px 19px;background:radial-gradient(ellipse at 92% 5%,rgba(211,77,181,.23),transparent 64%)}
+.wfsAutoEyebrow{display:inline-flex;align-items:center;gap:7px;font-size:9px;font-weight:800;letter-spacing:.1em;color:#efa8dd}
+.wfsAutoHero h4{font:650 clamp(21px,2.7vw,34px)/1.12 WuniOutfit,sans-serif;letter-spacing:-.04em;margin:11px 0;color:#fff}
+.wfsAutoHero h4 em{font-style:normal;color:#e99bdd}
+.wfsAutoHero p{font-size:11px;line-height:1.5;color:#d2bdd8;margin:0}
+.wfsAutoSeal{width:88px;height:88px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:20px;border:1px solid rgba(237,154,234,.4);background:linear-gradient(145deg,rgba(173,80,181,.23),rgba(72,39,83,.2));box-shadow:0 16px 50px rgba(204,80,185,.12)}
+.wfsAutoSeal svg{color:#efa9e7;filter:drop-shadow(0 0 8px rgba(239,116,224,.3))}
+.wfsAutoSeal span{font-size:7px;color:#ead2eb;font-weight:800;white-space:nowrap}
+.wfsAutoFlow{display:flex;align-items:stretch;justify-content:space-between;gap:0;padding:10px 16px 19px}
+.wfsAutoFlowUnit{display:contents}
+.wfsAutoNode{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1;min-height:139px;padding:12px 9px;border:1px solid rgba(221,141,228,.34);border-radius:12px;background:linear-gradient(155deg,rgba(106,49,124,.49),rgba(42,22,55,.82));transition:border-color .2s,transform .2s;box-shadow:0 8px 18px rgba(0,0,0,.13)}
+.wfsAutoNode:hover{border-color:rgba(239,155,226,.85);transform:translateY(-3px)}
+.wfsAutoNodeCode{font-size:8px;color:#c998d3;font-weight:800;letter-spacing:.1em}
+.wfsAutoNodeIcon{display:grid;place-items:center;width:39px;height:39px;border-radius:10px;background:rgba(239,128,222,.16);color:#f3a7e7}
+.wfsAutoNode strong{font-size:12px;line-height:1.25;color:#f9ecf9}
+.wfsAutoNode small{font-size:9px;line-height:1.3;color:#c9b1d0}
+.wfsAutoJoin{display:flex;align-items:center;justify-content:center;gap:2px;flex:0 0 22px;min-width:0;color:#ee9fe2}
+.wfsAutoJoin span{display:block;width:5px;height:2px;border-radius:5px;background:#e58cd4;animation:wfsPulse 2.4s ease-in-out infinite alternate}
+.wfsAutoBottom{display:flex;justify-content:space-between;gap:8px;padding:12px 17px;border-top:1px solid rgba(224,150,229,.19);background:rgba(238,163,235,.04)}
+.wfsAutoBottom>div{display:flex;gap:9px;align-items:center}
+.wfsAutoBottom>div>div{display:flex;flex-direction:column;gap:3px}
+.wfsAutoBottom strong{font-size:10px;color:#f5e4f5}
+.wfsAutoBottom small{font-size:9px;line-height:1.3;color:#c7aecd}
+.wfsAutoBottom>span{display:flex;gap:5px;align-items:center;white-space:nowrap;font-size:8px;color:#e5b3dd;font-weight:800}
+.wfsAutoDisclaimer{padding:8px 12px;background:#1a1023;text-align:center;font-size:8px;letter-spacing:.07em;color:#ba94c4}
+@keyframes wfsPulse{from{opacity:.2;transform:scaleX(.65)}to{opacity:1;transform:scaleX(1.45)}}
+@media(max-width:620px){
+ .wfsAppBody{grid-template-columns:70px minmax(0,1fr)}
+ .wfsAppTop{padding:10px}
+ .wfsAppSide{padding:10px 5px}
+ .wfsAppSide span{display:block;font-size:7px;text-align:center;padding:10px 3px}
+ .wfsAppSide svg{display:block;margin:0 auto 5px}
+ .wfsAppContent{padding:10px}
+ .wfsAppIntro h4{font-size:16px}
+ .wfsAppIntro>span{display:none}
+ .wfsAppStats{gap:5px}
+ .wfsAppStats>div{min-height:80px;padding:7px}
+ .wfsAppStats>div span{font-size:7px}
+ .wfsAppStats>div strong{font-size:8px}
+ .wfsAppOverview{grid-template-columns:1fr}
+ .wfsAppStatus{display:none}
+ .wfsAppChart svg{height:95px}
+ .wfsAutoTop{padding:11px 10px}
+ .wfsAutoTop strong{font-size:10px}
+ .wfsAutoTopTag{font-size:6px}
+ .wfsAutoHero{padding:18px 14px}
+ .wfsAutoHero h4{font-size:24px}
+ .wfsAutoHero p{font-size:10px}
+ .wfsAutoSeal{width:65px;height:65px;border-radius:13px}
+ .wfsAutoSeal svg{width:25px}
+ .wfsAutoSeal span{font-size:5px}
+ .wfsAutoFlow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:12px}
+ .wfsAutoFlowUnit{display:block;min-width:0}
+ .wfsAutoNode{min-height:128px}
+ .wfsAutoJoin{display:none}
+ .wfsAutoBottom{padding:11px;align-items:start}
+ .wfsAutoBottom>span{font-size:7px}
+ .wfsAutoDisclaimer{font-size:7px}
+}
+@media(max-width:350px){.wfsAutoSeal{display:none}.wfsAutoBottom>span{display:none}}
+@media(prefers-reduced-motion:reduce){.wfsAutoNode{transition:none}.wfsAutoNode:hover{transform:none}.wfsAutoJoin span{animation:none}}
