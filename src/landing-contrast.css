@@ -176,7 +176,7 @@ body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady .
 /* Reserve final geometry before image decode; avoid layout shifts. */
 body:has(.landingHeader) .cinematicHero {min-height:max(680px,calc(100svh - 78px));align-items:center;}
 body:has(.landingHeader) .cinematicHero .cinematicVisual {display:none;}
-body:has(.landingHeader) .cinematicHero.isHeroReal.isHeroMotion .heroFullPoster {animation-play-state:running;}
+body:has(.landingHeader) .cinematicHero.isHeroStill.isHeroReal.isHeroFilmReady.isHeroMotion .heroFullPoster {animation-play-state:running;}
 @keyframes wfRealHeroMotion {
   from {transform:scale(1.018) translate3d(0,0,0);}
   to {transform:scale(1.065) translate3d(-.5%,.3%,0);}
@@ -187,3 +187,6 @@ body:has(.landingHeader) .cinematicHero.isHeroReal.isHeroMotion .heroFullPoster 
 @media(max-width:800px) {
   body:has(.landingHeader) .cinematicHero {min-height:max(680px,calc(100svh - 68px));padding:85px 22px 65px;}
 }
+/* The picture wrapper must not consume the first grid column. */
+body:has(.landingHeader) .cinematicHero > picture {display:contents;}
+body:has(.landingHeader) .cinematicHero > .cinematicCopy {grid-column:1;grid-row:1;}
