@@ -94,7 +94,7 @@ export default function SolutionsShowcase(){
         type="button"
         aria-pressed={selected===i}
         aria-controls="wfs-detail"
-        onClick={()=>setSelected(i)}>
+        onClick={()=>g.id==='digital'?window.location.assign('/sites'):setSelected(i)}>
         <span className="wfsCategoryTop"><span>{g.number} / 04</span><ArrowUpRight size={18}/></span>
         <span className="wfsCategoryIcon"><g.Icon size={26} strokeWidth={1.8}/></span>
         <strong>{g.title}</strong>
