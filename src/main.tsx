@@ -1,4 +1,4 @@
-import React from'react';import{createRoot}from'react-dom/client';import {ArrowUpRight} from 'lucide-react';import{ArrowRight,BarChart3,Bot,CheckCircle2,Cloud,MapPin,Menu,Route,ShieldCheck,Sparkles,Users,Workflow,X}from'lucide-react';import'./styles.css';import './cinematic.css';import './landing-contrast.css';import Diagnostico from './Diagnostico';import Admin from './Admin';import Sites from './Sites';import SiteAdmin from './SiteAdmin';
+import React from'react';import{createRoot}from'react-dom/client';import {ArrowUpRight} from 'lucide-react';import{ArrowRight,BarChart3,Bot,CheckCircle2,Cloud,MapPin,Menu,Route,ShieldCheck,Sparkles,Users,Workflow,X}from'lucide-react';import'./styles.css';import './cinematic.css';import './landing-contrast.css';import './sites-premium.css';import Diagnostico from './Diagnostico';import Admin from './Admin';import Sites from './Sites';import SiteAdmin from './SiteAdmin';
 import ScrollStory from './ScrollStory';
 import HeroFilm from './HeroFilm';
 import PortfolioCarousel from './PortfolioCarousel';

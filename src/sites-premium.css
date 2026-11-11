@@ -1,0 +1,132 @@
+/* WuniFlow Sites — refinamento V2. Isolado em .sitesPage.
+   Preserva formulários, cálculos e integração /api/site-leads. */
+.sitesPage{
+  --sites-text:#f8f3fa;
+  --sites-muted:#c6b9cb;
+  --sites-card:#1b1422;
+  --sites-line:rgba(218,167,228,.23);
+}
+.sitesPage .sitesHeader{background:#0c0911;border-color:var(--sites-line);backdrop-filter:none;-webkit-backdrop-filter:none}
+.sitesPage .sitesHero p,.sitesPage .sitesCard>p{color:var(--sites-muted)}
+.sitesPage .sitesHeroCopy{min-width:0}
+.sitesPage .sitesHeroCta{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:22px;min-height:48px;padding:12px 21px;background:linear-gradient(110deg,#8534b4,#bd379f);border:1px solid rgba(255,255,255,.19);border-radius:12px;color:#fff;font-weight:800;text-decoration:none;box-shadow:0 12px 34px rgba(167,38,148,.19)}
+.sitesPage .sitesHeroCta svg{width:18px;height:18px}
+.sitesPage .sitesHeroCta:hover{filter:brightness(1.12)}
+.sitesPage .sitesShowcaseBadge{left:12px;top:14px}
+.sitesPage .sitesShowcaseCard{right:9px;bottom:8px}
+.sitesPage .sitesBrowserContent .sitesDemoButton{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#b800c9,#e22ce4);color:#fff;border-radius:7px;padding:8px 10px;font-size:8px;font-weight:800;cursor:default}
+.sitesPage .sitesBrowserContent .sitesDemoButton svg{width:11px;height:11px}
+.sitesPage .sitesProgress{border-color:var(--sites-line);background:#17111e;scroll-margin-top:100px}
+.sitesPage .sitesProgress .active{color:#fff}
+.sitesPage .sitesProgress>div:not(.active):not(.done){color:#c0b4c5}
+.sitesPage .sitesProgress>div:not(.active):not(.done) b{border-color:#55445e;color:#ddd0e1}
+.sitesPage .sitesGrid{background:linear-gradient(180deg,#1a1321,#100c16);border-color:var(--sites-line)}
+.sitesPage .sitesCard,.sitesPage .sitesAside{background:linear-gradient(150deg,#21192a,#17121e);border-color:var(--sites-line)}
+.sitesPage .sitesCard>small,.sitesPage .sitesAside dt,.sitesPage .sitesAside>small{color:#d3addd}
+.sitesPage .sitesOptions button,.sitesPage .sitesStyleGrid button,.sitesPage .sitesChecks label,.sitesPage .sitesResourceList label{background:#261d2f;border-color:rgba(211,174,229,.25)}
+.sitesPage .sitesOptions button.selected,.sitesPage .sitesStyleGrid button.selected{background:#37213e;border-color:#d96bd3;box-shadow:inset 0 0 0 1px rgba(217,107,211,.45)}
+.sitesPage .sitesOptions button>span,.sitesPage .sitesStyleGrid button>span,.sitesPage .sitesResourceList span{color:#cec1d3}
+.sitesPage .sitesCard input,.sitesPage .sitesCard textarea,.sitesPage .sitesCard select{background:#130f1a;border-color:rgba(211,174,229,.3)}
+.sitesPage .sitesAside>p,.sitesPage .sitesAside ul{color:#cec1d3}
+.sitesPage .sitesAside dl>div{border-color:rgba(211,174,229,.2)}
+.sitesPage .sitesSummaryBox{background:#1a1322;border-color:var(--sites-line)}
+.sitesPage .sitesSummaryBox span{color:#c3b3ca}
+.sitesPage :is(a,button,input,select,textarea):focus-visible{outline:2px solid #e8a8e7;outline-offset:3px}
+@media(max-width:900px){
+  .sitesPage .sitesShell{padding-top:30px}
+  .sitesPage .sitesHero{gap:18px}
+  .sitesPage .sitesHeroCopy{padding:8px 0 0}
+  .sitesPage .sitesHero h1{line-height:1.02}
+  .sitesPage .sitesHeroCta{width:100%}
+  .sitesPage .sitesShowcase{height:auto;min-height:0;max-width:600px;margin:8px auto 22px;display:block!important}
+  .sitesPage .sitesBrowser{width:100%;max-width:none;transform:none}
+  .sitesPage .sitesBrowserBody{padding:10px}
+  .sitesPage .sitesBrowserContent{min-height:170px;gap:10px}
+  .sitesPage .sitesBrowserContent h3{font-size:clamp(18px,4vw,26px);line-height:1.12}
+  .sitesPage .sitesBrowserContent p{font-size:clamp(8px,1.8vw,10px)}
+  .sitesPage .sitesBrowserVisual{min-height:170px}
+  .sitesPage .sitesShowcaseBadge,.sitesPage .sitesShowcaseCard{display:none}
+  .sitesPage .sitesProgress{margin-bottom:0;padding:15px 10px;gap:4px}
+  .sitesPage .sitesProgress b{width:30px;height:30px;font-size:11px}
+  .sitesPage .sitesProgress .sitesStepShort{font-size:9px;white-space:normal;line-height:1.2}
+  .sitesPage .sitesAside{order:0}
+  .sitesPage .sitesCard{order:0}
+  .sitesPage .sitesGrid{display:flex;flex-direction:column}
+  .sitesPage .sitesCard,.sitesPage .sitesAside{width:100%}
+  .sitesPage .sitesAside{position:static}
+}
+@media(max-width:620px){
+  .sitesPage .sitesHero h1{font-size:clamp(36px,10.4vw,47px)}
+  .sitesPage .sitesHero p{font-size:15px;line-height:1.62}
+  .sitesPage .sitesTrustRow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}
+  .sitesPage .sitesTrustRow>div{min-width:0}
+  .sitesPage .sitesTrustRow small{font-size:11px;color:#c7b7cc}
+  .sitesPage .sitesShowcase{margin-top:18px}
+  .sitesPage .sitesBrowserNav>span,.sitesPage .sitesBrowserNav>em{display:none}
+  .sitesPage .sitesBrowserBar{height:31px}
+  .sitesPage .sitesBrowserContent{min-height:158px;grid-template-columns:1fr 1.1fr;gap:8px;padding:10px 0 0}
+  .sitesPage .sitesBrowserVisual{min-height:154px}
+  .sitesPage .sitesBrowserContent>div:first-child{padding:6px 0}
+  .sitesPage .sitesBrowserContent h3{font-size:clamp(17px,4.9vw,23px)}
+  .sitesPage .sitesBrowserContent p{font-size:9px}
+  .sitesPage .sitesProgress{padding:12px 4px;gap:1px}
+  .sitesPage .sitesProgress b{width:27px;height:27px}
+  .sitesPage .sitesProgress .sitesStepShort{font-size:8px}
+  .sitesPage .sitesGrid{padding:10px;gap:12px}
+  .sitesPage .sitesCard{padding:20px}
+  .sitesPage .sitesOptions{grid-template-columns:1fr!important}
+  .sitesPage .sitesOptions button{min-height:0;padding:17px;display:grid;grid-template-columns:42px 1fr;gap:2px 10px}
+  .sitesPage .sitesOptions .sitesOptionTop{grid-row:1 / span 3;align-self:start;display:flex;flex-direction:column;gap:8px}
+  .sitesPage .sitesOptions svg{margin:0}
+  .sitesPage .sitesOptions button b{font-size:15px}
+  .sitesPage .sitesOptions button>span{font-size:12px;min-height:0}
+  .sitesPage .sitesOptions button>small{font-size:11px;margin-top:4px}
+  .sitesPage .sitesAside{padding:18px!important}
+  .sitesPage .sitesAside dt,.sitesPage .sitesAside dd{font-size:11px}
+  .sitesPage .sitesAside>p{font-size:12px}
+  .sitesPage .sitesAsideHelp b{font-size:11px}
+  .sitesPage .sitesAsideHelp small{font-size:10px}
+}
+@media(max-width:380px){
+ .sitesPage .sitesBrowserContent p{display:none}
+ .sitesPage .sitesProgress .sitesStepShort{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){.sitesPage .sitesHeroCta{transition:none}}
+
+/* Navegação acessível do briefing: seis etapas interativas. */
+.sitesPage .sitesProgress > button{
+  appearance:none;min-width:0;display:flex;align-items:center;justify-content:flex-start;gap:10px;
+  padding:5px 3px;border:1px solid transparent;border-radius:11px;
+  font:inherit;color:#c5b7ca;background:transparent;text-align:left;
+  cursor:pointer;transition:background .18s,border-color .18s,color .18s;
+}
+.sitesPage .sitesProgress > button b{
+  display:grid;place-items:center;flex:none;width:30px;height:30px;
+  border:1px solid #5b4a63;border-radius:50%;font-size:11px;
+  color:#e0d5e4;background:#211829;
+}
+.sitesPage .sitesProgress > button.active{color:#fff}
+.sitesPage .sitesProgress > button.active b{
+  border-color:#e66edb;background:linear-gradient(135deg,#a82ab8,#dd39b9);
+  color:#fff;box-shadow:0 0 19px rgba(198,63,166,.26);
+}
+.sitesPage .sitesProgress > button.done b{background:#392641;color:#f0c0e9;border-color:#aa73b2}
+.sitesPage .sitesProgress > button:not(:disabled):hover{
+  background:rgba(211,174,229,.10);border-color:rgba(211,174,229,.30);
+}
+.sitesPage .sitesProgress > button:disabled{opacity:.58;cursor:not-allowed}
+.sitesPage .sitesProgress > button:focus-visible{outline:2px solid #f0b9e9;outline-offset:2px}
+.sitesPage #sites-configurador{scroll-margin-top:92px}
+@media(max-width:900px){
+  .sitesPage .sitesProgress > button{
+    flex-direction:column;justify-content:center;align-items:center;
+    gap:6px;padding:7px 1px;text-align:center;
+  }
+}
+@media(max-width:620px){
+  .sitesPage .sitesProgress > button{gap:5px;padding:6px 0}
+  .sitesPage .sitesProgress > button b{width:27px;height:27px;font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  .sitesPage .sitesProgress > button{transition:none}
+}
