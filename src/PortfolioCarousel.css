@@ -49,3 +49,13 @@
  .wfPortfolioMedia img{transition:none}
  .wfPortfolioViewport{scroll-behavior:auto}
 }
+
+/* Autoplay status is visible only on touch-size screens. */
+.wfPortfolioMobileAutoplay{display:none}
+@media(max-width:899px){
+ .wfPortfolioMobileAutoplay{display:flex;align-items:center;margin-left:auto}
+ .wfPortfolioMobileAutoplay span,.wfPortfolioMobileAutoplay button{font:600 10px WuniManrope,sans-serif;letter-spacing:.025em;color:#d8b7e2;white-space:nowrap}
+ .wfPortfolioMobileAutoplay button{background:transparent;border:1px solid rgba(228,175,238,.38);border-radius:9px;padding:8px 10px;cursor:pointer}
+ .wfPortfolioMobileControls{margin-left:0}
+ .wfPortfolioFooter{gap:12px}
+}
