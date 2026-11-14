@@ -9,7 +9,7 @@ const organization = {
   '@context': 'https://schema.org',
   '@type': ['Organization', 'ProfessionalService'],
   '@id': ORIGIN + '/#organization',
-  name: 'Wuniflow Automations',
+  name: 'Wuniflow Soluções Digitais',
   url: ORIGIN + '/',
   logo: ORIGIN + '/assets/wuniflow-logo-oficial.png',
   image: social,
@@ -25,9 +25,9 @@ const organization = {
 const pages = [
   {
     path:'/', index:true,
-    title:'Software Sob Medida e Automação Empresarial | Wuniflow',
+    title:'Wuniflow Soluções Digitais | Sites, Sistemas e Automação',
     description:'Desenvolvemos sistemas sob medida, automações com IA, soluções para Trade Marketing e sites profissionais para empresas.',
-    schema:[organization,{ '@context':'https://schema.org','@type':'WebSite','@id':ORIGIN+'/#website',name:'Wuniflow Automations',url:ORIGIN+'/',inLanguage:'pt-BR',publisher:{'@id':ORIGIN+'/#organization'} }]
+    schema:[organization,{ '@context':'https://schema.org','@type':'WebSite','@id':ORIGIN+'/#website',name:'Wuniflow Soluções Digitais',url:ORIGIN+'/',inLanguage:'pt-BR',publisher:{'@id':ORIGIN+'/#organization'} }]
   },
   {
     path:'/sites', index:true,
@@ -66,8 +66,8 @@ for(const page of pages){
     '<meta property="og:title" content="'+esc(page.title)+'" />',
     '<meta property="og:description" content="'+esc(page.description)+'" />',
     '<meta property="og:image" content="'+social+'" />',
-    '<meta property="og:image:alt" content="Wuniflow Automations — tecnologia e automação" />',
-    '<meta property="og:site_name" content="Wuniflow Automations" />',
+    '<meta property="og:image:alt" content="Wuniflow Soluções Digitais — tecnologia e automação" />',
+    '<meta property="og:site_name" content="Wuniflow Soluções Digitais" />',
     '<meta property="og:locale" content="pt_BR" />',
     '<meta name="twitter:card" content="summary_large_image" />',
     '<meta name="twitter:title" content="'+esc(page.title)+'" />',
