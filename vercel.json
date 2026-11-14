@@ -109,5 +109,10 @@
         }
       ]
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "codex/cinematic-workstation-scroll-20261114": false
+    }
+  }
 }

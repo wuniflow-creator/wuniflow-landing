@@ -1,0 +1,90 @@
+name: Wuniflow cinematic video
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Validação gratuita ou geração paga"
+        type: choice
+        required: true
+        default: validate
+        options:
+          - validate
+          - generate
+      confirm_budget:
+        description: "Para gerar, digite exatamente: AUTHORIZE_ONE_VIDEO_USD_0_80"
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cinematic-video-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  video:
+    name: Validate or generate one Wuniflow review video
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout development ref
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+
+      - name: Check script syntax
+        run: |
+          node --check scripts/prepare-cinematic-video.mjs
+          node --check scripts/encrypt-video-artifact.mjs
+
+      - name: Validate current model, API authentication, reference image and price (no cost)
+        if: inputs.mode == 'validate' || inputs.mode == 'generate'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: node scripts/prepare-cinematic-video.mjs --validate
+
+      - name: Validate artifact encryption secret before generation
+        if: inputs.mode == 'generate'
+        env:
+          WUNIFLOW_VIDEO_ARTIFACT_KEY: ${{ secrets.WUNIFLOW_VIDEO_ARTIFACT_KEY }}
+        run: node scripts/encrypt-video-artifact.mjs --check
+
+      - name: Require explicit one-video budget approval
+        if: inputs.mode == 'generate'
+        env:
+          CONFIRM_BUDGET: ${{ inputs.confirm_budget }}
+        shell: bash
+        run: |
+          if [[ "$CONFIRM_BUDGET" != "AUTHORIZE_ONE_VIDEO_USD_0_80" ]]; then
+            echo "::error::Generation blocked: explicit US$0.80 approval phrase did not match."
+            exit 1
+          fi
+
+      - name: Generate exactly one video (paid)
+        if: inputs.mode == 'generate'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: node scripts/prepare-cinematic-video.mjs --submit --approve-cost-usd=0.80 --output=.private-review/wuniflow-cinematic.mp4
+
+      - name: Encrypt review video and remove plaintext
+        if: inputs.mode == 'generate'
+        env:
+          WUNIFLOW_VIDEO_ARTIFACT_KEY: ${{ secrets.WUNIFLOW_VIDEO_ARTIFACT_KEY }}
+        run: node scripts/encrypt-video-artifact.mjs .private-review/wuniflow-cinematic.mp4 .private-review/wuniflow-cinematic.mp4.enc
+
+      - name: Upload encrypted review artifact
+        if: inputs.mode == 'generate'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: wuniflow-cinematic-review-encrypted-${{ github.run_id }}
+          path: .private-review/wuniflow-cinematic.mp4.enc
+          if-no-files-found: error
+          retention-days: 7

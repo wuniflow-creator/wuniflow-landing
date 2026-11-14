@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 /**
- * Prepara uma única solicitação de image-to-video da Wuniflow via OpenRouter.
- *
- * Padrão: apenas imprime a configuração e o payload; não consulta APIs nem gera.
- * Envio (somente após autorização explícita de orçamento):
- *   node scripts/prepare-cinematic-video.mjs --submit --approve-cost-usd=0.80
- *
- * OPENROUTER_API_KEY é lida somente de process.env e nunca impressa/salva.
- * O envio faz uma única tentativa, sem retry automático.
+ * OpenRouter video request for Wuniflow.
+ * Default is dry-run. --validate performs authenticated, no-cost GET/HEAD only.
+ * --submit performs exactly one POST, only after an explicit $0.80 budget approval.
+ * OPENROUTER_API_KEY is read from process.env and never printed or persisted.
  */
+import { mkdir, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+
 const MODEL = "google/veo-3.1-fast";
 const VIDEO_SECONDS = 8;
 const MAX_APPROVED_USD = 0.80;
+const API_BASE = "https://openrouter.ai/api/v1";
 const REFERENCE_IMAGE =
   "https://www.wuniflow.site/cinematic/wuniflow-hero-real-desktop.webp";
 
@@ -33,24 +33,31 @@ const request = {
   duration: VIDEO_SECONDS,
   resolution: "1080p",
   generate_audio: false,
-  frame_images: [
-    {
-      type: "image_url",
-      image_url: { url: REFERENCE_IMAGE },
-      frame_type: "first_frame"
-    }
-  ]
+  frame_images: [{
+    type: "image_url",
+    image_url: { url: REFERENCE_IMAGE },
+    frame_type: "first_frame"
+  }]
 };
 
-const submit = process.argv.includes("--submit");
-const approvalArg = process.argv.find((arg) => arg.startsWith("--approve-cost-usd="));
+const args = process.argv.slice(2);
+const submit = args.includes("--submit");
+const validateOnly = args.includes("--validate");
+const approvalArg = args.find((arg) => arg.startsWith("--approve-cost-usd="));
 const approvedBudget = approvalArg ? Number(approvalArg.split("=")[1]) : undefined;
+const outputArg = args.find((arg) => arg.startsWith("--output="));
+const outputPath = outputArg ? resolve(outputArg.slice("--output=".length)) : undefined;
+
+function keyConfigured() {
+  return Boolean(process.env.OPENROUTER_API_KEY);
+}
 
 function printPreparedRequest() {
-  console.log("Solicitação preparada (nenhuma geração foi enviada).");
-  console.log(`OPENROUTER_API_KEY: ${process.env.OPENROUTER_API_KEY ? "configurada" : "ausente"}`);
-  console.log(`Referência: ${REFERENCE_IMAGE}`);
-  console.log("Custo de referência para 8 s, 1080p, sem áudio: US$ 0,80 por tentativa.");
+  console.log("Solicitação preparada. Nenhuma chamada de API foi enviada.");
+  console.log("OPENROUTER_API_KEY: " + (keyConfigured() ? "configurada" : "ausente"));
+  console.log("Modelo: " + MODEL + " | 1080p | 16:9 | 8 s | sem áudio");
+  console.log("Referência: " + REFERENCE_IMAGE);
+  console.log("Custo de referência: US$ 0,80 por tentativa.");
   console.log("Payload:");
   console.log(JSON.stringify(request, null, 2));
 }
@@ -67,84 +74,132 @@ function parsePrice(value) {
   return Number.NaN;
 }
 
-async function main() {
-  if (!submit) {
-    printPreparedRequest();
-    return;
+async function readJson(response, name) {
+  if (!response.ok) {
+    throw new Error(name + " falhou (HTTP " + response.status + ").");
+  }
+  return response.json();
+}
+
+async function preflight() {
+  if (!keyConfigured()) {
+    throw new Error("OPENROUTER_API_KEY ausente. Nenhuma geração foi enviada.");
   }
 
-  if (!process.env.OPENROUTER_API_KEY) {
-    throw new Error("OPENROUTER_API_KEY não está configurada nesta sessão; nenhum envio foi feito.");
-  }
-  if (!Number.isFinite(approvedBudget) || approvedBudget < 0) {
-    throw new Error("Para habilitar o envio, informe --approve-cost-usd=<limite autorizado>.");
-  }
-
-  // Confere capabilities/preço atuais e a URL da imagem antes de qualquer POST cobrável.
+  const headers = { Authorization: "Bearer " + process.env.OPENROUTER_API_KEY };
   const [catalogResponse, imageResponse] = await Promise.all([
-    fetch("https://openrouter.ai/api/v1/videos/models"),
+    fetch(API_BASE + "/videos/models", { headers }),
     fetch(REFERENCE_IMAGE, { method: "HEAD" })
   ]);
-  if (!catalogResponse.ok) throw new Error(`Falha ao consultar catálogo: HTTP ${catalogResponse.status}. Nenhum vídeo foi enviado.`);
+
+  const catalog = await readJson(catalogResponse, "Consulta autenticada ao catálogo OpenRouter");
   if (!imageResponse.ok || !imageResponse.headers.get("content-type")?.startsWith("image/")) {
-    throw new Error("A imagem de referência não está acessível como imagem HTTPS direta. Nenhum vídeo foi enviado.");
+    throw new Error("A imagem de referência não está acessível como imagem HTTPS direta.");
   }
 
-  const catalog = await catalogResponse.json();
   const model = catalog.data?.find((item) => item.id === MODEL);
-  if (!model) throw new Error("Modelo não listado no catálogo atual. Nenhum vídeo foi enviado.");
+  if (!model) throw new Error("Modelo não encontrado no catálogo de vídeo atual.");
+
   const supports = (values, expected) => Array.isArray(values) && values.includes(expected);
-  if (
-    !supports(model.supported_durations, VIDEO_SECONDS) ||
-    !supports(model.supported_resolutions, request.resolution) ||
-    !supports(model.supported_aspect_ratios, request.aspect_ratio) ||
-    !supports(model.supported_frame_images, "first_frame")
-  ) {
-    throw new Error("As capacidades atuais do modelo não correspondem ao payload. Nenhum vídeo foi enviado.");
+  const requirements = [
+    ["supported_durations", VIDEO_SECONDS],
+    ["supported_resolutions", request.resolution],
+    ["supported_aspect_ratios", request.aspect_ratio],
+    ["supported_frame_images", "first_frame"]
+  ];
+  for (const [field, expected] of requirements) {
+    if (!supports(model[field], expected)) {
+      throw new Error("Capacidade incompatível no catálogo: " + field + ".");
+    }
   }
 
-  const skus = model.pricing_skus ?? {};
-  const noAudioPrices = Object.entries(skus)
+  const prices = Object.entries(model.pricing_skus ?? {})
     .filter(([name]) => /no.?audio|without.?audio/i.test(name))
     .map(([name, value]) => ({ name, rate: parsePrice(value) }))
     .filter(({ rate }) => Number.isFinite(rate) && rate >= 0);
-  const exact1080 = noAudioPrices.find(({ name }) => /1080/i.test(name));
-  const generic = noAudioPrices.find(({ name }) => !/720|768|4k|2k|1k|1080/i.test(name));
+  const exact1080 = prices.find(({ name }) => /1080/i.test(name));
+  const generic = prices.find(({ name }) => !/720|768|4k|2k|1k|1080/i.test(name));
   const sku = exact1080 ?? generic;
-  if (!sku) throw new Error("Não foi possível verificar o preço sem áudio para 1080p no catálogo. Nenhum vídeo foi enviado.");
-  const estimatedCost = sku.rate * VIDEO_SECONDS;
-
-  if (estimatedCost > approvedBudget || estimatedCost > MAX_APPROVED_USD) {
-    throw new Error(
-      `Preço atual estimado US$${estimatedCost.toFixed(2)} supera o limite. Nenhum vídeo foi enviado.`
-    );
+  if (!sku) throw new Error("Preço sem áudio para 1080p não pôde ser validado.");
+  const estimate = sku.rate * VIDEO_SECONDS;
+  if (estimate > MAX_APPROVED_USD) {
+    throw new Error("Estimativa atual ultrapassa o limite fixo de US$ 0,80.");
   }
 
-  console.log(
-    `Enviando uma única geração: ${MODEL}, 1080p, 16:9, 8 s, sem áudio; estimativa US$${estimatedCost.toFixed(2)}.`
-  );
+  return { headers, model, estimate };
+}
 
-  const response = await fetch("https://openrouter.ai/api/v1/videos", {
+async function wait(ms) {
+  await new Promise((resolveWait) => setTimeout(resolveWait, ms));
+}
+
+async function generateOnce(headers) {
+  if (!outputPath) throw new Error("--output=<arquivo.mp4> é obrigatório para geração.");
+  if (approvedBudget !== MAX_APPROVED_USD) {
+    throw new Error("Geração exige aprovação exata de US$ 0,80.");
+  }
+
+  const response = await fetch(API_BASE + "/videos", {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json"
-    },
+    headers: { ...headers, "Content-Type": "application/json" },
     body: JSON.stringify(request)
   });
-
-  if (!response.ok) {
-    // Não exibe corpo da resposta para evitar registrar dados inesperados do provedor.
-    throw new Error(`OpenRouter recusou o envio (HTTP ${response.status}).`);
+  const job = await readJson(response, "Envio OpenRouter");
+  if (!job.id || !job.polling_url) {
+    throw new Error("OpenRouter não retornou identificadores válidos para acompanhar o único envio.");
   }
 
-  const job = await response.json();
-  console.log(JSON.stringify({
-    id: job.id,
-    status: job.status,
-    polling_url: job.polling_url
-  }, null, 2));
-  console.log("Nenhuma repetição automática será feita; uma nova tentativa exige nova execução e aprovação.");
+  console.log("Geração enviada uma vez. Aguardando conclusão; nenhum retry de POST será feito.");
+  const pollUrl = new URL(job.polling_url, "https://openrouter.ai");
+  if (pollUrl.origin !== "https://openrouter.ai") {
+    throw new Error("URL de acompanhamento inesperada; POST não será repetido.");
+  }
+
+  const deadline = Date.now() + 20 * 60 * 1000;
+  let current = job;
+  while (!["completed", "failed", "cancelled", "expired"].includes(current.status)) {
+    if (Date.now() >= deadline) {
+      throw new Error("Tempo limite de acompanhamento excedido. O POST não será repetido.");
+    }
+    await wait(15000);
+    current = await readJson(
+      await fetch(pollUrl, { headers }),
+      "Consulta do status OpenRouter"
+    );
+  }
+  if (current.status !== "completed") {
+    throw new Error("A geração terminou com status " + current.status + ". O POST não será repetido.");
+  }
+
+  const contentUrl = API_BASE + "/videos/" + encodeURIComponent(job.id) + "/content";
+  const videoResponse = await fetch(contentUrl, { headers });
+  if (!videoResponse.ok || !videoResponse.headers.get("content-type")?.startsWith("video/")) {
+    throw new Error("Download do vídeo falhou (HTTP " + videoResponse.status + "). O POST não será repetido.");
+  }
+  const bytes = Buffer.from(await videoResponse.arrayBuffer());
+  if (!bytes.length) throw new Error("O vídeo baixado está vazio.");
+  await mkdir(dirname(outputPath), { recursive: true });
+  await writeFile(outputPath, bytes, { flag: "wx" });
+  console.log("Vídeo recebido para criptografia. Bytes: " + bytes.length);
+}
+
+async function main() {
+  if (!submit && !validateOnly) {
+    printPreparedRequest();
+    return;
+  }
+  if (submit && validateOnly) {
+    throw new Error("Use apenas um modo: --validate ou --submit.");
+  }
+
+  const { headers, estimate } = await preflight();
+  if (validateOnly) {
+    console.log("Validação sem custo aprovada: autenticação, imagem, capacidades e orçamento.");
+    console.log("Custo estimado atual: US$ " + estimate.toFixed(2) + ". Nenhuma geração foi enviada.");
+    return;
+  }
+
+  await generateOnce(headers);
 }
 
 main().catch((error) => {
