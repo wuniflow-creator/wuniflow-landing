@@ -1,0 +1,48 @@
+/* Premium workstation treatment. Existing photography remains the zero-cost fallback. */
+.cinematicHero .heroFullPoster {
+  transform-origin: 50% 44%;
+  will-change: transform, opacity;
+}
+.cinematicHero .heroScrollVideo {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 46%;
+  opacity: 0;
+  pointer-events: none;
+}
+.cinematicHero.hasScrollVideoReady .heroScrollVideo { opacity: 1; }
+.cinematicHero.hasScrollVideoReady .heroFullPoster {
+  opacity: 0;
+  transition: opacity 220ms ease-out;
+}
+.cinematicHero:not(.hasScrollVideoReady) .heroFullPoster {
+  opacity: 1;
+  transition: opacity 220ms ease-out;
+}
+/* Keep the real workplace and product capture; remove ornamental orbit effects. */
+.cinematicHero .stageAura,
+.cinematicHero .stageOrbit {
+  display: none;
+}
+.cinematicHero .stageWindow {
+  border-color: rgba(245, 241, 250, .16);
+  background: rgba(15, 14, 17, .94);
+  box-shadow: 0 28px 72px rgba(0, 0, 0, .48);
+}
+.cinematicHero .stageFloat {
+  border-color: rgba(245, 241, 250, .17);
+  background: rgba(16, 15, 18, .94);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, .26);
+}
+@media (max-width: 800px) {
+  .cinematicHero .heroScrollVideo { object-position: 52% center; }
+  .cinematicHero .stageFloat { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinematicHero .heroFullPoster,
+  .cinematicHero .heroScrollVideo { transform: none !important; transition: none !important; }
+}
