@@ -14,7 +14,7 @@ type TrackingWindow = Window & {
 
 const ga4Id = usableId(import.meta.env.VITE_GA4_ID, /^G-[A-Z0-9]+$/i);
 const adsId = usableId(import.meta.env.VITE_GOOGLE_ADS_ID, /^AW-\d+$/i);
-const metaPixelId = usableId(import.meta.env.VITE_META_PIXEL_ID, /^\d+$/);
+const metaPixelId = usableId(import.meta.env.VITE_META_PIXEL_ID || '1810621110156417', /^\d+$/);
 const conversionLabel = usableLabel(import.meta.env.VITE_GOOGLE_ADS_CONVERSION_LABEL);
 
 function usableId(value: string | undefined, format: RegExp): string | undefined {
