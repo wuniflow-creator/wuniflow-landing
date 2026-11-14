@@ -1,6 +1,6 @@
 # Wuniflow Landing
 
-Landing page B2B da **Wuniflow Automations** para captação de leads de Trade Marketing, Field Sales e operações de campo.
+Landing page B2B da **Wuniflow Soluções Digitais** para captação de leads de Trade Marketing, Field Sales e operações de campo.
 
 ## Objetivo
 Converter tráfego pago em conversas qualificadas por meio de um **Diagnóstico de Digitalização Operacional**.
