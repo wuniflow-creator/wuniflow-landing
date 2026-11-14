@@ -1,6 +1,8 @@
-import React from'react';import{initializeTracking}from'./tracking';initializeTracking();import{createRoot}from'react-dom/client';import {ArrowUpRight} from 'lucide-react';import{ArrowRight,BarChart3,Bot,CheckCircle2,Cloud,MapPin,Menu,Route,ShieldCheck,Sparkles,Users,Workflow,X}from'lucide-react';import'./styles.css';import './cinematic.css';import './landing-contrast.css';import './sites-premium.css';import Diagnostico from './Diagnostico';import Admin from './Admin';import Sites from './Sites';import SiteAdmin from './SiteAdmin';
+import React from'react';import{initializeTracking}from'./tracking';initializeTracking();import{createRoot}from'react-dom/client';import {ArrowUpRight} from 'lucide-react';import{ArrowRight,BarChart3,Bot,CheckCircle2,Cloud,MapPin,Menu,Route,ShieldCheck,Sparkles,Users,Workflow,X}from'lucide-react';import'./styles.css';import './cinematic.css';import './landing-contrast.css';import './sites-premium.css';
+import './cinematic-enhancements.css';import Diagnostico from './Diagnostico';import Admin from './Admin';import Sites from './Sites';import SiteAdmin from './SiteAdmin';
 import ScrollStory from './ScrollStory';
 import HeroFilm from './HeroFilm';
+import CinematicScrollEnhancer from './CinematicScrollEnhancer';
 import PortfolioCarousel from './PortfolioCarousel';
 import SolutionsShowcase from './SolutionsShowcase';
 import { ProblemsExplorer, ProcessJourney } from './ConversionSections';
@@ -10,6 +12,7 @@ const caps=['Sites e Landing Pages','Gestão de promotores','Jornada e geolocali
 function App(){const[open,setOpen]=React.useState(false);return <><header className="landingHeader"><div className="landingHeaderInner"><a className="brand" href="#inicio" aria-label="WuniFlow Automations — início"><img className="brandLogo" src="/assets/wuniflow-logo-oficial.png" alt="WuniFlow Automations" width="2172" height="724" /></a><nav className={`landingNav ${open?'open':''}`} id="landing-navigation"><a href="#solucoes">Soluções</a><a href="/sites">Sites</a><a href="#cases">Cases</a><a href="#processo">Como funciona</a><a href="/diagnostico">Diagnóstico</a></nav><button className="menu landingMenu" onClick={()=>setOpen(!open)} aria-label={open?'Fechar menu':'Abrir menu'} aria-expanded={open} aria-controls="landing-navigation">{open?<X/>:<Menu/>}</button><a className="topcta landingHeaderCta" href="/diagnostico">Agendar diagnóstico</a></div></header><main>
 <section className="hero cinematicHero" id="inicio" aria-labelledby="cinematic-title">
   <HeroFilm />
+  <CinematicScrollEnhancer />
   <div className="heroFilmShade" aria-hidden="true" />
   <div className="cinematicGrain" aria-hidden="true" />
   <div className="herocopy cinematicCopy">
